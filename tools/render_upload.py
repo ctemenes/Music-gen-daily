@@ -135,7 +135,7 @@ def main():
     ap.add_argument("--title", required=True)
     ap.add_argument("--privacy", default="private", choices=["private", "unlisted", "public"])
     ap.add_argument("--publish-at", default="", help="RFC3339 time to go public (video stays private until then)")
-    ap.add_argument("--synthetic", default="true", help="YouTube altered or synthetic content flag for the AI visuals")
+    ap.add_argument("--synthetic", default="false", help="YouTube altered or synthetic content flag for the AI visuals")
     ap.add_argument("--mbps", type=float, default=5)
     ap.add_argument("--mix", help="local mix.mp3 instead of the release download")
     ap.add_argument("--loop-file", help="local loop clip instead of --loop-url")
