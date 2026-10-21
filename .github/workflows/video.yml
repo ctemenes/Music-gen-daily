@@ -1,0 +1,77 @@
+name: Mix video to YouTube
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Mix date (YYYY-MM-DD)"
+        required: true
+      loop_url:
+        description: "Link to the approved 15s loop clip (first frame = last frame)"
+        required: true
+      title:
+        description: "YouTube title"
+        required: true
+      privacy:
+        description: "private, unlisted or public (first runs: private)"
+        default: "private"
+      publish_at:
+        description: "Optional RFC3339 time to go public, e.g. 2026-10-22T08:00:00Z (stays private until then)"
+        required: false
+      render_only:
+        description: "Render only, keep the mp4 as a run artifact, no upload"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mix-video
+  cancel-in-progress: false
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          pip install -q requests
+
+      - name: Render and upload
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IN_DATE: ${{ inputs.date }}
+          IN_LOOP: ${{ inputs.loop_url }}
+          IN_TITLE: ${{ inputs.title }}
+          IN_PRIVACY: ${{ inputs.privacy }}
+          IN_PUBLISH_AT: ${{ inputs.publish_at }}
+        run: |
+          ARGS=(--date "$IN_DATE" --loop-url "$IN_LOOP" --title "$IN_TITLE" --privacy "$IN_PRIVACY")
+          [ -n "$IN_PUBLISH_AT" ] && ARGS+=(--publish-at "$IN_PUBLISH_AT")
+          [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
+          python3 tools/render_upload.py "${ARGS[@]}"
+
+      - name: Keep the render (render-only runs)
+        if: ${{ inputs.render_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mix-video-${{ inputs.date }}
+          path: out/video-${{ inputs.date }}/mix-${{ inputs.date }}.mp4
+          retention-days: 3
+
+      - name: Save the video link
+        if: ${{ !inputs.render_only }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add "days/${{ inputs.date }}/youtube.json"
+          git commit -m "YouTube upload ${{ inputs.date }}" || exit 0
+          git pull --rebase -q && git push
