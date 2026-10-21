@@ -8,9 +8,11 @@ from .themes import (THEMES, THEMES_BY_ID, GENERIC_WORDS, NAME_SUFFIXES, NAME_PR
 LENGTH_PLAN = [10, 16, 26, 12, 20, 26, 14]   # tracks per mix by weekday (Mon..Sun); ~2.2 min per track
 
 
-def pick(rng, weights):
+def pick(rng, weights, flatten=0.4):
+    """weighted choice; flatten > 0 pulls the odds toward even so long mixes don't get samey"""
     keys = list(weights)
     p = np.array([weights[k] for k in keys], float)
+    p = p + flatten * p.mean()
     return keys[rng.choice(len(keys), p=p / p.sum())]
 
 
@@ -124,6 +126,19 @@ def energy_order(recipes):
     return order
 
 
+def declump(order):
+    """No more than two tracks in a row with the same drum style, if it can be avoided."""
+    order = list(order)
+    for _ in range(3):
+        for i in range(2, len(order)):
+            if order[i]["drums"] == order[i - 1]["drums"] == order[i - 2]["drums"]:
+                for j in range(i + 1, len(order)):
+                    if order[j]["drums"] != order[i]["drums"]:
+                        order[i], order[j] = order[j], order[i]
+                        break
+    return order
+
+
 def plan_mix(date, history, theme_override=None, n_tracks=None, variant=0):
     seed = int(date.strftime("%Y%m%d")) * 10 + int(variant)
     rng = np.random.default_rng(seed)
@@ -136,5 +151,5 @@ def plan_mix(date, history, theme_override=None, n_tracks=None, variant=0):
         r = make_recipe(rng, theme, name, (seed * 100 + k) % (2 ** 32), prev)
         recipes.append(r)
         prev = r
-    recipes = energy_order(recipes)
+    recipes = declump(energy_order(recipes))
     return dict(date=date.isoformat(), seed=seed, theme=theme["id"], tracks=recipes)
