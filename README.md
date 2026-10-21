@@ -33,17 +33,21 @@ names so nothing repeats.
 
 Download a day: `gh release download mix-2026-10-22 -R ctemenes/Music-gen-daily`
 
-## Running it
+## How it runs
+
+GitHub Actions generates and publishes the mix every day at about 3am Brisbane time
+(`.github/workflows/daily.yml`), and a Claude scheduled task checks the result afterwards.
+See `RUNBOOK.md` for checking a day, re-running a date and handling failures.
+
+Locally:
 
 ```
 pip install -r requirements.txt     # plus ffmpeg (with rubberband if available)
 python3 daily.py                    # today's mix (Brisbane date), output in out/<date>/
-./publish.sh 2026-10-22             # commit the pack and create the release
 python3 daily.py --tracks 3 --no-history   # quick test
 python3 daily.py --theme outback    # force a theme
+python3 daily.py --variant 1        # re-roll a day with a different seed
 ```
-
-See `RUNBOOK.md` for the exact steps the scheduled run follows.
 
 ## Tweaking the sound
 

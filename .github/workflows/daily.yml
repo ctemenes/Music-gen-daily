@@ -2,7 +2,7 @@ name: Daily mix
 
 on:
   schedule:
-    - cron: "48 16 * * *"   # 2:48am Brisbane time (UTC+10, no daylight saving)
+    - cron: "55 16 * * *"   # 2:55am Brisbane time (UTC+10, no daylight saving)
   workflow_dispatch:
     inputs:
       date:
