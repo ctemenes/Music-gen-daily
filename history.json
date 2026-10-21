@@ -13,15 +13,20 @@
   ],
   "used_names": [
     "Afterglow",
+    "Broken Offshore",
     "Cold Overpass",
     "Coldstart",
     "Deep Mirror",
+    "Deep Sunwash",
     "Downforce",
     "Echo Drive",
+    "Electric Shoreline",
     "Fault Line",
     "Gearshift",
     "Glasshouse",
+    "Golden Hour",
     "Halogen",
+    "Headland",
     "High Cipher",
     "High Pulse",
     "High Wet",
@@ -31,6 +36,7 @@
     "Lantern",
     "Lap Record Loop",
     "Last Lap",
+    "Lighthouse",
     "Low Orbit",
     "Midnight",
     "Neon",
@@ -41,13 +47,19 @@
     "Redline",
     "Reflex",
     "Rev Limit",
+    "Riptide Stage",
+    "Saltwater",
+    "Seabreeze",
     "Signal Transit",
     "Silent Downforce",
     "Skyhook",
     "Static",
     "Throttle",
+    "Tidewater",
     "Traction",
-    "Underpass Transit"
+    "Underpass Transit",
+    "Undertow",
+    "Velocity"
   ],
   "mixes": [
     {
@@ -82,6 +94,25 @@
         "High Wet"
       ],
       "seconds": 3451
+    },
+    {
+      "date": "2026-10-22",
+      "theme": "coastal",
+      "tracks": [
+        "Golden Hour",
+        "Saltwater",
+        "Headland",
+        "Riptide Stage",
+        "Deep Sunwash",
+        "Seabreeze",
+        "Electric Shoreline",
+        "Velocity",
+        "Broken Offshore",
+        "Tidewater",
+        "Undertow",
+        "Lighthouse"
+      ],
+      "seconds": 1628
     }
   ]
 }
