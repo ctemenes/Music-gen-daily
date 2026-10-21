@@ -124,8 +124,8 @@ def energy_order(recipes):
     return order
 
 
-def plan_mix(date, history, theme_override=None, n_tracks=None):
-    seed = int(date.strftime("%Y%m%d"))
+def plan_mix(date, history, theme_override=None, n_tracks=None, variant=0):
+    seed = int(date.strftime("%Y%m%d")) * 10 + int(variant)
     rng = np.random.default_rng(seed)
     theme = choose_theme(rng, history, theme_override)
     n = n_tracks or LENGTH_PLAN[date.weekday()]
@@ -133,7 +133,7 @@ def plan_mix(date, history, theme_override=None, n_tracks=None):
     recipes, prev, bases = [], None, set()
     for k in range(n):
         name = make_name(rng, theme, used, bases)
-        r = make_recipe(rng, theme, name, seed * 100 + k, prev)
+        r = make_recipe(rng, theme, name, (seed * 100 + k) % (2 ** 32), prev)
         recipes.append(r)
         prev = r
     recipes = energy_order(recipes)

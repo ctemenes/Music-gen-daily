@@ -14,6 +14,10 @@ on:
       theme:
         description: "Theme id (blank = automatic)"
         required: false
+      test:
+        description: "Test run: don't publish or touch history, just upload the files to this run"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -45,12 +49,22 @@ jobs:
           DAY="${{ inputs.date }}"
           [ -n "$DAY" ] || DAY=$(TZ=Australia/Brisbane date +%F)
           echo "day=$DAY" >> "$GITHUB_OUTPUT"
-          ARGS=(--date "$DAY")
+          ARGS=(--date "$DAY" --repo "${{ github.repository }}")
+          [ "${{ inputs.test }}" = "true" ] && ARGS+=(--no-history)
           [ -n "${{ inputs.tracks }}" ] && ARGS+=(--tracks "${{ inputs.tracks }}")
           [ -n "${{ inputs.theme }}" ] && ARGS+=(--theme "${{ inputs.theme }}")
           python3 daily.py "${ARGS[@]}" || python3 daily.py "${ARGS[@]}" --variant 1
 
+      - name: Keep test output
+        if: ${{ inputs.test }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-mix-${{ steps.gen.outputs.day }}
+          path: out/
+          retention-days: 3
+
       - name: Publish release
+        if: ${{ !inputs.test }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./publish.sh "${{ steps.gen.outputs.day }}" "${{ github.repository }}"

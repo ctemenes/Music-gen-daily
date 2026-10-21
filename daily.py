@@ -6,6 +6,7 @@ Usage:
   python3 daily.py --tracks 3            # quick test with 3 tracks
   python3 daily.py --theme outback       # force a theme (ids in dnbgen/themes.py)
   python3 daily.py --no-history          # don't update history.json (for tests)
+  python3 daily.py --variant 1           # re-roll the day with a different seed
 
 Outputs land in out/<date>/:
   mix.mp3, short_1..3.mp3, midi.zip       (release assets)
@@ -33,7 +34,7 @@ from dnbgen import transitions as T  # noqa: E402
 from dnbgen.recipes import plan_mix  # noqa: E402
 from dnbgen.themes import THEMES_BY_ID  # noqa: E402
 
-DEFAULT_REPO = "ctemenes/music-gen-daily"
+DEFAULT_REPO = "ctemenes/Music-gen-daily"
 BASE_TAGS = ["y2k dnb", "ps1 drum and bass", "racing game music", "2000s jungle", "liquid dnb", "retro racing",
              "rollcage style", "low poly dnb", "breakbeat mix", "drum and bass mix", "ps1 racing", "y2k aesthetic"]
 HASHTAGS = ["#y2kdnb", "#drumandbass", "#ps1"]
@@ -77,7 +78,7 @@ def slice_wav(src, a, b, dst):
     return b - a
 
 
-def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2):
+def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2, variant=0):
     t_start = time.time()
     day = date.isoformat()
     work = os.path.join(ROOT, "build", day)
@@ -94,7 +95,7 @@ def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2)
                        + history.get("legacy_names", []),
                        mixes=[m for m in history["mixes"] if m["date"] != day],
                        legacy_names=history.get("legacy_names", []))
-    plan = plan_mix(date, history, theme, n_tracks)
+    plan = plan_mix(date, history, theme, n_tracks, variant)
     th = THEMES_BY_ID[plan["theme"]]
     tracks = plan["tracks"]
     N = len(tracks)
@@ -109,7 +110,7 @@ def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2)
 
     # 2. transitions i -> i+1
     jobs = [(bases[i] + ".wav", bases[i + 1] + ".wav", tracks[i]["bpm"], tracks[i + 1]["bpm"],
-             os.path.join(work, f"x{i:02d}.wav"), plan["seed"] + i) for i in range(N - 1)]
+             os.path.join(work, f"x{i:02d}.wav"), (plan["seed"] + i) % (2 ** 32)) for i in range(N - 1)]
     trans_len = {}
     with ProcessPoolExecutor(workers) as ex:
         for path, n in ex.map(render_transition, jobs):
@@ -377,8 +378,9 @@ if __name__ == "__main__":
     ap.add_argument("--theme")
     ap.add_argument("--repo", default=DEFAULT_REPO)
     ap.add_argument("--no-history", action="store_true")
+    ap.add_argument("--variant", type=int, default=0, help="re-roll the day with a different seed (e.g. after a QA failure)")
     ap.add_argument("--workers", type=int, default=max(1, min(4, os.cpu_count() or 2)))
     a = ap.parse_args()
     d = dt.date.fromisoformat(a.date) if a.date else dt.datetime.now(ZoneInfo("Australia/Brisbane")).date()
-    b = build(d, a.repo, a.tracks, a.theme, not a.no_history, a.workers)
+    b = build(d, a.repo, a.tracks, a.theme, not a.no_history, a.workers, a.variant)
     sys.exit(0 if b["qa"]["pass"] else 1)

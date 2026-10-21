@@ -31,7 +31,7 @@ names so nothing repeats.
 - `handoff`: the tasks (titles, thumbnail, video, Shorts) and rules (no real game logos or footage, no affiliation claims)
 - `qa`: automated checks (clipping, clicks at the joins, silence, length)
 
-Download a day: `gh release download mix-2026-10-22 -R ctemenes/music-gen-daily`
+Download a day: `gh release download mix-2026-10-22 -R ctemenes/Music-gen-daily`
 
 ## Running it
 

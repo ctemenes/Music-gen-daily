@@ -2,7 +2,7 @@
 
 This is what the 3am scheduled task does. Follow it exactly.
 
-1. **Get the repo**: attach `ctemenes/music-gen-daily` with push access and clone it (or `git pull` if already cloned).
+1. **Get the repo**: attach `ctemenes/Music-gen-daily` with push access and clone it (or `git pull` if already cloned).
 2. **Install**: `pip install --break-system-packages -q -r requirements.txt`. Check `ffmpeg -version` works.
 3. **Generate**: `python3 daily.py` (uses today's date in Brisbane time). Takes about 3 to 12 minutes.
    - Exit code 0 means QA passed. Exit code 1 means QA failed: read `out/<date>/qa.json`, then re-run once
