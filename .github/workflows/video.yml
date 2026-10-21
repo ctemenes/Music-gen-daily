@@ -7,11 +7,17 @@ on:
         description: "Mix date (YYYY-MM-DD)"
         required: true
       loop_url:
-        description: "Link to the approved 15s loop clip (first frame = last frame)"
-        required: true
+        description: "Link to the approved 15s loop clip (first frame = last frame); not needed for thumbnail-only"
+        required: false
       title:
-        description: "YouTube title"
-        required: true
+        description: "YouTube title; not needed for thumbnail-only"
+        required: false
+      thumb_url:
+        description: "Optional link to the thumbnail image (resized to 1280x720)"
+        required: false
+      video_id:
+        description: "Thumbnail only: set thumb_url on this existing video, no render or upload"
+        required: false
       privacy:
         description: "private, unlisted or public (first runs: private)"
         default: "private"
@@ -53,9 +59,16 @@ jobs:
           IN_TITLE: ${{ inputs.title }}
           IN_PRIVACY: ${{ inputs.privacy }}
           IN_PUBLISH_AT: ${{ inputs.publish_at }}
+          IN_THUMB: ${{ inputs.thumb_url }}
+          IN_VIDEO: ${{ inputs.video_id }}
         run: |
+          if [ -n "$IN_VIDEO" ]; then
+            python3 tools/render_upload.py --date "$IN_DATE" --loop-url none --title none --video-id "$IN_VIDEO" --thumb-url "$IN_THUMB"
+            exit $?
+          fi
           ARGS=(--date "$IN_DATE" --loop-url "$IN_LOOP" --title "$IN_TITLE" --privacy "$IN_PRIVACY")
           [ -n "$IN_PUBLISH_AT" ] && ARGS+=(--publish-at "$IN_PUBLISH_AT")
+          [ -n "$IN_THUMB" ] && ARGS+=(--thumb-url "$IN_THUMB")
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
           python3 tools/render_upload.py "${ARGS[@]}"
 
@@ -68,7 +81,7 @@ jobs:
           retention-days: 3
 
       - name: Save the video link
-        if: ${{ !inputs.render_only }}
+        if: ${{ !inputs.render_only && inputs.video_id == '' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"

@@ -9,7 +9,8 @@
 4. Uploads to YouTube with the day's description and tags (resumable upload), then writes days/<date>/youtube.json.
 
 YouTube credentials come from env: YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN (GitHub secrets). Never printed.
---render-only skips the upload (for testing).
+--render-only skips the upload (for testing). --thumb-url sets a thumbnail after upload.
+--video-id with --thumb-url only sets the thumbnail on an existing video.
 """
 import argparse, json, os, subprocess, sys, time, urllib.request
 from pathlib import Path
@@ -109,6 +110,24 @@ def upload(path, meta, token):
             sys.exit(f"Upload error {r.status_code}: {r.text[:500]}")
 
 
+def set_thumbnail(video_id, thumb_url, work, token):
+    src = work / "thumb_src"
+    download(thumb_url, src)
+    jpg = work / "thumb.jpg"
+    for q in (2, 4, 6, 8):  # YouTube wants 1280x720 under 2 MB
+        sh("ffmpeg", "-y", "-v", "error", "-i", src, "-vf", "scale=1280:720:flags=lanczos", "-q:v", q, jpg)
+        if jpg.stat().st_size < 2_000_000:
+            break
+    r = requests.post(f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={video_id}",
+                      headers={"Authorization": f"Bearer {token}", "Content-Type": "image/jpeg"},
+                      data=jpg.read_bytes(), timeout=120)
+    if r.status_code != 200:
+        print(f"Thumbnail not set ({r.status_code}): {r.text[:300]}. Custom thumbnails need a phone-verified channel.", flush=True)
+        return False
+    print(f"Thumbnail set on {video_id} ({jpg.stat().st_size // 1024} KB)", flush=True)
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", required=True)
@@ -121,6 +140,8 @@ def main():
     ap.add_argument("--mix", help="local mix.mp3 instead of the release download")
     ap.add_argument("--loop-file", help="local loop clip instead of --loop-url")
     ap.add_argument("--render-only", action="store_true")
+    ap.add_argument("--thumb-url", default="", help="image to set as the thumbnail (resized to 1280x720)")
+    ap.add_argument("--video-id", default="", help="only set the thumbnail on this existing video; no render or upload")
     a = ap.parse_args()
 
     if len(a.title) > 100:
@@ -128,6 +149,10 @@ def main():
     day = Path("days") / a.date
     work = Path("out") / f"video-{a.date}"
     work.mkdir(parents=True, exist_ok=True)
+    if a.video_id:
+        if not a.thumb_url:
+            sys.exit("--video-id needs --thumb-url")
+        sys.exit(0 if set_thumbnail(a.video_id, a.thumb_url, work, access_token()) else 1)
     mix = Path(a.mix) if a.mix else work / "mix.mp3"
     if not a.mix:
         download(f"https://github.com/{REPO}/releases/download/mix-{a.date}/mix.mp3", mix)
@@ -153,9 +178,11 @@ def main():
     res = upload(out, meta, access_token())
     vid = res["id"]
     print(f"Uploaded in {time.time() - t1:.0f}s: https://youtu.be/{vid} ({res['status']['privacyStatus']})", flush=True)
+    thumb_ok = set_thumbnail(vid, a.thumb_url, work, access_token()) if a.thumb_url else None
     (day / "youtube.json").write_text(json.dumps({
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
-        "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": a.mbps},
+        "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": a.mbps,
+        "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
