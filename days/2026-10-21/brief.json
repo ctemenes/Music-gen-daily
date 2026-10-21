@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-21",
+  "date": "2026-10-21",
+  "theme": {
+    "id": "neon_rain",
+    "name": "Neon Rain Night Drive",
+    "scene": "A low-poly city expressway at night after rain, neon signs reflecting off wet asphalt, a lone car in first place.",
+    "setting": "city expressway",
+    "time_of_day": "night",
+    "weather": "rain",
+    "mood_words": [
+      "wet",
+      "neon",
+      "late night",
+      "lonely",
+      "fast"
+    ],
+    "palette": [
+      {
+        "name": "Neon magenta",
+        "hex": "#FF2E97"
+      },
+      {
+        "name": "Electric cyan",
+        "hex": "#00E5FF"
+      },
+      {
+        "name": "Wet asphalt",
+        "hex": "#14161F"
+      },
+      {
+        "name": "Sodium amber",
+        "hex": "#FFB347"
+      }
+    ],
+    "visual_motifs": [
+      "rain streaks",
+      "neon kanji-style signs (invented text only)",
+      "light trails",
+      "PS1 vertex wobble"
+    ],
+    "hook_line": "it's 2001. the rain hasn't stopped, the city's empty and you're still in first place. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly sports car racing on a wet neon city expressway at night, magenta and cyan reflections, rain streaks, dithered 2001 game render look",
+      "rear chase-cam view of a low-poly race car under neon signs in the rain, fake retro racing HUD with lap counter 3/3 and position 1st",
+      "wide shot of an empty neon city overpass at night, wet road, light trails, low-poly polygons, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 26,
+    "duration_seconds": 3450.59,
+    "duration": "57:30",
+    "bpm_range": [
+      172,
+      176
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "chopped breaks",
+      "cinematic",
+      "dark",
+      "deep",
+      "jazzy",
+      "jungle",
+      "liquid",
+      "moody",
+      "neuro-ish",
+      "reese",
+      "rolling",
+      "stabs",
+      "techstep",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Underpass Transit",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 172,
+        "style": "rolling, stab bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Lantern",
+        "start_seconds": 133.95,
+        "timestamp": "02:13",
+        "bpm": 172,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "High Pulse",
+        "start_seconds": 267.91,
+        "timestamp": "04:27",
+        "bpm": 172,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "moody"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Redline",
+        "start_seconds": 401.86,
+        "timestamp": "06:41",
+        "bpm": 176,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Traction",
+        "start_seconds": 532.88,
+        "timestamp": "08:52",
+        "bpm": 174,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Neon",
+        "start_seconds": 665.24,
+        "timestamp": "11:05",
+        "bpm": 173,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Gearshift",
+        "start_seconds": 798.39,
+        "timestamp": "13:18",
+        "bpm": 175,
+        "style": "techstep, deep sub",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "High Cipher",
+        "start_seconds": 930.1,
+        "timestamp": "15:30",
+        "bpm": 174,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Afterglow",
+        "start_seconds": 1062.49,
+        "timestamp": "17:42",
+        "bpm": 175,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Ramp Approach",
+        "start_seconds": 1194.17,
+        "timestamp": "19:54",
+        "bpm": 172,
+        "style": "rolling, stab bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Rev Limit",
+        "start_seconds": 1328.04,
+        "timestamp": "22:08",
+        "bpm": 175,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Hyper Burnout",
+        "start_seconds": 1459.78,
+        "timestamp": "24:19",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Silent Downforce",
+        "start_seconds": 1592.91,
+        "timestamp": "26:32",
+        "bpm": 176,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Reflex",
+        "start_seconds": 1723.9,
+        "timestamp": "28:43",
+        "bpm": 175,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Throttle",
+        "start_seconds": 1855.53,
+        "timestamp": "30:55",
+        "bpm": 176,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Rain Loop",
+        "start_seconds": 1986.46,
+        "timestamp": "33:06",
+        "bpm": 175,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 17,
+        "title": "Lap Record Loop",
+        "start_seconds": 2118.09,
+        "timestamp": "35:18",
+        "bpm": 173,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 18,
+        "title": "Inertia",
+        "start_seconds": 2251.22,
+        "timestamp": "37:31",
+        "bpm": 175,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 19,
+        "title": "Echo Drive",
+        "start_seconds": 2382.93,
+        "timestamp": "39:42",
+        "bpm": 175,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 20,
+        "title": "Signal Transit",
+        "start_seconds": 2514.59,
+        "timestamp": "41:54",
+        "bpm": 176,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 21,
+        "title": "Deep Mirror",
+        "start_seconds": 2645.52,
+        "timestamp": "44:05",
+        "bpm": 173,
+        "style": "techstep, growling bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 22,
+        "title": "Static",
+        "start_seconds": 2778.62,
+        "timestamp": "46:18",
+        "bpm": 176,
+        "style": "rolling, stab bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 23,
+        "title": "Midnight",
+        "start_seconds": 2909.61,
+        "timestamp": "48:29",
+        "bpm": 175,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 24,
+        "title": "Halogen",
+        "start_seconds": 3041.24,
+        "timestamp": "50:41",
+        "bpm": 176,
+        "style": "techstep, stab bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "stabs",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 25,
+        "title": "Cold Overpass",
+        "start_seconds": 3172.18,
+        "timestamp": "52:52",
+        "bpm": 176,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 26,
+        "title": "High Wet",
+        "start_seconds": 3303.09,
+        "timestamp": "55:03",
+        "bpm": 172,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "cinematic"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-21",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-21",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-21/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Echo Drive",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.49,
+        "mix_position_seconds": 2465.22,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-21/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Deep Mirror",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 2728.68,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-21/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Halogen",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.45,
+        "mix_position_seconds": 3123.09,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-21/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-21/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-21 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. the rain hasn't stopped, the city's empty and you're still in first place. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Underpass Transit\n02:13 Lantern\n04:27 High Pulse\n06:41 Redline\n08:52 Traction\n11:05 Neon\n13:18 Gearshift\n15:30 High Cipher\n17:42 Afterglow\n19:54 Ramp Approach\n22:08 Rev Limit\n24:19 Hyper Burnout\n26:32 Silent Downforce\n28:43 Reflex\n30:55 Throttle\n33:06 Rain Loop\n35:18 Lap Record Loop\n37:31 Inertia\n39:42 Echo Drive\n41:54 Signal Transit\n44:05 Deep Mirror\n46:18 Static\n48:29 Midnight\n50:41 Halogen\n52:52 Cold Overpass\n55:03 High Wet\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Underpass Transit\n02:13 Lantern\n04:27 High Pulse\n06:41 Redline\n08:52 Traction\n11:05 Neon\n13:18 Gearshift\n15:30 High Cipher\n17:42 Afterglow\n19:54 Ramp Approach\n22:08 Rev Limit\n24:19 Hyper Burnout\n26:32 Silent Downforce\n28:43 Reflex\n30:55 Throttle\n33:06 Rain Loop\n35:18 Lap Record Loop\n37:31 Inertia\n39:42 Echo Drive\n41:54 Signal Transit\n44:05 Deep Mirror\n46:18 Static\n48:29 Midnight\n50:41 Halogen\n52:52 Cold Overpass\n55:03 High Wet",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "neon rain night drive",
+      "city expressway",
+      "night",
+      "wet",
+      "neon",
+      "late night"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video: mix.mp3 over looping visuals matching theme.scene and theme.visual_motifs.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.15,
+    "duration_seconds": 3450.59
+  }
+}
