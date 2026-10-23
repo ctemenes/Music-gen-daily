@@ -1,7 +1,7 @@
 # you're the only car on the road tonight (90s drum and bass)
 
 - **Date:** 2026-10-23
-- **YouTube:** https://youtu.be/Ipjbds2IZJQ (private, goes public 2026-10-24T08:00:00Z)
+- **YouTube:** https://youtu.be/seFpEKI8ZBU (private, goes public 2026-10-24T08:00:00Z)
 - **Theme:** Desert Night Neon
 - **Mix:** 44:20, 20 tracks
 - **Loop:** sped up 2.5x, 1.0s seam crossfade
@@ -72,6 +72,7 @@ Locked rear chase camera following the low-poly muscle car as it races flat out 
 ## Notes
 
 - vidIQ thumbnail prompt was not recorded for this backfill; runs from now on save it.
+- Re-uploaded 2026-10-24 as seFpEKI8ZBU with a 16.4s cold open (first 12 intro bars cut, timestamps shifted). The first upload Ipjbds2IZJQ had the full 22s intro.
 
 ## Also in this folder
 
