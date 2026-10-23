@@ -13,7 +13,7 @@ YouTube credentials come from env: YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TO
 --render-only skips the upload (for testing). --thumb-url sets a thumbnail after upload.
 --video-id with --thumb-url only sets the thumbnail on an existing video.
 """
-import argparse, json, os, subprocess, sys, time, urllib.request
+import argparse, json, os, re, subprocess, sys, time, urllib.request
 from pathlib import Path
 
 import requests
@@ -155,6 +155,21 @@ def set_thumbnail(video_id, thumb_url, work, token):
     return True
 
 
+def shift_timestamps(desc, secs):
+    """Move every tracklist timestamp except 00:00 earlier by secs (used with --trim-start)."""
+    def fmt(t):
+        h, rem = divmod(int(t), 3600)
+        m, sec = divmod(rem, 60)
+        return f"{h}:{m:02d}:{sec:02d}" if h else f"{m:02d}:{sec:02d}"
+
+    def fix(m):
+        parts = [int(x) for x in m.group(1).split(":")]
+        t = parts[0] * 3600 + parts[1] * 60 + parts[2] if len(parts) == 3 else parts[0] * 60 + parts[1]
+        return (fmt(max(0, round(t - secs))) if t > 0 else m.group(1)) + m.group(2)
+
+    return re.sub(r"(?m)^((?:\d+:)?\d{1,2}:\d{2})(\s)", fix, desc)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", required=True)
@@ -171,6 +186,9 @@ def main():
     ap.add_argument("--render-only", action="store_true")
     ap.add_argument("--thumb-url", default="", help="image to set as the thumbnail (resized to 1280x720)")
     ap.add_argument("--video-id", default="", help="only set the thumbnail on this existing video; no render or upload")
+    ap.add_argument("--trim-start", type=float, default=0.0,
+                    help="cut this many seconds off the start of the mix (cold open for mixes made before it was "
+                         "built in); description timestamps shift to match")
     a = ap.parse_args()
 
     if len(a.title) > 100:
@@ -185,6 +203,11 @@ def main():
     mix = Path(a.mix) if a.mix else work / "mix.mp3"
     if not a.mix:
         download(f"https://github.com/{REPO}/releases/download/mix-{a.date}/mix.mp3", mix)
+    if a.trim_start > 0:
+        trimmed = work / "mix_trimmed.mp3"
+        sh("ffmpeg", "-y", "-loglevel", "error", "-ss", f"{a.trim_start:.3f}", "-i", str(mix),
+           "-af", "afade=t=in:d=0.25", "-c:a", "libmp3lame", "-b:a", "320k", str(trimmed))
+        mix = trimmed
     loop = Path(a.loop_file) if a.loop_file else work / "loop_src.mp4"
     if not a.loop_file:
         download(a.loop_url, loop)
@@ -197,6 +220,8 @@ def main():
 
     brief = json.loads((day / "brief.json").read_text(encoding="utf-8")) if (day / "brief.json").exists() else {}
     desc = (day / "description.txt").read_text(encoding="utf-8") if (day / "description.txt").exists() else ""
+    if a.trim_start > 0:
+        desc = shift_timestamps(desc, a.trim_start)
     tags = (brief.get("youtube") or {}).get("tags") or []
     status = {"privacyStatus": a.privacy, "selfDeclaredMadeForKids": False,
               "containsSyntheticMedia": a.synthetic.lower() == "true"}
@@ -211,6 +236,7 @@ def main():
     (day / "youtube.json").write_text(json.dumps({
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
         "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
+        "trim_start_s": a.trim_start or None,
         "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

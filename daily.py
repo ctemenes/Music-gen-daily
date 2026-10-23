@@ -35,6 +35,7 @@ from dnbgen.recipes import plan_mix  # noqa: E402
 from dnbgen.themes import THEMES_BY_ID  # noqa: E402
 
 DEFAULT_REPO = "ctemenes/Music-gen-daily"
+COLD_OPEN_BAR = 12  # first track skips 12 of its 16 intro bars: drums from 0:00, first drop about 5.5s in
 BASE_TAGS = ["y2k dnb", "ps1 drum and bass", "racing game music", "2000s jungle", "liquid dnb", "retro racing",
              "rollcage style", "low poly dnb", "breakbeat mix", "drum and bass mix", "ps1 racing", "y2k aesthetic"]
 HASHTAGS = ["#y2kdnb", "#drumandbass", "#ps1"]
@@ -72,9 +73,14 @@ def render_transition(args):
 
 
 # ---------------------------------------------------------------- pipeline
-def slice_wav(src, a, b, dst):
+def slice_wav(src, a, b, dst, fade_in=0.0):
     sr, x = wf.read(src, mmap=True)
-    wf.write(dst, SR, np.array(x[a:b]))
+    y = np.array(x[a:b])
+    if fade_in:
+        n = min(len(y), int(SR * fade_in))
+        ramp = np.linspace(0.0, 1.0, n)
+        y[:n] = (y[:n].astype(np.float64) * (ramp[:, None] if y.ndim > 1 else ramp)).astype(y.dtype)
+    wf.write(dst, SR, y)
     return b - a
 
 
@@ -118,19 +124,21 @@ def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2,
     log(f"  {N - 1} transitions built")
 
     # 3. cut segments and assemble the continuous mix (streamed through ffmpeg, never all in memory)
+    # Cold open: the first track starts at bar COLD_OPEN_BAR of its 16-bar intro, so the mix opens on the
+    # filtered drum build and the first drop lands about 5.5s in (YouTube retention showed most viewers
+    # leaving during the old 22s intro). Every other track and transition is unchanged.
     segs, timeline, pos = [], [], 0
-    first_bpm = tracks[0]["bpm"]
-    p = os.path.join(work, "s_start.wav")
-    pos += slice_wav(bases[0] + ".wav", 0, T.bs(first_bpm, T.MAIN[0]), p)
-    segs.append(p)
-    main_start = []
+    main_start, main_bar0 = [], []
     for i in range(N):
         bpm = tracks[i]["bpm"]
+        bar0 = COLD_OPEN_BAR if i == 0 else T.MAIN[0]
         if i == 0:
             timeline.append(0)
         main_start.append(pos)
+        main_bar0.append(bar0)
         p = os.path.join(work, f"s_main{i:02d}.wav")
-        pos += slice_wav(bases[i] + ".wav", T.bs(bpm, T.MAIN[0]), T.bs(bpm, T.MAIN[1]), p)
+        pos += slice_wav(bases[i] + ".wav", T.bs(bpm, bar0), T.bs(bpm, T.MAIN[1]), p,
+                         fade_in=0.25 if i == 0 else 0)
         segs.append(p)
         if i < N - 1:
             xp = os.path.join(work, f"x{i:02d}.wav")
@@ -162,7 +170,7 @@ def build(date, repo, n_tracks=None, theme=None, update_history=True, workers=2,
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", mix_wav, "-c:a", "libmp3lame", "-b:a", "320k",
          "-metadata", f"title={title}", "-metadata", "artist=Digital Aura Racing Team",
          "-metadata", f"date={day}", os.path.join(out, "mix.mp3")])
-    shorts = make_shorts(tracks, bases, main_start, out)
+    shorts = make_shorts(tracks, bases, main_start, out, main_bar0=main_bar0)
     with zipfile.ZipFile(os.path.join(out, "midi.zip"), "w", zipfile.ZIP_DEFLATED) as z:
         for i, r in enumerate(tracks):
             z.write(bases[i] + ".mid", f"{i + 1:02d} - {r['name']}.mid")
@@ -239,7 +247,7 @@ def quality_checks(mix_wav, segs, total, tracks, timeline):
                 worst_seam_ratio=max(jumps, default=0), duration_seconds=round(len(x) / SR, 2))
 
 
-def make_shorts(tracks, bases, main_start, out, n=3, seconds=45):
+def make_shorts(tracks, bases, main_start, out, n=3, seconds=45, main_bar0=None):
     """45s clips from the run-in to drop B of the three most energetic, well-spaced tracks."""
     def energy(r):
         return ({"rolling": 0, "twostep": 1, "amen": 2, "jungle": 3, "techstep": 3}[r["drums"]]
@@ -264,7 +272,8 @@ def make_shorts(tracks, bases, main_start, out, n=3, seconds=45):
         drop_at = (T.bs(bpm, 64) - a) / SR
         shorts.append(dict(file=os.path.basename(dst), track=tracks[i]["name"], seconds=seconds,
                            drop_hits_at_seconds=round(drop_at, 2),
-                           mix_position_seconds=round((main_start[i] + a - T.bs(bpm, T.MAIN[0])) / SR, 2)))
+                           mix_position_seconds=round((main_start[i] + a - T.bs(
+                               bpm, main_bar0[i] if main_bar0 else T.MAIN[0])) / SR, 2)))
     return shorts
 
 
