@@ -47,13 +47,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install ffmpeg
-        timeout-minutes: 6
+        timeout-minutes: 8
         run: |
-          for i in 1 2 3; do
-            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
-            echo "apt attempt $i failed, retrying"; sleep 10
-          done
-          ffmpeg -version | head -1
+          bash tools/install_ffmpeg.sh
           pip install -q requests
 
       - name: Render and upload
