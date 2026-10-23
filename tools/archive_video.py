@@ -69,11 +69,15 @@ def human(n: int) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--date", required=True)
-    ap.add_argument("--manifest", required=True)
+    ap.add_argument("--date")
+    ap.add_argument("--manifest")
     ap.add_argument("--repo", default="ctemenes/Music-gen-daily")
     ap.add_argument("--no-upload", action="store_true", help="skip the release upload (local test)")
+    ap.add_argument("--index-only", action="store_true", help="only rebuild videos/README.md")
     a = ap.parse_args()
+    if a.index_only:
+        write_index(ROOT / "videos", a.repo)
+        return
 
     day = ROOT / "days" / a.date
     yt = json.loads((day / "youtube.json").read_text())

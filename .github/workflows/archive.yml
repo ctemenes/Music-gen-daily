@@ -44,4 +44,16 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add videos
           git commit -q -m "Archive video assets $IN_DATE" || { echo "nothing new"; exit 0; }
-          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+          # another run may have pushed meanwhile: rebase (index conflicts take ours), rebuild the index, push
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase -X theirs origin main; then
+              python3 tools/archive_video.py --index-only --repo "$GITHUB_REPOSITORY"
+              git add videos/README.md
+              git commit -q --amend --no-edit
+              if git push -q origin HEAD:main; then echo "pushed"; exit 0; fi
+            else
+              git rebase --abort || true
+            fi
+            sleep $((i * 5))
+          done
+          echo "could not push the archive commit"; exit 1
