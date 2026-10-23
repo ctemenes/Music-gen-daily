@@ -23,6 +23,22 @@
    "id": "job_35a7e090-e7eb-4195-bcc2-410dcceb4add"
   },
   {
+   "file": "03b_thumbnail_final_lap_playlist_station.png",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_071617_ad1ae7ee-a011-45c7-80ca-f220b499728e.png",
+   "what": "Thumbnail B: the FINAL LAP cover with the PlayList Station spine (made for A/B testing)",
+   "tool": "Higgsfield nano_banana_pro, 2k, refs: current thumbnail 943b2dd4, layout 8df28182, D-A logo c8227829",
+   "id": "ad1ae7ee-a011-45c7-80ca-f220b499728e",
+   "prompt": "Edit the first reference image and keep it almost exactly the same: the same rainy night city expressway, the same low-poly sports car in the same position and size, the same amber streetlights, magenta and cyan neon reflections on the wet road, rain and mist, and the same glowing cyan pixel-font title FINAL LAP 2001 in the top right, same size, colour and position. Change only the left edge: replace the grey vertical side panel that says DIGITAL AURA with the black vertical spine strip from the second reference image, the same width as the grey panel. On that black spine: the D-A logo from the third reference image at the top (a chunky 3D red capital D standing upright over a yellow bar, a blue bar and a green bar forming a letter A, copied exactly, not any other console logo), the words PlayList Station running vertically up the spine in white, and a small white-outlined box reading BPM 175 at the bottom of the spine. Bottom right corner: DIGITAL AURA in small bold yellow capitals. Spell all text exactly as written. No other console, publisher or rating logos, no ESRB, no Sony, no other text."
+  },
+  {
+   "file": "03c_thumbnail_neon_rain_playlist_station.png",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_071848_5c3093d8-811c-4893-8392-3fd8d1158c50.png",
+   "what": "Thumbnail C: NEON RAIN 2001 PlayList Station cover, chrome low-poly title (made for A/B testing)",
+   "tool": "Higgsfield nano_banana_pro, 2k, refs: layout 8df28182, D-A logo c8227829, clean frame d5c8424b",
+   "id": "5c3093d8-811c-4893-8392-3fd8d1158c50",
+   "prompt": "A flat, front-on video game cover that fills the entire 16:9 frame edge to edge, matching the first reference image as closely as possible: the black vertical spine strip down the left side with the D-A logo from the second reference image at the top (a chunky 3D red capital D standing upright over a yellow bar, a blue bar and a green bar forming a letter A, copied exactly, not any other console logo), the words PlayList Station running vertically up the spine in white, and a small white-outlined box reading BPM 175 at the bottom of the spine. The rest of the frame is the cover art: the rainy night city expressway and low-poly sports car from the third reference image, made gritty with film grain, rain and a sense of speed. Across the top, a huge title NEON RAIN 2001 in the exact lettering style of the first reference: thick slanted italic chrome letters built from hard faceted low-poly bevels, mirror chrome with a blue sky reflection on top and a dark horizon line across the middle, sharp angular cuts, a thin dark outline and a soft glow, like a 2001 PlayStation-era racing game logo. Directly under it, in bold electric cyan capitals: ATMOSPHERIC JUNGLE DNB MIX. Bottom right corner: DIGITAL AURA in small bold yellow capitals. Spell all text exactly as written. No other console, publisher or rating logos, no ESRB, no Sony, no other text."
+  },
+  {
    "file": "04_loop_raw.mp4",
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_034427_4bb48c8e-a729-4b67-b950-1c738b0ef23b.mp4",
    "what": "Raw 15s loop before the 2.5x speed-up and seam crossfade",
