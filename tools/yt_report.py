@@ -72,7 +72,7 @@ def main():
 
     ch = get(f"{DATA}/channels", tok, part="snippet,statistics,contentDetails", mine="true")["items"][0]
     out["channel"] = {"id": ch["id"], "title": ch["snippet"]["title"], "handle": ch["snippet"].get("customUrl"),
-                      **{k: int(v) for k, v in ch["statistics"].items() if v.isdigit()}}
+                      **{k: int(v) for k, v in ch["statistics"].items() if str(v).isdigit()}}
     uploads = ch["contentDetails"]["relatedPlaylists"]["uploads"]
 
     ids, page = [], None
