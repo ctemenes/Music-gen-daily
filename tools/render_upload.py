@@ -4,7 +4,8 @@
   python3 tools/render_upload.py --date 2026-10-21 --loop-url https://.../loop.mp4 --title "..." [--privacy private]
 
 1. Downloads mix.mp3 from the day's release and the loop clip (first frame = last frame).
-2. Re-encodes the clip once to 1920x1080 at the target bitrate, dropping its last frame so the seam does not stutter.
+2. Re-encodes the clip once to 1920x1080: fixes the loop seam with a short crossfade, speeds it up (default 2.5x,
+   since video models render cars too slowly) and outputs up to 60 fps.
 3. Copies that clip end to end under the full mix (no second encode), so rendering takes about a minute.
 4. Uploads to YouTube with the day's description and tags (resumable upload), then writes days/<date>/youtube.json.
 
@@ -38,29 +39,55 @@ def download(url, dest):
             f.write(chunk)
 
 
-def render(work, loop_src, mix, out, mbps):
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
-    fps = s["r_frame_rate"]
+    num, den = (int(x) for x in s["r_frame_rate"].split("/"))
+    src_fps = num / den
+    out_fps = min(60.0, src_fps * speed)
+    if mbps is None:
+        mbps = 8.0 if out_fps > 30 else 5.0
     seg = work / "loop_1080p.mp4"
-    # One encode of the short clip: exact 1080p, drop the duplicate last frame, closed GOP so copies join cleanly.
-    sh("ffmpeg", "-y", "-v", "error", "-i", loop_src, "-an", "-frames:v", frames - 1,
-       "-vf", "scale=1920:1080:flags=lanczos,setsar=1", "-c:v", "libx264", "-preset", "slow", "-profile:v", "high",
-       "-pix_fmt", "yuv420p", "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
-       "-x264-params", "keyint=48:min-keyint=48:scenecut=0:open-gop=0", "-r", fps, seg)
+    base = "scale=1920:1080:flags=lanczos,setsar=1"
+    if xfade > 0:
+        # Seam fix: start the loop xfade seconds in, and fade its tail into the opening frames, so the last
+        # frame flows straight into the first even when the model's end frame is not an exact match.
+        x = max(1, round(xfade * src_fps))
+        if frames < 3 * x:
+            sys.exit(f"Loop clip too short ({frames} frames) for a {xfade}s seam crossfade.")
+        offset = (frames - 2 * x) / src_fps
+        graph = (f"[0:v]{base},split[s1][s2];"
+                 f"[s1]trim=start_frame={x}:end_frame={frames},setpts=N/{src_fps}/TB[a];"
+                 f"[s2]trim=start_frame=0:end_frame={x},setpts=N/{src_fps}/TB[b];"
+                 f"[a][b]xfade=transition=fade:duration={x / src_fps:.6f}:offset={offset:.6f},setpts=PTS/{speed}[v]")
+        frame_args = []
+    else:
+        # Plain loop: drop the duplicate last frame so the seam does not stutter.
+        graph = f"[0:v]{base},setpts=PTS/{speed}[v]"
+        frame_args = ["-frames:v", frames - 1]
+    # One encode of the short clip: exact 1080p, sped up, closed GOP so copies join cleanly.
+    sh("ffmpeg", "-y", "-v", "error", "-i", loop_src, "-an", "-filter_complex", graph, "-map", "[v]", *frame_args,
+       "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+       "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
+       "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
+       "-r", f"{out_fps:g}", seg)
+    seg_info = probe(seg, "stream=nb_read_packets,r_frame_rate")["streams"][0]
+    seg_frames = int(seg_info["nb_read_packets"])
+    sn, sd = (int(v) for v in seg_info["r_frame_rate"].split("/"))
+    seg_dur = seg_frames * sd / sn
+    print(f"Loop segment: {seg_frames} frames at {sn / sd:g} fps = {seg_dur:.2f}s (speed {speed}x, seam fade {xfade}s)", flush=True)
     # Loop the encoded clip under the whole mix without re-encoding the video. An exact loop count and duration,
     # because -stream_loop -1 with stream copy does not stop at -shortest.
     mix_dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(mix)],
                                    check=True, capture_output=True, text=True).stdout)
-    num, den = (int(x) for x in fps.split("/"))
-    loops = int(mix_dur / ((frames - 1) * den / num)) + 1
+    loops = int(mix_dur / seg_dur) + 1
     sh("ffmpeg", "-y", "-v", "error", "-stream_loop", loops, "-i", seg, "-i", mix, "-map", "0:v", "-map", "1:a",
        "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-t", f"{mix_dur:.3f}", "-movflags", "+faststart", out)
     size = out.stat().st_size / 1e9
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(out)],
                                check=True, capture_output=True, text=True).stdout)
     print(f"Rendered {out.name}: {dur / 60:.1f} min, {size:.2f} GB", flush=True)
-    return dur
+    return dur, mbps
 
 
 def access_token():
@@ -136,7 +163,9 @@ def main():
     ap.add_argument("--privacy", default="private", choices=["private", "unlisted", "public"])
     ap.add_argument("--publish-at", default="", help="RFC3339 time to go public (video stays private until then)")
     ap.add_argument("--synthetic", default="false", help="YouTube altered or synthetic content flag for the AI visuals")
-    ap.add_argument("--mbps", type=float, default=5)
+    ap.add_argument("--mbps", type=float, default=None, help="video bitrate (default 5, or 8 above 30 fps)")
+    ap.add_argument("--speed", type=float, default=2.5, help="speed-up applied to the loop clip (default 2.5)")
+    ap.add_argument("--xfade", type=float, default=1.0, help="seam crossfade in seconds of source clip (0 = off)")
     ap.add_argument("--mix", help="local mix.mp3 instead of the release download")
     ap.add_argument("--loop-file", help="local loop clip instead of --loop-url")
     ap.add_argument("--render-only", action="store_true")
@@ -161,7 +190,7 @@ def main():
         download(a.loop_url, loop)
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur = render(work, loop, mix, out, a.mbps)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
@@ -181,7 +210,7 @@ def main():
     thumb_ok = set_thumbnail(vid, a.thumb_url, work, access_token()) if a.thumb_url else None
     (day / "youtube.json").write_text(json.dumps({
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
-        "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": a.mbps,
+        "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
         "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

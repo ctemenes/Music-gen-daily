@@ -24,6 +24,9 @@ on:
       publish_at:
         description: "Optional RFC3339 time to go public, e.g. 2026-10-22T08:00:00Z (stays private until then)"
         required: false
+      speed:
+        description: "Speed-up for the loop clip (models render the car too slow)"
+        default: "2.5"
       render_only:
         description: "Render only, keep the mp4 as a run artifact, no upload"
         type: boolean
@@ -61,12 +64,13 @@ jobs:
           IN_PUBLISH_AT: ${{ inputs.publish_at }}
           IN_THUMB: ${{ inputs.thumb_url }}
           IN_VIDEO: ${{ inputs.video_id }}
+          IN_SPEED: ${{ inputs.speed }}
         run: |
           if [ -n "$IN_VIDEO" ]; then
             python3 tools/render_upload.py --date "$IN_DATE" --loop-url none --title none --video-id "$IN_VIDEO" --thumb-url "$IN_THUMB"
             exit $?
           fi
-          ARGS=(--date "$IN_DATE" --loop-url "$IN_LOOP" --title "$IN_TITLE" --privacy "$IN_PRIVACY")
+          ARGS=(--date "$IN_DATE" --loop-url "$IN_LOOP" --title "$IN_TITLE" --privacy "$IN_PRIVACY" --speed "${IN_SPEED:-2.5}")
           [ -n "$IN_PUBLISH_AT" ] && ARGS+=(--publish-at "$IN_PUBLISH_AT")
           [ -n "$IN_THUMB" ] && ARGS+=(--thumb-url "$IN_THUMB")
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)

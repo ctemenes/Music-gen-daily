@@ -337,7 +337,11 @@ def make_brief(date, repo, th, plan, tracklist, total, shorts, qa):
                 "(e.g. a short second-person scenario like the hook line). Under 70 characters.",
                 "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong "
                 "focal car, high contrast, at most 3 to 4 words of text.",
-                "Make the video: mix.mp3 over looping visuals matching theme.scene and theme.visual_motifs.",
+                "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 "
+                "Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for "
+                "high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion "
+                "blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the "
+                "seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
                 "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. "
                 "Each Short should point to the full mix.",
                 "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags.",
