@@ -1,14 +1,15 @@
 {
-  "video_id": "Ipjbds2IZJQ",
-  "url": "https://youtu.be/Ipjbds2IZJQ",
+  "video_id": "seFpEKI8ZBU",
+  "url": "https://youtu.be/seFpEKI8ZBU",
   "title": "you're the only car on the road tonight (90s drum and bass)",
   "privacy": "private",
   "publish_at": "2026-10-24T08:00:00Z",
   "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_044313_3db9bad7-d59e-42a0-b358-b9c7cbac3e89.mp4",
-  "duration_s": 2661,
+  "duration_s": 2644,
   "bitrate_mbps": 8.0,
   "speed": 2.5,
   "seam_xfade_s": 1.0,
+  "trim_start_s": 16.364,
   "thumbnail_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_044133_c6a72fd4-77b9-42c0-986a-50757beacf7d.png",
   "thumbnail_set": true
 }
