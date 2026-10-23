@@ -55,6 +55,68 @@ def report(tok, start, end, metrics, dimensions=None, filters=None, sort=None, m
     return [dict(zip(cols, row)) for row in j.get("rows", [])]
 
 
+REPORTING = "https://youtubereporting.googleapis.com/v1"
+
+
+def reach(tok):
+    """Thumbnail impressions and CTR come only from the YouTube Reporting API (bulk daily CSVs).
+
+    Makes sure a reach reporting job exists, then downloads every report it has produced so far.
+    YouTube fills a new job within about 48 hours, with some backfill of earlier days.
+    """
+    res = {}
+    try:
+        types = get(f"{REPORTING}/reportTypes", tok).get("reportTypes", [])
+    except RuntimeError as e:
+        return {"error": str(e)}
+    res["available_types"] = [t["id"] for t in types if "reach" in t["id"]]
+    want = [t for t in res["available_types"] if "basic" in t] or res["available_types"][:1]
+    if not want:
+        res["error"] = "no reach report type offered for this channel"
+        return res
+    try:
+        jobs = get(f"{REPORTING}/jobs", tok).get("jobs", [])
+    except RuntimeError as e:
+        return {**res, "error": str(e)}
+    job = next((j for j in jobs if j["reportTypeId"] == want[0]), None)
+    if not job:
+        r = requests.post(f"{REPORTING}/jobs", headers={"Authorization": f"Bearer {tok}"},
+                          json={"reportTypeId": want[0], "name": "music-gen-daily reach"}, timeout=60)
+        if r.status_code != 200:
+            return {**res, "error": f"create job {r.status_code}: {r.text[:300]}"}
+        job = r.json()
+        res["job_created"] = job.get("createTime")
+    res["job"] = {"id": job["id"], "type": job["reportTypeId"], "created": job.get("createTime")}
+    try:
+        reps = get(f"{REPORTING}/jobs/{job['id']}/reports", tok).get("reports", [])
+    except RuntimeError as e:
+        return {**res, "error": str(e)}
+    res["reports"] = []
+    rows = []
+    for rep in sorted(reps, key=lambda x: x["startTime"]):
+        r = requests.get(rep["downloadUrl"], headers={"Authorization": f"Bearer {tok}"}, timeout=120)
+        res["reports"].append({"start": rep["startTime"], "end": rep["endTime"], "status": r.status_code})
+        if r.status_code == 200:
+            lines = r.text.strip().splitlines()
+            head = lines[0].split(",")
+            rows += [dict(zip(head, ln.split(","))) for ln in lines[1:]]
+    # roll up per video: impressions and impression-weighted CTR
+    per = {}
+    for row in rows:
+        vid = row.get("video_id")
+        imp = float(row.get("video_thumbnail_impressions") or 0)
+        ctr = float(row.get("video_thumbnail_impressions_ctr") or 0)
+        p = per.setdefault(vid, {"impressions": 0.0, "clicks": 0.0, "days": set()})
+        p["impressions"] += imp
+        p["clicks"] += imp * ctr
+        p["days"].add(row.get("date"))
+    res["per_video"] = {k: {"impressions": int(v["impressions"]),
+                            "ctr": round(v["clicks"] / v["impressions"], 4) if v["impressions"] else None,
+                            "days": sorted(x for x in v["days"] if x)} for k, v in per.items()}
+    res["rows"] = rows[:3000]
+    return res
+
+
 def iso_dur(s):
     m = re.fullmatch(r"P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", s or "")
     if not m:
@@ -136,6 +198,23 @@ def main():
                                            ["elapsedVideoTimeRatio"], filters=f, max_results=100)
         out["video_traffic"][v["id"]] = report(tok, start, end, ["views", "averageViewDuration"],
                                                ["insightTrafficSourceType"], filters=f, sort="-views")
+
+    # comments on recent public videos (what viewers say)
+    out["comments"] = {}
+    for v in videos[:15]:
+        if v["comments"] and v["privacy"] == "public":
+            try:
+                j = get(f"{DATA}/commentThreads", tok, part="snippet,replies", videoId=v["id"], maxResults=50,
+                        order="time")
+                out["comments"][v["id"]] = [{
+                    "text": t["snippet"]["topLevelComment"]["snippet"]["textOriginal"][:500],
+                    "likes": t["snippet"]["topLevelComment"]["snippet"]["likeCount"],
+                    "at": t["snippet"]["topLevelComment"]["snippet"]["publishedAt"],
+                    "replies": t["snippet"]["totalReplyCount"]} for t in j.get("items", [])]
+            except RuntimeError as e:
+                out["comments"][v["id"]] = {"error": str(e)}
+
+    out["reach"] = reach(tok)
 
     d = Path(os.environ.get("OUT_DIR") or ROOT / "reports" / "analytics")
     d.mkdir(parents=True, exist_ok=True)
