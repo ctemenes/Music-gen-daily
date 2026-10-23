@@ -1,0 +1,38 @@
+{
+ "files": [
+  {
+   "file": "01_base_scene_vidiq.png",
+   "url": "https://ai-thumbnails.s3.amazonaws.com/editor/c47f80bf-1c69-43f9-ac74-dfe77282d2ac/e7f179f1-59bc-4826-bdd3-b16f5e9aaa16.png",
+   "what": "Base scene from vidIQ (FINAL LAP 2001 cover with side panel)",
+   "tool": "vidIQ generate_thumbnail",
+   "id": "job_35a7e090-e7eb-4195-bcc2-410dcceb4add"
+  },
+  {
+   "file": "02_clean_frame.png",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_034303_d5c8424b-0356-4856-8152-37454a8f5982.png",
+   "what": "Clean frame, start and end frame of the loop",
+   "tool": "Higgsfield nano_banana_2_1, 2k",
+   "id": "d5c8424b-0356-4856-8152-37454a8f5982",
+   "prompt": "Recreate this exact scene as a clean full-frame image: the same low-poly sports car in the same position and size, same rear chase-camera angle, same elevated expressway, lane markings, buildings, amber streetlights, magenta and cyan neon reflections on the wet road, rain streaks and mist. Remove the grey 'DIGITAL AURA' side panel on the left and the 'FINAL LAP 2001' text, and extend the city, barrier and road naturally across the full width of the frame. Keep the PS1-era low-poly 3D look with low-res dithered textures and soft glow. No text, no logos, no letters, no HUD, no border, no watermark."
+  },
+  {
+   "file": "03_thumbnail.png",
+   "url": "https://ai-thumbnails.s3.amazonaws.com/editor/c47f80bf-1c69-43f9-ac74-dfe77282d2ac/e7f179f1-59bc-4826-bdd3-b16f5e9aaa16.png",
+   "what": "YouTube thumbnail (same image as the vidIQ base scene)",
+   "tool": "vidIQ generate_thumbnail",
+   "id": "job_35a7e090-e7eb-4195-bcc2-410dcceb4add"
+  },
+  {
+   "file": "04_loop_raw.mp4",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_034427_4bb48c8e-a729-4b67-b950-1c738b0ef23b.mp4",
+   "what": "Raw 15s loop before the 2.5x speed-up and seam crossfade",
+   "tool": "Higgsfield kling3_0 pro, 15s, sound off, start = end = clean frame",
+   "id": "4bb48c8e-a729-4b67-b950-1c738b0ef23b",
+   "prompt": "Locked rear chase camera following the low-poly sports car at speed on a rainy neon expressway at night. The car holds its exact position and size in the frame for the whole shot while the road surface, dashed lane markings and amber streetlights stream past toward the camera at a steady speed. The distant car ahead stays far ahead. Rain falls continuously, magenta and cyan neon reflections shimmer and ripple on the wet asphalt, mist drifts, tail lights glow red. Constant speed, no cuts, no camera shake or drift, no new cars or objects, PS1-era low-poly game look throughout. The final frame matches the first frame exactly so the clip loops seamlessly."
+  }
+ ],
+ "notes": [
+  "vidIQ thumbnail prompt was not recorded for this backfill; runs from now on save it.",
+  "Made before the PlayList Station cover was adopted, so the thumbnail is the vidIQ cover itself."
+ ]
+}

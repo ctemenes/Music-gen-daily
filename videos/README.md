@@ -1,0 +1,10 @@
+# Videos
+
+One folder per uploaded video: README with every prompt, previews, description, tracklist and the
+upload record. Full-res originals and the raw loop clip are on each day's release (https://github.com/ctemenes/Music-gen-daily/releases), including a zip of the whole folder.
+
+Shared brand references (PlayList Station layout, D-A logo) are in [_brand](_brand).
+
+| Date | Title | YouTube | Thumbnail |
+|---|---|---|---|
+| 2026-10-21 | [you're in first place and it's still raining (y2k night drive dnb mix)](2026-10-21%20-%20you%27re%20in%20first%20place%20and%20it%27s%20still%20raining%20%28y2k%20night%20drive%20dnb%20mix%29/README.md) | https://youtu.be/C6K1VL3Wf84 | <img src="2026-10-21%20-%20you%27re%20in%20first%20place%20and%20it%27s%20still%20raining%20%28y2k%20night%20drive%20dnb%20mix%29/previews/03_thumbnail.jpg" width="240"> |
