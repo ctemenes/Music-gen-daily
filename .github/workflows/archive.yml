@@ -1,0 +1,47 @@
+name: Archive video assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Mix date (YYYY-MM-DD); days/<date>/youtube.json must exist"
+        required: true
+      manifest:
+        description: 'JSON: {"files":[{"file","url","what","tool","prompt","id"}],"brand":[...],"notes":[...]}'
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        run: pip install -q requests pillow
+
+      - name: Archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IN_DATE: ${{ inputs.date }}
+          MANIFEST: ${{ inputs.manifest }}
+        run: |
+          printf '%s' "$MANIFEST" > "$RUNNER_TEMP/manifest.json"
+          python3 tools/archive_video.py --date "$IN_DATE" --manifest "$RUNNER_TEMP/manifest.json" --repo "$GITHUB_REPOSITORY"
+
+      - name: Commit
+        env:
+          IN_DATE: ${{ inputs.date }}
+        run: |
+          git config user.name "Digital Aura Racing Team"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos
+          git commit -q -m "Archive video assets $IN_DATE" || { echo "nothing new"; exit 0; }
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
