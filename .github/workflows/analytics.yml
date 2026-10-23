@@ -1,0 +1,54 @@
+name: YouTube report
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Analytics window in days"
+        default: "90"
+      pubkey:
+        description: "Base64 RSA public key (PEM) of the session that will read the report; the repo is public"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analytics
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        run: pip install -q requests cryptography
+
+      - name: Pull report
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          DAYS: ${{ inputs.days }}
+          PUBKEY: ${{ inputs.pubkey }}
+          OUT_DIR: ${{ runner.temp }}/report
+        run: |
+          python3 tools/yt_report.py
+          cd "$OUT_DIR" && tar czf "$RUNNER_TEMP/report.tgz" ./*.json ./*.md && cd "$GITHUB_WORKSPACE"
+          mkdir -p reports/analytics
+          python3 tools/seal.py seal "$PUBKEY" "$RUNNER_TEMP/report.tgz" reports/analytics/latest.sealed
+
+      - name: Commit
+        run: |
+          git config user.name "Digital Aura Racing Team"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports
+          git commit -q -m "YouTube report $(date -u +%F)" || { echo "nothing new"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && { echo pushed; exit 0; }
+            git rebase --abort 2>/dev/null || true; sleep $((i * 5))
+          done
+          exit 1
