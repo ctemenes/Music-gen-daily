@@ -37,7 +37,7 @@ jobs:
           OUT_DIR: ${{ runner.temp }}/report
         run: |
           python3 tools/yt_report.py
-          cd "$OUT_DIR" && tar czf "$RUNNER_TEMP/report.tgz" ./*.json ./*.md && cd "$GITHUB_WORKSPACE"
+          tar czf "$RUNNER_TEMP/report.tgz" -C "$OUT_DIR" .
           mkdir -p reports/analytics
           python3 tools/seal.py seal "$PUBKEY" "$RUNNER_TEMP/report.tgz" reports/analytics/latest.sealed
 

@@ -26,7 +26,7 @@ def token() -> str:
         "client_id": os.environ["YT_CLIENT_ID"], "client_secret": os.environ["YT_CLIENT_SECRET"],
         "refresh_token": os.environ["YT_REFRESH_TOKEN"], "grant_type": "refresh_token"}, timeout=60)
     if r.status_code != 200:
-        sys.exit(f"token refresh failed ({r.status_code}): {r.text[:300]}")
+        raise RuntimeError(f"token refresh failed ({r.status_code}): {r.text[:300]}")
     return r.json()["access_token"]
 
 
@@ -156,4 +156,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except BaseException as e:  # noqa: BLE001  keep the error inside the sealed report (logs aren't readable)
+        import traceback
+        d = Path(os.environ.get("OUT_DIR") or ROOT / "reports" / "analytics")
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "error.json").write_text(json.dumps({"error": repr(e), "trace": traceback.format_exc()}))
+        print("report failed, error saved")
