@@ -1,10 +1,14 @@
 {
-  "video_id": "MOLjfUD5MHc",
-  "url": "https://youtu.be/MOLjfUD5MHc",
-  "title": "NEON RAIN 2001 (atmospheric jungle dnb mix)",
+  "video_id": "C6K1VL3Wf84",
+  "url": "https://youtu.be/C6K1VL3Wf84",
+  "title": "you're in first place and it's still raining (y2k night drive dnb mix)",
   "privacy": "private",
   "publish_at": null,
-  "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261021_095513_e071fb9c-36e6-451c-ad1a-d262c2f0a1d3.mp4",
+  "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_034427_4bb48c8e-a729-4b67-b950-1c738b0ef23b.mp4",
   "duration_s": 3451,
-  "bitrate_mbps": 5
+  "bitrate_mbps": 8.0,
+  "speed": 2.5,
+  "seam_xfade_s": 1.0,
+  "thumbnail_url": "https://ai-thumbnails.s3.amazonaws.com/editor/c47f80bf-1c69-43f9-ac74-dfe77282d2ac/e7f179f1-59bc-4826-bdd3-b16f5e9aaa16.png",
+  "thumbnail_set": true
 }
