@@ -72,14 +72,28 @@ def parse_pattern(pattern, n_clips):
     return order
 
 
-def build_sequence(work, clips, pattern, mbps, speed, grain, shake):
+FOCUS_DEFAULT = {"x": 0.53, "y": 0.58, "rx": 0.27, "ry": 0.64, "blur": 6, "dark": 0.07}
+
+
+def focus_mask(work, f):
+    """Soft white ellipse on black: where the subject is (kept sharp), everything else gets blurred/darkened."""
+    m = work / "focus_mask.png"
+    expr = (f"255*clip(1.6-1.4*hypot((X-W*{f['x']})/(W*{f['rx']})\\,(Y-H*{f['y']})/(H*{f['ry']}))\\,0\\,1)")
+    sh("ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i", "color=black:s=1920x1080,format=gray", "-frames:v", 1,
+       "-vf", f"geq=lum='{expr}'", m)
+    return m
+
+
+def build_sequence(work, clips, pattern, mbps, speed, grain, shake, focus=None):
     """Several clips that all start and end on the same frame, cut together in a pattern (e.g. shot 1 four
     times, shot 2, shot 1 five times...). Each clip is encoded once with its first frame dropped (it repeats
-    the previous clip's last frame), then the pattern is joined by stream copy into one loop segment."""
+    the previous clip's last frame), then the pattern is joined by stream copy into one loop segment.
+    focus: dict (see FOCUS_DEFAULT) to blur and darken everything around the subject."""
     order = parse_pattern(pattern, len(clips))
-    base = "scale=1920:1080:flags=lanczos,setsar=1"
-    if grain:
-        base += f",gblur=sigma=0.6,noise=alls={int(grain)}:allf=t+u,eq=saturation=0.93"
+    scale = "scale=1920:1080:flags=lanczos,setsar=1"
+    look = f",gblur=sigma=0.7,noise=alls={int(grain)}:allf=t+u,eq=saturation=0.92" if grain else ""
+    f = {**FOCUS_DEFAULT, **focus} if isinstance(focus, dict) else (dict(FOCUS_DEFAULT) if focus else None)
+    mask = focus_mask(work, f) if f else None
     parts = []
     for i, src in enumerate(clips, 1):
         s = probe(src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
@@ -88,10 +102,19 @@ def build_sequence(work, clips, pattern, mbps, speed, grain, shake):
         fps = num / den
         out_fps = min(60.0, fps * speed)
         seg_len = (frames - 1) / fps / speed
-        graph = (f"[0:v]trim=start_frame=1:end_frame={frames},setpts=(N/{fps}/TB)/{speed},{base}"
-                 f"{shake_filter(shake, seg_len)}[v]")
+        head = f"[0:v]trim=start_frame=1:end_frame={frames},setpts=(N/{fps}/TB)/{speed},{scale}"
+        if mask:
+            graph = (f"{head},format=gbrp,split[o][b];"
+                     f"[b]gblur=sigma={f['blur']},eq=brightness=-{f['dark']}:saturation=0.85[bd];"
+                     f"[1:v]format=gray,gblur=sigma=40,format=gbrp[m];"
+                     f"[bd][o][m]maskedmerge,format=yuv420p{look}{shake_filter(shake, seg_len)}[v]")
+            inputs = ["-i", src, "-loop", 1, "-i", mask]
+        else:
+            graph = f"{head}{look}{shake_filter(shake, seg_len)}[v]"
+            inputs = ["-i", src]
         dst = work / f"clip{i}_1080p.mp4"
-        sh("ffmpeg", "-y", "-v", "error", "-i", src, "-an", "-filter_complex", graph, "-map", "[v]",
+        sh("ffmpeg", "-y", "-v", "error", *inputs, "-an", "-filter_complex", graph, "-map", "[v]",
+           "-frames:v", frames - 1,
            "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
            "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
            "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
@@ -101,11 +124,11 @@ def build_sequence(work, clips, pattern, mbps, speed, grain, shake):
     lst.write_text("".join(f"file '{parts[c - 1].resolve()}'\n" for c in order))
     seq = work / "sequence_1080p.mp4"
     sh("ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", seq)
-    print(f"Sequence: {len(order)} shots, pattern {pattern}", flush=True)
+    print(f"Sequence: {len(order)} shots, pattern {pattern}, focus {bool(f)}", flush=True)
     return seq
 
 
-def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern=""):
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern="", focus=None):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
     num, den = (int(x) for x in s["r_frame_rate"].split("/"))
@@ -115,7 +138,7 @@ def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=
         mbps = 8.0 if (out_fps > 30 or grain) else 5.0
     seg = work / "loop_1080p.mp4"
     if pattern:
-        seg = build_sequence(work, [loop_src, *(clips or [])], pattern, mbps, speed, grain, shake)
+        seg = build_sequence(work, [loop_src, *(clips or [])], pattern, mbps, speed, grain, shake, focus)
         xfade = 0
     base = "scale=1920:1080:flags=lanczos,setsar=1"
     if grain:
@@ -265,6 +288,7 @@ def main():
     ap.add_argument("--extra", default="", help='JSON of optional settings, e.g. {"trim_start": 16.4, "grain": 22}')
     ap.add_argument("--clips", nargs="*", default=[], help="more loop clips (URLs) for --pattern; clip 1 is --loop-url")
     ap.add_argument("--pattern", default="", help="shot order, e.g. 1x4,2,1x5,2,1x7,2,1x5,2 (clips must share start/end frame)")
+    ap.add_argument("--focus", default=None, help="(via --extra) true or {x,y,rx,ry,blur,dark}: blur/darken around the subject")
     ap.add_argument("--shake", type=float, default=0, help="handheld camera wobble in pixels (0 = off, about 8 = subtle)")
     ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
     ap.add_argument("--trim-start", type=float, default=0.0,
@@ -278,6 +302,8 @@ def main():
                 a.clips = [str(u) for u in v]
             elif k == "pattern":
                 a.pattern = str(v)
+            elif k == "focus":
+                a.focus = v
             elif k in ("trim_start", "grain", "xfade", "mbps", "shake"):
                 setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
             else:
@@ -313,7 +339,7 @@ def main():
         clip_files.append(f)
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern, a.focus)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
@@ -337,7 +363,7 @@ def main():
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
         "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
         "trim_start_s": a.trim_start or None, "grain": a.grain or None, "shake": a.shake or None,
-        "clips": a.clips or None, "pattern": a.pattern or None,
+        "clips": a.clips or None, "pattern": a.pattern or None, "focus": a.focus or None,
         "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
