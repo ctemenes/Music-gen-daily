@@ -39,16 +39,19 @@ def download(url, dest):
             f.write(chunk)
 
 
-def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0):
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
     num, den = (int(x) for x in s["r_frame_rate"].split("/"))
     src_fps = num / den
     out_fps = min(60.0, src_fps * speed)
     if mbps is None:
-        mbps = 8.0 if out_fps > 30 else 5.0
+        mbps = 8.0 if (out_fps > 30 or grain) else 5.0
     seg = work / "loop_1080p.mp4"
     base = "scale=1920:1080:flags=lanczos,setsar=1"
+    if grain:
+        # 2001 camera look: slight softness, moving film grain, a touch less saturation
+        base += f",gblur=sigma=0.6,noise=alls={int(grain)}:allf=t+u,eq=saturation=0.93"
     if xfade > 0:
         # Seam fix: start the loop xfade seconds in, and fade its tail into the opening frames, so the last
         # frame flows straight into the first even when the model's end frame is not an exact match.
@@ -186,10 +189,18 @@ def main():
     ap.add_argument("--render-only", action="store_true")
     ap.add_argument("--thumb-url", default="", help="image to set as the thumbnail (resized to 1280x720)")
     ap.add_argument("--video-id", default="", help="only set the thumbnail on this existing video; no render or upload")
+    ap.add_argument("--extra", default="", help='JSON of optional settings, e.g. {"trim_start": 16.4, "grain": 22}')
+    ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
     ap.add_argument("--trim-start", type=float, default=0.0,
                     help="cut this many seconds off the start of the mix (cold open for mixes made before it was "
                          "built in); description timestamps shift to match")
     a = ap.parse_args()
+    if a.extra.strip():
+        for k, v in json.loads(a.extra).items():
+            k = k.replace("-", "_")
+            if k not in ("trim_start", "grain", "xfade", "mbps"):
+                sys.exit(f"unknown extra setting: {k}")
+            setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
 
     if len(a.title) > 100:
         sys.exit(f"Title is {len(a.title)} characters; YouTube allows 100.")
@@ -213,7 +224,7 @@ def main():
         download(a.loop_url, loop)
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
@@ -236,7 +247,7 @@ def main():
     (day / "youtube.json").write_text(json.dumps({
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
         "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
-        "trim_start_s": a.trim_start or None,
+        "trim_start_s": a.trim_start or None, "grain": a.grain or None,
         "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

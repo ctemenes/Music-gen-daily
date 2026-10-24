@@ -27,9 +27,9 @@ on:
       speed:
         description: "Speed-up for the loop clip (models render the car too slow)"
         default: "2.5"
-      trim_start:
-        description: "Seconds to cut off the start of the mix (cold open for mixes made before 2026-10-25)"
-        default: "0"
+      extra:
+        description: 'Optional JSON settings: {"trim_start": seconds cut off the mix start, "grain": 0-40 film grain, "xfade": seam seconds}'
+        default: "{}"
       render_only:
         description: "Render only, keep the mp4 as a run artifact, no upload"
         type: boolean
@@ -68,7 +68,7 @@ jobs:
           IN_THUMB: ${{ inputs.thumb_url }}
           IN_VIDEO: ${{ inputs.video_id }}
           IN_SPEED: ${{ inputs.speed }}
-          IN_TRIM: ${{ inputs.trim_start }}
+          IN_EXTRA: ${{ inputs.extra }}
         run: |
           if [ -n "$IN_VIDEO" ]; then
             python3 tools/render_upload.py --date "$IN_DATE" --loop-url none --title none --video-id "$IN_VIDEO" --thumb-url "$IN_THUMB"
@@ -77,7 +77,7 @@ jobs:
           ARGS=(--date "$IN_DATE" --loop-url "$IN_LOOP" --title "$IN_TITLE" --privacy "$IN_PRIVACY" --speed "${IN_SPEED:-2.5}")
           [ -n "$IN_PUBLISH_AT" ] && ARGS+=(--publish-at "$IN_PUBLISH_AT")
           [ -n "$IN_THUMB" ] && ARGS+=(--thumb-url "$IN_THUMB")
-          [ -n "$IN_TRIM" ] && [ "$IN_TRIM" != "0" ] && ARGS+=(--trim-start "$IN_TRIM")
+          [ -n "$IN_EXTRA" ] && [ "$IN_EXTRA" != "{}" ] && ARGS+=(--extra "$IN_EXTRA")
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
           python3 tools/render_upload.py "${ARGS[@]}"
 
