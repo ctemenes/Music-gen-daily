@@ -2,7 +2,8 @@
 r"""One-time YouTube sign-in for the Music-gen-daily upload workflow. Run on Carti's PC:
 
     pip install google-auth-oauthlib
-    python get_token.py client_secret.json
+    python get_token.py                      (asks for the client ID and pastes the secret hidden)
+    python get_token.py client_secret.json   (or reads a downloaded client file)
 
 It opens a browser to sign in to the YouTube channel, then stores three GitHub secrets on
 ctemenes/Music-gen-daily with the GitHub CLI (gh must be installed and signed in):
@@ -10,7 +11,7 @@ YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN. Nothing secret is printed or w
 Scopes: upload, manage videos (edit titles, descriptions, tags, privacy and schedules), read the channel,
 read analytics (so the channel tracker needs no second sign-in).
 """
-import json, shutil, subprocess, sys
+import getpass, json, shutil, subprocess, sys
 
 from google_auth_oauthlib.flow import InstalledAppFlow
 
@@ -20,16 +21,25 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload",
           "https://www.googleapis.com/auth/youtube.readonly",
           "https://www.googleapis.com/auth/yt-analytics.readonly"]
 
-if len(sys.argv) != 2:
-    sys.exit("Usage: python get_token.py client_secret.json")
 gh = shutil.which("gh")
 if not gh:
     sys.exit("GitHub CLI not found. Install it with: winget install GitHub.cli   then run: gh auth login")
-cfg = json.load(open(sys.argv[1], encoding="utf-8"))
+if len(sys.argv) == 2:
+    cfg = json.load(open(sys.argv[1], encoding="utf-8"))
+else:
+    print("Google Cloud > Google Auth Platform > Clients > your Desktop client.")
+    cid = input("Client ID: ").strip()
+    secret = getpass.getpass("Client secret (paste it, nothing will show): ").strip()
+    if not cid or not secret:
+        sys.exit("Need both the client ID and the client secret.")
+    cfg = {"installed": {"client_id": cid, "client_secret": secret,
+                         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                         "token_uri": "https://oauth2.googleapis.com/token",
+                         "redirect_uris": ["http://localhost"]}}
 app = cfg.get("installed") or cfg.get("web")
 if not app:
-    sys.exit("That file is not an OAuth client file. Download it from Google Cloud: Credentials, your Desktop client, Download JSON.")
-flow = InstalledAppFlow.from_client_secrets_file(sys.argv[1], SCOPES)
+    sys.exit("That file is not an OAuth client file.")
+flow = InstalledAppFlow.from_client_config(cfg, SCOPES)
 creds = flow.run_local_server(port=0, prompt="consent", access_type="offline")
 if not creds.refresh_token:
     sys.exit("Google did not return a refresh token. Remove the app's access at myaccount.google.com/permissions and run this again.")
