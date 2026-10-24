@@ -7,7 +7,8 @@ r"""One-time YouTube sign-in for the Music-gen-daily upload workflow. Run on Car
 It opens a browser to sign in to the YouTube channel, then stores three GitHub secrets on
 ctemenes/Music-gen-daily with the GitHub CLI (gh must be installed and signed in):
 YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN. Nothing secret is printed or written to disk.
-Scopes: upload, read the channel, read analytics (so the channel tracker needs no second sign-in).
+Scopes: upload, manage videos (edit titles, descriptions, tags, privacy and schedules), read the channel,
+read analytics (so the channel tracker needs no second sign-in).
 """
 import json, shutil, subprocess, sys
 
@@ -15,6 +16,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 REPO = "ctemenes/Music-gen-daily"
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload",
+          "https://www.googleapis.com/auth/youtube.force-ssl",
           "https://www.googleapis.com/auth/youtube.readonly",
           "https://www.googleapis.com/auth/yt-analytics.readonly"]
 

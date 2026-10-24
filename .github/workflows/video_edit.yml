@@ -1,0 +1,58 @@
+name: Edit YouTube video
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_id:
+        description: "Video to edit"
+        required: true
+      title:
+        description: "New title (blank = keep)"
+        required: false
+      description_file:
+        description: "Path in the repo to a description text file (blank = keep)"
+        required: false
+      tags:
+        description: "Comma-separated tags (blank = keep)"
+        required: false
+      privacy:
+        description: "private, unlisted or public (blank = keep)"
+        required: false
+      publish_at:
+        description: "RFC3339 time to go public (blank = keep)"
+        required: false
+      unschedule:
+        description: "Clear the scheduled publish time and keep it private"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests
+      - name: Edit
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IN_VIDEO: ${{ inputs.video_id }}
+          IN_TITLE: ${{ inputs.title }}
+          IN_DESC: ${{ inputs.description_file }}
+          IN_TAGS: ${{ inputs.tags }}
+          IN_PRIVACY: ${{ inputs.privacy }}
+          IN_PUBLISH: ${{ inputs.publish_at }}
+        run: |
+          ARGS=(--video-id "$IN_VIDEO")
+          [ -n "$IN_TITLE" ] && ARGS+=(--title "$IN_TITLE")
+          [ -n "$IN_DESC" ] && ARGS+=(--description-file "$IN_DESC")
+          [ -n "$IN_TAGS" ] && ARGS+=(--tags "$IN_TAGS")
+          [ -n "$IN_PRIVACY" ] && ARGS+=(--privacy "$IN_PRIVACY")
+          [ -n "$IN_PUBLISH" ] && ARGS+=(--publish-at "$IN_PUBLISH")
+          [ "${{ inputs.unschedule }}" = "true" ] && ARGS+=(--unschedule)
+          python3 tools/yt_edit.py "${ARGS[@]}"
