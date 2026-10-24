@@ -11,6 +11,11 @@ from pathlib import Path
 
 import requests
 
+
+def fail(msg):
+    print(f"::error title=yt_edit::{msg}")  # shows as a run annotation
+    sys.exit(msg)
+
 API = "https://www.googleapis.com/youtube/v3/videos"
 
 
@@ -19,7 +24,7 @@ def token():
         "client_id": os.environ["YT_CLIENT_ID"], "client_secret": os.environ["YT_CLIENT_SECRET"],
         "refresh_token": os.environ["YT_REFRESH_TOKEN"], "grant_type": "refresh_token"}, timeout=60)
     if r.status_code != 200:
-        sys.exit(f"Google token refresh failed ({r.status_code}): {r.json().get('error_description', r.text[:200])}")
+        fail(f"Google token refresh failed ({r.status_code}): {r.json().get('error_description', r.text[:200])}")
     return r.json()["access_token"]
 
 
@@ -35,10 +40,11 @@ def main():
     a = ap.parse_args()
     h = {"Authorization": f"Bearer {token()}"}
     r = requests.get(API, params={"part": "snippet,status", "id": a.video_id}, headers=h, timeout=60)
-    r.raise_for_status()
+    if r.status_code != 200:
+        fail(f"Read failed ({r.status_code}): {r.text[:300]}")
     items = r.json().get("items", [])
     if not items:
-        sys.exit(f"Video {a.video_id} not found on this channel")
+        fail(f"Video {a.video_id} not found on this channel")
     v = items[0]
     sn, st = v["snippet"], v["status"]
     snippet = {"title": sn["title"], "description": sn.get("description", ""), "tags": sn.get("tags", []),
@@ -65,9 +71,10 @@ def main():
     r = requests.put(API, params={"part": "snippet,status"}, headers=h, json=body, timeout=60)
     if r.status_code != 200:
         if r.status_code == 403 and "insufficient" in r.text.lower():
-            sys.exit("The YouTube login can't edit videos yet: re-run tools/get_token.py to add the edit permission.")
-        sys.exit(f"Update failed ({r.status_code}): {r.text[:400]}")
+            fail("The YouTube login can't edit videos yet: re-run tools/get_token.py to add the edit permission.")
+        fail(f"Update failed ({r.status_code}): {r.text[:400]}")
     out = r.json()
+    print(f"::notice title=yt_edit::updated {a.video_id} {out['status']['privacyStatus']} publishAt={out['status'].get('publishAt')}")
     print(f"Updated https://youtu.be/{a.video_id}: '{out['snippet']['title']}', {out['status']['privacyStatus']}"
           + (f", goes public {out['status'].get('publishAt')}" if out['status'].get('publishAt') else ""))
 
