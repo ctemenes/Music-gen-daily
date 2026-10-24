@@ -288,6 +288,8 @@ def main():
     ap.add_argument("--extra", default="", help='JSON of optional settings, e.g. {"trim_start": 16.4, "grain": 22}')
     ap.add_argument("--clips", nargs="*", default=[], help="more loop clips (URLs) for --pattern; clip 1 is --loop-url")
     ap.add_argument("--pattern", default="", help="shot order, e.g. 1x4,2,1x5,2,1x7,2,1x5,2 (clips must share start/end frame)")
+    ap.add_argument("--description-file", default="", help="(via --extra) repo path of a finished description, used as-is")
+    ap.add_argument("--tags", default=None, help="(via --extra) list or comma string of tags replacing the brief's")
     ap.add_argument("--focus", default=None, help="(via --extra) true or {x,y,rx,ry,blur,dark}: blur/darken around the subject")
     ap.add_argument("--shake", type=float, default=0, help="handheld camera wobble in pixels (0 = off, about 8 = subtle)")
     ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
@@ -304,6 +306,10 @@ def main():
                 a.pattern = str(v)
             elif k == "focus":
                 a.focus = v
+            elif k == "description_file":
+                a.description_file = str(v)
+            elif k == "tags":
+                a.tags = [str(t).strip() for t in (v.split(",") if isinstance(v, str) else v) if str(t).strip()]
             elif k in ("trim_start", "grain", "xfade", "mbps", "shake"):
                 setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
             else:
@@ -321,6 +327,8 @@ def main():
     mix = Path(a.mix) if a.mix else work / "mix.mp3"
     if not a.mix:
         download(f"https://github.com/{REPO}/releases/download/mix-{a.date}/mix.mp3", mix)
+    if a.pattern:
+        a.xfade = 0.0  # pattern cuts drop duplicate frames instead of crossfading
     if a.trim_start > 0:
         trimmed = work / "mix_trimmed.mp3"
         sh("ffmpeg", "-y", "-loglevel", "error", "-ss", f"{a.trim_start:.3f}", "-i", str(mix),
@@ -346,9 +354,11 @@ def main():
 
     brief = json.loads((day / "brief.json").read_text(encoding="utf-8")) if (day / "brief.json").exists() else {}
     desc = (day / "description.txt").read_text(encoding="utf-8") if (day / "description.txt").exists() else ""
-    if a.trim_start > 0:
+    if a.description_file:
+        desc = Path(a.description_file).read_text(encoding="utf-8")  # finished text: no timestamp shift
+    elif a.trim_start > 0:
         desc = shift_timestamps(desc, a.trim_start)
-    tags = (brief.get("youtube") or {}).get("tags") or []
+    tags = a.tags if a.tags else ((brief.get("youtube") or {}).get("tags") or [])
     status = {"privacyStatus": a.privacy, "selfDeclaredMadeForKids": False,
               "containsSyntheticMedia": a.synthetic.lower() == "true"}
     if a.publish_at:
