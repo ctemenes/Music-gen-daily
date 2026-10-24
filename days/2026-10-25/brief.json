@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-25",
+  "date": "2026-10-25",
+  "theme": {
+    "id": "arctic",
+    "name": "Arctic Circuit",
+    "scene": "A frozen race circuit under the northern lights, ice tunnels and snow-dusted barriers.",
+    "setting": "ice circuit",
+    "time_of_day": "polar night",
+    "weather": "snow",
+    "mood_words": [
+      "icy",
+      "crisp",
+      "glassy",
+      "remote",
+      "shimmering"
+    ],
+    "palette": [
+      {
+        "name": "Ice blue",
+        "hex": "#A8E6FF"
+      },
+      {
+        "name": "Aurora green",
+        "hex": "#39FF9F"
+      },
+      {
+        "name": "Polar night",
+        "hex": "#0A1A2F"
+      },
+      {
+        "name": "Frost white",
+        "hex": "#F5FBFF"
+      }
+    ],
+    "visual_motifs": [
+      "aurora",
+      "ice tunnels",
+      "snow spray",
+      "frozen lake"
+    ],
+    "hook_line": "it's 2001. minus thirty outside, the aurora's out and the ice is holding. first place. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly race car drifting on a frozen lake under green northern lights, snow spray, dithered retro game render",
+      "low-poly racer flying through a glowing blue ice tunnel, fake retro HUD showing 1st place",
+      "wide shot of a snowy mountain race track at night with aurora overhead, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 14,
+    "duration_seconds": 1851.04,
+    "duration": "30:51",
+    "bpm_range": [
+      172,
+      176
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "cinematic",
+      "deep",
+      "jazzy",
+      "liquid",
+      "neuro-ish",
+      "reese",
+      "rolling",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Inertia Rush",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 175,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Hollow Permafrost",
+        "start_seconds": 115.2,
+        "timestamp": "01:55",
+        "bpm": 173,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Final Hoarfrost",
+        "start_seconds": 248.32,
+        "timestamp": "04:08",
+        "bpm": 172,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Frostbite",
+        "start_seconds": 382.25,
+        "timestamp": "06:22",
+        "bpm": 173,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Burnout",
+        "start_seconds": 515.46,
+        "timestamp": "08:35",
+        "bpm": 176,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Northern Lights",
+        "start_seconds": 646.45,
+        "timestamp": "10:46",
+        "bpm": 175,
+        "style": "two-step, deep sub",
+        "style_tags": [
+          "two-step",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Whiteout",
+        "start_seconds": 778.08,
+        "timestamp": "12:58",
+        "bpm": 173,
+        "style": "rolling, growling bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Tundra Loop",
+        "start_seconds": 911.2,
+        "timestamp": "15:11",
+        "bpm": 173,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "High Crevasse",
+        "start_seconds": 1044.38,
+        "timestamp": "17:24",
+        "bpm": 173,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Polar Sprint",
+        "start_seconds": 1177.56,
+        "timestamp": "19:37",
+        "bpm": 176,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Sub Zero Transit",
+        "start_seconds": 1308.55,
+        "timestamp": "21:48",
+        "bpm": 174,
+        "style": "rolling, growling bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Overdrive Drive",
+        "start_seconds": 1440.91,
+        "timestamp": "24:00",
+        "bpm": 175,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Black Ice",
+        "start_seconds": 1572.59,
+        "timestamp": "26:12",
+        "bpm": 176,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Night Floe",
+        "start_seconds": 1703.53,
+        "timestamp": "28:23",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-25",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-25",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-25/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Whiteout",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 861.26,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-25/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Sub Zero Transit",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.52,
+        "mix_position_seconds": 1391.25,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-25/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Black Ice",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.45,
+        "mix_position_seconds": 1654.44,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-25/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-25/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-25 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. minus thirty outside, the aurora's out and the ice is holding. first place. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Inertia Rush\n01:55 Hollow Permafrost\n04:08 Final Hoarfrost\n06:22 Frostbite\n08:35 Burnout\n10:46 Northern Lights\n12:58 Whiteout\n15:11 Tundra Loop\n17:24 High Crevasse\n19:37 Polar Sprint\n21:48 Sub Zero Transit\n24:00 Overdrive Drive\n26:12 Black Ice\n28:23 Night Floe\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Inertia Rush\n01:55 Hollow Permafrost\n04:08 Final Hoarfrost\n06:22 Frostbite\n08:35 Burnout\n10:46 Northern Lights\n12:58 Whiteout\n15:11 Tundra Loop\n17:24 High Crevasse\n19:37 Polar Sprint\n21:48 Sub Zero Transit\n24:00 Overdrive Drive\n26:12 Black Ice\n28:23 Night Floe",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "arctic circuit",
+      "ice circuit",
+      "polar night",
+      "icy",
+      "crisp",
+      "glassy"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.2,
+    "duration_seconds": 1851.04
+  }
+}
