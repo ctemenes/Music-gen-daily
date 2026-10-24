@@ -39,7 +39,73 @@ def download(url, dest):
             f.write(chunk)
 
 
-def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0):
+def shake_filter(px, seg_len):
+    """Handheld camera wobble of about px pixels. Every term completes a whole number of cycles over
+    seg_len, so the wobble is back at rest at the end and the cut or loop point stays seamless."""
+    if not px:
+        return ""
+    a, D = float(px), seg_len
+
+    def k(hz):  # cycles per segment closest to the wanted frequency
+        return max(1, round(hz * D))
+
+    def term(amp, hz, phase=0.0):
+        return f"+{amp:.2f}*sin(2*PI*t*{k(hz)}/{D:.6f}+{phase})"
+
+    x = "(iw-1920)/2" + term(a, .2) + term(a / 2, .47, 1.3) + term(a / 5, 2.1) + term(a / 7, 3.1, .4)
+    y = "(ih-1080)/2" + term(a * .8, .33, .7) + term(a / 3, .71) + term(a / 5, 2.5, 2.1) + term(a / 7, 3.4)
+    m = 1 + 4 * a / 1080  # zoom in just enough that the moving crop never shows an edge
+    return f",scale=ceil(1920*{m:.4f}/2)*2:ceil(1080*{m:.4f}/2)*2,crop=1920:1080:x='{x}':y='{y}'"
+
+
+def parse_pattern(pattern, n_clips):
+    """'1x4,2,1x5,2' -> [1,1,1,1,2,1,1,1,1,1,2]"""
+    order = []
+    for part in pattern.replace(" ", "").split(","):
+        if not part:
+            continue
+        clip, _, times = part.replace("*", "x").partition("x")
+        c, t = int(clip), int(times or 1)
+        if not 1 <= c <= n_clips:
+            sys.exit(f"pattern uses clip {c} but only {n_clips} clips were given")
+        order += [c] * t
+    return order
+
+
+def build_sequence(work, clips, pattern, mbps, speed, grain, shake):
+    """Several clips that all start and end on the same frame, cut together in a pattern (e.g. shot 1 four
+    times, shot 2, shot 1 five times...). Each clip is encoded once with its first frame dropped (it repeats
+    the previous clip's last frame), then the pattern is joined by stream copy into one loop segment."""
+    order = parse_pattern(pattern, len(clips))
+    base = "scale=1920:1080:flags=lanczos,setsar=1"
+    if grain:
+        base += f",gblur=sigma=0.6,noise=alls={int(grain)}:allf=t+u,eq=saturation=0.93"
+    parts = []
+    for i, src in enumerate(clips, 1):
+        s = probe(src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
+        frames = int(s["nb_read_packets"])
+        num, den = (int(x) for x in s["r_frame_rate"].split("/"))
+        fps = num / den
+        out_fps = min(60.0, fps * speed)
+        seg_len = (frames - 1) / fps / speed
+        graph = (f"[0:v]trim=start_frame=1:end_frame={frames},setpts=(N/{fps}/TB)/{speed},{base}"
+                 f"{shake_filter(shake, seg_len)}[v]")
+        dst = work / f"clip{i}_1080p.mp4"
+        sh("ffmpeg", "-y", "-v", "error", "-i", src, "-an", "-filter_complex", graph, "-map", "[v]",
+           "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+           "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
+           "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
+           "-r", f"{out_fps:g}", dst)
+        parts.append(dst)
+    lst = work / "sequence.txt"
+    lst.write_text("".join(f"file '{parts[c - 1].resolve()}'\n" for c in order))
+    seq = work / "sequence_1080p.mp4"
+    sh("ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", seq)
+    print(f"Sequence: {len(order)} shots, pattern {pattern}", flush=True)
+    return seq
+
+
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern=""):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
     num, den = (int(x) for x in s["r_frame_rate"].split("/"))
@@ -48,6 +114,9 @@ def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0):
     if mbps is None:
         mbps = 8.0 if (out_fps > 30 or grain) else 5.0
     seg = work / "loop_1080p.mp4"
+    if pattern:
+        seg = build_sequence(work, [loop_src, *(clips or [])], pattern, mbps, speed, grain, shake)
+        xfade = 0
     base = "scale=1920:1080:flags=lanczos,setsar=1"
     if grain:
         # 2001 camera look: slight softness, moving film grain, a touch less saturation
@@ -59,21 +128,25 @@ def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0):
         if frames < 3 * x:
             sys.exit(f"Loop clip too short ({frames} frames) for a {xfade}s seam crossfade.")
         offset = (frames - 2 * x) / src_fps
+        seg_len = (frames - x) / src_fps / speed
         graph = (f"[0:v]{base},split[s1][s2];"
                  f"[s1]trim=start_frame={x}:end_frame={frames},setpts=N/{src_fps}/TB[a];"
                  f"[s2]trim=start_frame=0:end_frame={x},setpts=N/{src_fps}/TB[b];"
-                 f"[a][b]xfade=transition=fade:duration={x / src_fps:.6f}:offset={offset:.6f},setpts=PTS/{speed}[v]")
+                 f"[a][b]xfade=transition=fade:duration={x / src_fps:.6f}:offset={offset:.6f},setpts=PTS/{speed}"
+                 f"{shake_filter(shake, seg_len)}[v]")
         frame_args = []
     else:
         # Plain loop: drop the duplicate last frame so the seam does not stutter.
-        graph = f"[0:v]{base},setpts=PTS/{speed}[v]"
+        seg_len = (frames - 1) / src_fps / speed
+        graph = f"[0:v]{base},setpts=PTS/{speed}{shake_filter(shake, seg_len)}[v]"
         frame_args = ["-frames:v", frames - 1]
     # One encode of the short clip: exact 1080p, sped up, closed GOP so copies join cleanly.
-    sh("ffmpeg", "-y", "-v", "error", "-i", loop_src, "-an", "-filter_complex", graph, "-map", "[v]", *frame_args,
-       "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
-       "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
-       "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
-       "-r", f"{out_fps:g}", seg)
+    if not pattern:
+        sh("ffmpeg", "-y", "-v", "error", "-i", loop_src, "-an", "-filter_complex", graph, "-map", "[v]", *frame_args,
+         "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+         "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
+         "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
+         "-r", f"{out_fps:g}", seg)
     seg_info = probe(seg, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     seg_frames = int(seg_info["nb_read_packets"])
     sn, sd = (int(v) for v in seg_info["r_frame_rate"].split("/"))
@@ -190,6 +263,9 @@ def main():
     ap.add_argument("--thumb-url", default="", help="image to set as the thumbnail (resized to 1280x720)")
     ap.add_argument("--video-id", default="", help="only set the thumbnail on this existing video; no render or upload")
     ap.add_argument("--extra", default="", help='JSON of optional settings, e.g. {"trim_start": 16.4, "grain": 22}')
+    ap.add_argument("--clips", nargs="*", default=[], help="more loop clips (URLs) for --pattern; clip 1 is --loop-url")
+    ap.add_argument("--pattern", default="", help="shot order, e.g. 1x4,2,1x5,2,1x7,2,1x5,2 (clips must share start/end frame)")
+    ap.add_argument("--shake", type=float, default=0, help="handheld camera wobble in pixels (0 = off, about 8 = subtle)")
     ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
     ap.add_argument("--trim-start", type=float, default=0.0,
                     help="cut this many seconds off the start of the mix (cold open for mixes made before it was "
@@ -198,9 +274,14 @@ def main():
     if a.extra.strip():
         for k, v in json.loads(a.extra).items():
             k = k.replace("-", "_")
-            if k not in ("trim_start", "grain", "xfade", "mbps"):
+            if k == "clips":
+                a.clips = [str(u) for u in v]
+            elif k == "pattern":
+                a.pattern = str(v)
+            elif k in ("trim_start", "grain", "xfade", "mbps", "shake"):
+                setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
+            else:
                 sys.exit(f"unknown extra setting: {k}")
-            setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
 
     if len(a.title) > 100:
         sys.exit(f"Title is {len(a.title)} characters; YouTube allows 100.")
@@ -222,9 +303,17 @@ def main():
     loop = Path(a.loop_file) if a.loop_file else work / "loop_src.mp4"
     if not a.loop_file:
         download(a.loop_url, loop)
+    clip_files = []
+    for i, u in enumerate(a.clips, 2):
+        f = work / f"loop_src{i}.mp4"
+        if Path(u).exists():
+            f = Path(u)
+        else:
+            download(u, f)
+        clip_files.append(f)
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
@@ -247,7 +336,8 @@ def main():
     (day / "youtube.json").write_text(json.dumps({
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
         "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
-        "trim_start_s": a.trim_start or None, "grain": a.grain or None,
+        "trim_start_s": a.trim_start or None, "grain": a.grain or None, "shake": a.shake or None,
+        "clips": a.clips or None, "pattern": a.pattern or None,
         "thumbnail_url": a.thumb_url or None, "thumbnail_set": thumb_ok},
         indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

@@ -28,7 +28,7 @@ on:
         description: "Speed-up for the loop clip (models render the car too slow)"
         default: "2.5"
       extra:
-        description: 'Optional JSON settings: {"trim_start": seconds cut off the mix start, "grain": 0-40 film grain, "xfade": seam seconds}'
+        description: 'Optional JSON settings: {"trim_start": seconds cut off the mix start, "grain": 0-40 film grain, "shake": camera wobble px, "clips": [more loop URLs], "pattern": "1x4,2,1x5,2", "xfade": seam seconds}'
         default: "{}"
       render_only:
         description: "Render only, keep the mp4 as a run artifact, no upload"
