@@ -1,6 +1,6 @@
 {
-  "video_id": "_-2h9Zi3utk",
-  "url": "https://youtu.be/_-2h9Zi3utk",
+  "video_id": "E1J_eUDHPhc",
+  "url": "https://youtu.be/E1J_eUDHPhc",
   "title": "it's 2am and she still hasn't left the dance floor (90s drum and bass)",
   "privacy": "private",
   "publish_at": "2026-10-24T08:00:00Z",
@@ -8,15 +8,19 @@
   "duration_s": 2644,
   "bitrate_mbps": 8.0,
   "speed": 1.0,
-  "seam_xfade_s": 1.0,
+  "seam_xfade_s": 0.0,
   "trim_start_s": 16.364,
   "grain": 40,
   "shake": 8,
   "clips": [
-    "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_030619_6e530729-1658-4fce-92e2-8b888bcf319b.mp4"
+    "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_030619_6e530729-1658-4fce-92e2-8b888bcf319b.mp4",
+    "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_050437_9f0acb3b-4a92-4393-b841-b61a14841958.mp4"
   ],
-  "pattern": "1x4,2,1x5,2,1x7,2,1x5,2",
-  "focus": true,
+  "pattern": "3x4,1,3x5,2,3x7,1,3x5,2",
+  "focus": {
+    "blur": 3.5
+  },
+  "anchor": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/efaeef9f-35fe-4d8a-b6e8-be21f12e43f2.jpg",
   "thumbnail_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_034018_c4992631-e60b-489d-bfd4-fc494c43adc4.png",
   "thumbnail_set": true
 }
