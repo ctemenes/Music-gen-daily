@@ -1,15 +1,22 @@
 {
-  "video_id": "seFpEKI8ZBU",
-  "url": "https://youtu.be/seFpEKI8ZBU",
-  "title": "you're the only car on the road tonight (90s drum and bass)",
+  "video_id": "_-2h9Zi3utk",
+  "url": "https://youtu.be/_-2h9Zi3utk",
+  "title": "it's 2am and she still hasn't left the dance floor (90s drum and bass)",
   "privacy": "private",
   "publish_at": "2026-10-24T08:00:00Z",
-  "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_044313_3db9bad7-d59e-42a0-b358-b9c7cbac3e89.mp4",
+  "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_013317_e3e0b447-8357-4f9c-9edb-4a919f853fbd.mp4",
   "duration_s": 2644,
   "bitrate_mbps": 8.0,
-  "speed": 2.5,
+  "speed": 1.0,
   "seam_xfade_s": 1.0,
   "trim_start_s": 16.364,
-  "thumbnail_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261023_044133_c6a72fd4-77b9-42c0-986a-50757beacf7d.png",
+  "grain": 40,
+  "shake": 8,
+  "clips": [
+    "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_030619_6e530729-1658-4fce-92e2-8b888bcf319b.mp4"
+  ],
+  "pattern": "1x4,2,1x5,2,1x7,2,1x5,2",
+  "focus": true,
+  "thumbnail_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261024_034018_c4992631-e60b-489d-bfd4-fc494c43adc4.png",
   "thumbnail_set": true
 }
