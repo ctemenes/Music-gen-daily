@@ -12,7 +12,10 @@
     "Last Lap"
   ],
   "used_names": [
+    "Afterburn",
     "Afterglow",
+    "Airlock",
+    "Apogee",
     "Black Ice",
     "Boost",
     "Broken Burnout",
@@ -26,7 +29,9 @@
     "Coldstart",
     "Deep Claypan",
     "Deep Mirror",
+    "Deep Redline",
     "Deep Sunwash",
+    "Docking",
     "Downforce",
     "Dry Creek Line",
     "Dry Lake",
@@ -43,6 +48,7 @@
     "Gibber",
     "Glasshouse",
     "Golden Hour",
+    "Halo Run",
     "Halogen",
     "Headland",
     "Heatwave",
@@ -55,6 +61,7 @@
     "High Wet",
     "Hollow Permafrost",
     "Hollow Sidewinder",
+    "Horizon Line",
     "Hyper Burnout",
     "Hyper Mesa",
     "Hyper Sunburn",
@@ -101,15 +108,18 @@
     "Road Train",
     "Saltbush",
     "Saltwater",
+    "Satellite Loop",
     "Seabreeze",
     "Sector Three",
     "Signal Transit",
     "Silent Downforce",
     "Skyhook",
     "Spinifex Circuit",
+    "Stardust Rush",
     "Static",
     "Sub Zero Transit",
     "Sundown",
+    "Tether Loop",
     "Throttle",
     "Throttle Line",
     "Tidewater",
@@ -254,6 +264,23 @@
         "Night Floe"
       ],
       "seconds": 1851
+    },
+    {
+      "date": "2026-10-26",
+      "theme": "orbital",
+      "tracks": [
+        "Docking",
+        "Halo Run",
+        "Tether Loop",
+        "Horizon Line",
+        "Satellite Loop",
+        "Stardust Rush",
+        "Apogee",
+        "Deep Redline",
+        "Afterburn",
+        "Airlock"
+      ],
+      "seconds": 1334
     }
   ]
 }
