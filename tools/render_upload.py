@@ -387,7 +387,11 @@ def main():
                 a.description_file = str(v)
             elif k == "tags":
                 a.tags = [str(t).strip() for t in (v.split(",") if isinstance(v, str) else v) if str(t).strip()]
-            elif k in ("trim_start", "grain", "xfade", "mbps", "shake"):
+            elif k == "mix":
+                a.mix = str(v)  # repo path or URL of the mix (instead of the day's release)
+            elif k == "synthetic":
+                a.synthetic = str(v)
+            elif k in ("trim_start", "grain", "xfade", "mbps", "shake", "speed"):
                 setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
             else:
                 sys.exit(f"unknown extra setting: {k}")
@@ -404,6 +408,9 @@ def main():
     mix = Path(a.mix) if a.mix else work / "mix.mp3"
     if not a.mix:
         download(f"https://github.com/{REPO}/releases/download/mix-{a.date}/mix.mp3", mix)
+    elif not mix.exists() and a.mix.startswith("http"):
+        mix = work / ("mix_src" + Path(a.mix.split("?")[0]).suffix)
+        download(a.mix, mix)
     if a.pattern:
         a.xfade = 0.0  # pattern cuts drop duplicate frames instead of crossfading
     if a.trim_start > 0:
