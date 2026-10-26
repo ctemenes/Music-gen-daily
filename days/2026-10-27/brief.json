@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-27",
+  "date": "2026-10-27",
+  "theme": {
+    "id": "grand_prix",
+    "name": "Mega City Grand Prix",
+    "scene": "A packed street circuit through a futuristic mega city, giant screens, crowds and tight hairpins.",
+    "setting": "street circuit",
+    "time_of_day": "dusk",
+    "weather": "clear",
+    "mood_words": [
+      "hype",
+      "crowded",
+      "loud",
+      "bright",
+      "victorious"
+    ],
+    "palette": [
+      {
+        "name": "Race red",
+        "hex": "#E8202A"
+      },
+      {
+        "name": "Checker white",
+        "hex": "#FFFFFF"
+      },
+      {
+        "name": "Trophy gold",
+        "hex": "#FFC72C"
+      },
+      {
+        "name": "Night city navy",
+        "hex": "#101B3B"
+      }
+    ],
+    "visual_motifs": [
+      "giant video screens",
+      "checkered flags",
+      "grandstands",
+      "hairpin bend"
+    ],
+    "hook_line": "it's 2001. eighty thousand people screaming, one hairpin left and it's your race to lose. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly F1-style car on a futuristic city street circuit at dusk, giant screens and grandstands, dithered retro game render",
+      "low-poly racer crossing a checkered finish line with fireworks, fake retro HUD showing FINAL LAP and 1st place",
+      "wide shot of a tight hairpin between skyscrapers with low-poly crowds, red and gold lighting, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 16,
+    "duration_seconds": 2091.05,
+    "duration": "34:51",
+    "bpm_range": [
+      174,
+      178
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "chopped breaks",
+      "cinematic",
+      "dark",
+      "jungle",
+      "moody",
+      "neuro-ish",
+      "reese",
+      "stabs",
+      "techstep",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Overdrive Run",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 178,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Slipstreamer",
+        "start_seconds": 113.26,
+        "timestamp": "01:53",
+        "bpm": 175,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Overtake Run",
+        "start_seconds": 244.83,
+        "timestamp": "04:04",
+        "bpm": 177,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Silent Apex",
+        "start_seconds": 375.06,
+        "timestamp": "06:15",
+        "bpm": 176,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Victory Lane",
+        "start_seconds": 505.94,
+        "timestamp": "08:25",
+        "bpm": 174,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Podium",
+        "start_seconds": 638.3,
+        "timestamp": "10:38",
+        "bpm": 174,
+        "style": "jungle, reese bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Lap Record Transit",
+        "start_seconds": 770.71,
+        "timestamp": "12:50",
+        "bpm": 178,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Pit Lane",
+        "start_seconds": 900.26,
+        "timestamp": "15:00",
+        "bpm": 175,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Checkered",
+        "start_seconds": 1031.83,
+        "timestamp": "17:11",
+        "bpm": 175,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Grid Stage",
+        "start_seconds": 1163.49,
+        "timestamp": "19:23",
+        "bpm": 176,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Night Hairpin",
+        "start_seconds": 1294.43,
+        "timestamp": "21:34",
+        "bpm": 175,
+        "style": "techstep, growling bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Grandstand",
+        "start_seconds": 1426.06,
+        "timestamp": "23:46",
+        "bpm": 177,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Photo Finish",
+        "start_seconds": 1556.28,
+        "timestamp": "25:56",
+        "bpm": 176,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Hidden Downforce",
+        "start_seconds": 1687.16,
+        "timestamp": "28:07",
+        "bpm": 176,
+        "style": "techstep, growling bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Pole Position",
+        "start_seconds": 1818.07,
+        "timestamp": "30:18",
+        "bpm": 178,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Chicane",
+        "start_seconds": 1947.56,
+        "timestamp": "32:27",
+        "bpm": 177,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "cinematic"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-27",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-27",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-27/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Checkered",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.49,
+        "mix_position_seconds": 1114.12,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-27/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Photo Finish",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.45,
+        "mix_position_seconds": 1638.07,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-27/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Pole Position",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.39,
+        "mix_position_seconds": 1899.02,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-27/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-27/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-27 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. eighty thousand people screaming, one hairpin left and it's your race to lose. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Overdrive Run\n01:53 Slipstreamer\n04:04 Overtake Run\n06:15 Silent Apex\n08:25 Victory Lane\n10:38 Podium\n12:50 Lap Record Transit\n15:00 Pit Lane\n17:11 Checkered\n19:23 Grid Stage\n21:34 Night Hairpin\n23:46 Grandstand\n25:56 Photo Finish\n28:07 Hidden Downforce\n30:18 Pole Position\n32:27 Chicane\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Overdrive Run\n01:53 Slipstreamer\n04:04 Overtake Run\n06:15 Silent Apex\n08:25 Victory Lane\n10:38 Podium\n12:50 Lap Record Transit\n15:00 Pit Lane\n17:11 Checkered\n19:23 Grid Stage\n21:34 Night Hairpin\n23:46 Grandstand\n25:56 Photo Finish\n28:07 Hidden Downforce\n30:18 Pole Position\n32:27 Chicane",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "mega city grand prix",
+      "street circuit",
+      "dusk",
+      "hype",
+      "crowded",
+      "loud"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.24,
+    "duration_seconds": 2091.05
+  }
+}
