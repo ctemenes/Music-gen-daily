@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-29",
+  "date": "2026-10-29",
+  "theme": {
+    "id": "mountain",
+    "name": "Midnight Mountain Pass",
+    "scene": "A winding mountain pass at midnight, fog in the valleys, headlights sweeping across switchbacks.",
+    "setting": "mountain pass",
+    "time_of_day": "midnight",
+    "weather": "fog",
+    "mood_words": [
+      "moody",
+      "deep",
+      "winding",
+      "hypnotic",
+      "smooth"
+    ],
+    "palette": [
+      {
+        "name": "Midnight purple",
+        "hex": "#2A1446"
+      },
+      {
+        "name": "Fog grey",
+        "hex": "#8C93A8"
+      },
+      {
+        "name": "Headlight white",
+        "hex": "#FFF6D6"
+      },
+      {
+        "name": "Pine black",
+        "hex": "#0D1A14"
+      }
+    ],
+    "visual_motifs": [
+      "switchbacks",
+      "fog banks",
+      "headlight beams",
+      "pine forest"
+    ],
+    "hook_line": "it's 2001. fog in the valley, nothing but switchbacks and headlights, and you're the only one left out here. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly sports car on a winding mountain road at midnight, fog in the valley, headlight beams, dithered retro game render",
+      "low-poly switchback road lit only by headlights, purple night sky, fake retro HUD showing 1st place",
+      "aerial view of a serpentine mountain pass with light trails through pine forest, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 12,
+    "duration_seconds": 1603.75,
+    "duration": "26:43",
+    "bpm_range": [
+      170,
+      174
+    ],
+    "style_tags": [
+      "deep",
+      "jazzy",
+      "liquid",
+      "moody",
+      "reese",
+      "rolling",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Ridgeline",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Kickdown Approach",
+        "start_seconds": 117.21,
+        "timestamp": "01:57",
+        "bpm": 171,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "moody"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "High Hollow",
+        "start_seconds": 251.92,
+        "timestamp": "04:11",
+        "bpm": 172,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Ember",
+        "start_seconds": 385.9,
+        "timestamp": "06:25",
+        "bpm": 171,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Deep Overlook",
+        "start_seconds": 520.61,
+        "timestamp": "08:40",
+        "bpm": 174,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Highland",
+        "start_seconds": 653.11,
+        "timestamp": "10:53",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Timberline",
+        "start_seconds": 786.26,
+        "timestamp": "13:06",
+        "bpm": 173,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Night Pass Loop",
+        "start_seconds": 919.44,
+        "timestamp": "15:19",
+        "bpm": 170,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Fogline",
+        "start_seconds": 1054.88,
+        "timestamp": "17:34",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Valley Floor",
+        "start_seconds": 1188.14,
+        "timestamp": "19:48",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Switchback",
+        "start_seconds": 1322.07,
+        "timestamp": "22:02",
+        "bpm": 174,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Gradient Stage",
+        "start_seconds": 1454.54,
+        "timestamp": "24:14",
+        "bpm": 170,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "warm"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-29",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-29",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-29/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Highland",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 736.31,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-29/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Fogline",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 1138.2,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-29/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Switchback",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.52,
+        "mix_position_seconds": 1404.88,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-29/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-29/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-29 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. fog in the valley, nothing but switchbacks and headlights, and you're the only one left out here. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Ridgeline\n01:57 Kickdown Approach\n04:11 High Hollow\n06:25 Ember\n08:40 Deep Overlook\n10:53 Highland\n13:06 Timberline\n15:19 Night Pass Loop\n17:34 Fogline\n19:48 Valley Floor\n22:02 Switchback\n24:14 Gradient Stage\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Ridgeline\n01:57 Kickdown Approach\n04:11 High Hollow\n06:25 Ember\n08:40 Deep Overlook\n10:53 Highland\n13:06 Timberline\n15:19 Night Pass Loop\n17:34 Fogline\n19:48 Valley Floor\n22:02 Switchback\n24:14 Gradient Stage",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "midnight mountain pass",
+      "mountain pass",
+      "midnight",
+      "moody",
+      "deep",
+      "winding"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 0.92,
+    "duration_seconds": 1603.75
+  }
+}
