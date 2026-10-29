@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-30",
+  "date": "2026-10-30",
+  "theme": {
+    "id": "rainforest",
+    "name": "Rainforest Canopy Rally",
+    "scene": "A muddy rally stage through dense rainforest, waterfalls, vines and shafts of light through the canopy.",
+    "setting": "rainforest rally stage",
+    "time_of_day": "morning",
+    "weather": "humid, light rain",
+    "mood_words": [
+      "lush",
+      "humid",
+      "wild",
+      "rolling",
+      "organic"
+    ],
+    "palette": [
+      {
+        "name": "Canopy green",
+        "hex": "#1E7A46"
+      },
+      {
+        "name": "Moss",
+        "hex": "#8DBA45"
+      },
+      {
+        "name": "Waterfall mist",
+        "hex": "#CFEFE6"
+      },
+      {
+        "name": "Mud brown",
+        "hex": "#5A3A22"
+      }
+    ],
+    "visual_motifs": [
+      "waterfalls",
+      "vines",
+      "god rays",
+      "mud spray"
+    ],
+    "hook_line": "it's 2001. mud on the windscreen, waterfalls everywhere and the jungle's louder than your engine. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly rally car splashing through a muddy rainforest track, waterfall behind, dithered retro game render",
+      "low-poly racer jumping a creek under a dense green canopy with shafts of light, fake retro HUD showing 1st place",
+      "wide shot of a jungle rally stage with vines and mist, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 20,
+    "duration_seconds": 2698.22,
+    "duration": "44:58",
+    "bpm_range": [
+      168,
+      174
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "chopped breaks",
+      "cinematic",
+      "deep",
+      "jazzy",
+      "jungle",
+      "liquid",
+      "reese",
+      "rolling",
+      "stabs",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Kingfisher Approach",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 169,
+        "style": "rolling, stab bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "stabs",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Vine",
+        "start_seconds": 119.29,
+        "timestamp": "01:59",
+        "bpm": 169,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Mudslide",
+        "start_seconds": 255.62,
+        "timestamp": "04:15",
+        "bpm": 168,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Wheelspin",
+        "start_seconds": 392.73,
+        "timestamp": "06:32",
+        "bpm": 174,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Fern Gully Stage",
+        "start_seconds": 525.32,
+        "timestamp": "08:45",
+        "bpm": 169,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Kickdown Sprint",
+        "start_seconds": 661.51,
+        "timestamp": "11:01",
+        "bpm": 174,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Monsoon",
+        "start_seconds": 794.06,
+        "timestamp": "13:14",
+        "bpm": 170,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Lost Waterfall",
+        "start_seconds": 929.48,
+        "timestamp": "15:29",
+        "bpm": 170,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Undergrowth Run",
+        "start_seconds": 1065.01,
+        "timestamp": "17:45",
+        "bpm": 168,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Hinterland",
+        "start_seconds": 1202.09,
+        "timestamp": "20:02",
+        "bpm": 170,
+        "style": "rolling, stab bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Overgrowth Run",
+        "start_seconds": 1337.68,
+        "timestamp": "22:17",
+        "bpm": 169,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Cold Throttle",
+        "start_seconds": 1473.98,
+        "timestamp": "24:33",
+        "bpm": 170,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Humid",
+        "start_seconds": 1609.54,
+        "timestamp": "26:49",
+        "bpm": 174,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Riverbend",
+        "start_seconds": 1742.07,
+        "timestamp": "29:02",
+        "bpm": 173,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Broken Canopy",
+        "start_seconds": 1875.22,
+        "timestamp": "31:15",
+        "bpm": 174,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Rainmaker",
+        "start_seconds": 2007.66,
+        "timestamp": "33:27",
+        "bpm": 171,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 17,
+        "title": "Wet Season",
+        "start_seconds": 2142.31,
+        "timestamp": "35:42",
+        "bpm": 172,
+        "style": "jungle, reese bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 18,
+        "title": "Downpour",
+        "start_seconds": 2276.29,
+        "timestamp": "37:56",
+        "bpm": 169,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 19,
+        "title": "Night Treeline",
+        "start_seconds": 2412.54,
+        "timestamp": "40:12",
+        "bpm": 169,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 20,
+        "title": "Turbo Stage",
+        "start_seconds": 2548.87,
+        "timestamp": "42:28",
+        "bpm": 170,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "warm"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-30",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-30",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-30/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Broken Canopy",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.52,
+        "mix_position_seconds": 1958.0,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-30/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Downpour",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.68,
+        "mix_position_seconds": 2361.41,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-30/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Turbo Stage",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.65,
+        "mix_position_seconds": 2633.6,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-30/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-30/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-30 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. mud on the windscreen, waterfalls everywhere and the jungle's louder than your engine. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Kingfisher Approach\n01:59 Vine\n04:15 Mudslide\n06:32 Wheelspin\n08:45 Fern Gully Stage\n11:01 Kickdown Sprint\n13:14 Monsoon\n15:29 Lost Waterfall\n17:45 Undergrowth Run\n20:02 Hinterland\n22:17 Overgrowth Run\n24:33 Cold Throttle\n26:49 Humid\n29:02 Riverbend\n31:15 Broken Canopy\n33:27 Rainmaker\n35:42 Wet Season\n37:56 Downpour\n40:12 Night Treeline\n42:28 Turbo Stage\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Kingfisher Approach\n01:59 Vine\n04:15 Mudslide\n06:32 Wheelspin\n08:45 Fern Gully Stage\n11:01 Kickdown Sprint\n13:14 Monsoon\n15:29 Lost Waterfall\n17:45 Undergrowth Run\n20:02 Hinterland\n22:17 Overgrowth Run\n24:33 Cold Throttle\n26:49 Humid\n29:02 Riverbend\n31:15 Broken Canopy\n33:27 Rainmaker\n35:42 Wet Season\n37:56 Downpour\n40:12 Night Treeline\n42:28 Turbo Stage",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "rainforest canopy rally",
+      "rainforest rally stage",
+      "morning",
+      "lush",
+      "humid",
+      "wild"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 0.8,
+    "duration_seconds": 2698.22
+  }
+}
