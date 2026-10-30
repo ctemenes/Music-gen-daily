@@ -1,0 +1,520 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-10-31",
+  "date": "2026-10-31",
+  "theme": {
+    "id": "industrial",
+    "name": "Industrial Underground",
+    "scene": "A tight racing line through a disused factory and service tunnels, sodium lights, sparks and steam vents.",
+    "setting": "factory tunnels",
+    "time_of_day": "underground",
+    "weather": "steam",
+    "mood_words": [
+      "dark",
+      "mechanical",
+      "aggressive",
+      "heavy",
+      "tense"
+    ],
+    "palette": [
+      {
+        "name": "Sodium orange",
+        "hex": "#FF8C1A"
+      },
+      {
+        "name": "Gunmetal",
+        "hex": "#2E3338"
+      },
+      {
+        "name": "Hazard yellow",
+        "hex": "#F2C230"
+      },
+      {
+        "name": "Rust",
+        "hex": "#7A3B1E"
+      }
+    ],
+    "visual_motifs": [
+      "sparks",
+      "steam vents",
+      "hazard stripes",
+      "tunnel lights rushing past"
+    ],
+    "hook_line": "it's 2001. the tunnel lights are flickering, the walls are close and you can't hear anyone behind you. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly race car blasting through an industrial tunnel lit by orange sodium lights, sparks flying, dithered retro game render",
+      "low-poly factory race track with hazard stripes, steam vents and rusted metal, fake retro HUD showing 1st place",
+      "chase-cam view of a low-poly racer driving on the wall of a dark concrete tunnel, light streaks, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 26,
+    "duration_seconds": 3396.32,
+    "duration": "56:36",
+    "bpm_range": [
+      174,
+      178
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "cinematic",
+      "dark",
+      "moody",
+      "neuro-ish",
+      "reese",
+      "stabs",
+      "techstep",
+      "two-step"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Electric Redline",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 175,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Exhaust",
+        "start_seconds": 115.2,
+        "timestamp": "01:55",
+        "bpm": 178,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Foundry",
+        "start_seconds": 244.72,
+        "timestamp": "04:04",
+        "bpm": 175,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Inertia Sprint",
+        "start_seconds": 376.29,
+        "timestamp": "06:16",
+        "bpm": 174,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Slag",
+        "start_seconds": 508.68,
+        "timestamp": "08:28",
+        "bpm": 175,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Conveyor",
+        "start_seconds": 640.37,
+        "timestamp": "10:40",
+        "bpm": 178,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Gearshift Protocol",
+        "start_seconds": 769.88,
+        "timestamp": "12:49",
+        "bpm": 175,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Night Turbine",
+        "start_seconds": 901.46,
+        "timestamp": "15:01",
+        "bpm": 175,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Pressure",
+        "start_seconds": 1033.12,
+        "timestamp": "17:13",
+        "bpm": 176,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Burnout Rush",
+        "start_seconds": 1164.05,
+        "timestamp": "19:24",
+        "bpm": 175,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Hidden Turbo",
+        "start_seconds": 1295.68,
+        "timestamp": "21:35",
+        "bpm": 178,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Final Rivet",
+        "start_seconds": 1425.2,
+        "timestamp": "23:45",
+        "bpm": 176,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Boost Line",
+        "start_seconds": 1556.06,
+        "timestamp": "25:56",
+        "bpm": 178,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Iron Protocol",
+        "start_seconds": 1685.55,
+        "timestamp": "28:05",
+        "bpm": 176,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Momentum Transit",
+        "start_seconds": 1816.4,
+        "timestamp": "30:16",
+        "bpm": 174,
+        "style": "techstep, growling bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Deep Torque",
+        "start_seconds": 1948.76,
+        "timestamp": "32:28",
+        "bpm": 176,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 17,
+        "title": "Flywheel",
+        "start_seconds": 2079.73,
+        "timestamp": "34:39",
+        "bpm": 178,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 18,
+        "title": "Velocity Circuit",
+        "start_seconds": 2209.22,
+        "timestamp": "36:49",
+        "bpm": 178,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 19,
+        "title": "Lost Overdrive",
+        "start_seconds": 2338.66,
+        "timestamp": "38:58",
+        "bpm": 178,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 20,
+        "title": "Gantry",
+        "start_seconds": 2468.09,
+        "timestamp": "41:08",
+        "bpm": 178,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 21,
+        "title": "Furnace Approach",
+        "start_seconds": 2597.53,
+        "timestamp": "43:17",
+        "bpm": 175,
+        "style": "techstep, stab bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 22,
+        "title": "Sump Theory",
+        "start_seconds": 2729.11,
+        "timestamp": "45:29",
+        "bpm": 178,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 23,
+        "title": "Piston Rush",
+        "start_seconds": 2858.63,
+        "timestamp": "47:38",
+        "bpm": 175,
+        "style": "techstep, stab bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 24,
+        "title": "Deep Throttle",
+        "start_seconds": 2990.2,
+        "timestamp": "49:50",
+        "bpm": 175,
+        "style": "techstep, stab bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 25,
+        "title": "Bulkhead Line",
+        "start_seconds": 3121.86,
+        "timestamp": "52:01",
+        "bpm": 175,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 26,
+        "title": "Blackout Approach",
+        "start_seconds": 3253.52,
+        "timestamp": "54:13",
+        "bpm": 178,
+        "style": "techstep, growling bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "neuro-ish",
+          "moody"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-10-31",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-10-31",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-31/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Furnace Approach",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.49,
+        "mix_position_seconds": 2679.74,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-31/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Piston Rush",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.49,
+        "mix_position_seconds": 2940.83,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-31/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Blackout Approach",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.39,
+        "mix_position_seconds": 3334.5,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-31/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-10-31/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-10-31 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. the tunnel lights are flickering, the walls are close and you can't hear anyone behind you. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Electric Redline\n01:55 Exhaust\n04:04 Foundry\n06:16 Inertia Sprint\n08:28 Slag\n10:40 Conveyor\n12:49 Gearshift Protocol\n15:01 Night Turbine\n17:13 Pressure\n19:24 Burnout Rush\n21:35 Hidden Turbo\n23:45 Final Rivet\n25:56 Boost Line\n28:05 Iron Protocol\n30:16 Momentum Transit\n32:28 Deep Torque\n34:39 Flywheel\n36:49 Velocity Circuit\n38:58 Lost Overdrive\n41:08 Gantry\n43:17 Furnace Approach\n45:29 Sump Theory\n47:38 Piston Rush\n49:50 Deep Throttle\n52:01 Bulkhead Line\n54:13 Blackout Approach\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Electric Redline\n01:55 Exhaust\n04:04 Foundry\n06:16 Inertia Sprint\n08:28 Slag\n10:40 Conveyor\n12:49 Gearshift Protocol\n15:01 Night Turbine\n17:13 Pressure\n19:24 Burnout Rush\n21:35 Hidden Turbo\n23:45 Final Rivet\n25:56 Boost Line\n28:05 Iron Protocol\n30:16 Momentum Transit\n32:28 Deep Torque\n34:39 Flywheel\n36:49 Velocity Circuit\n38:58 Lost Overdrive\n41:08 Gantry\n43:17 Furnace Approach\n45:29 Sump Theory\n47:38 Piston Rush\n49:50 Deep Throttle\n52:01 Bulkhead Line\n54:13 Blackout Approach",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "industrial underground",
+      "factory tunnels",
+      "underground",
+      "dark",
+      "mechanical",
+      "aggressive"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.29,
+    "duration_seconds": 3396.32
+  }
+}
