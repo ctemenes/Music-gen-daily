@@ -1,0 +1,38 @@
+name: Cartoon Curiosities Shorts to YouTube
+
+on:
+  push:
+    paths:
+      - "cartoon/queue.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cartoon-upload
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload new Shorts
+        env:
+          CC_YT_CLIENT_ID: ${{ secrets.CC_YT_CLIENT_ID }}
+          CC_YT_CLIENT_SECRET: ${{ secrets.CC_YT_CLIENT_SECRET }}
+          CC_YT_REFRESH_TOKEN: ${{ secrets.CC_YT_REFRESH_TOKEN }}
+        run: |
+          pip install -q requests
+          python cartoon/upload_queue.py
+
+      - name: Save video links
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add cartoon/queue.json
+          git commit -m "Cartoon Curiosities: upload record" || exit 0
+          git pull --rebase -q && git push

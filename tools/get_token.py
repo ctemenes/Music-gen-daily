@@ -4,6 +4,7 @@ r"""One-time YouTube sign-in for the Music-gen-daily upload workflow. Run on Car
     pip install google-auth-oauthlib
     python get_token.py                      (asks for the client ID and pastes the secret hidden)
     python get_token.py client_secret.json   (or reads a downloaded client file)
+    python get_token.py client_secret.json --prefix CC_   (another channel: secrets CC_YT_CLIENT_ID etc.)
 
 It opens a browser to sign in to the YouTube channel, then stores three GitHub secrets on
 ctemenes/Music-gen-daily with the GitHub CLI (gh must be installed and signed in):
@@ -20,6 +21,12 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload",
           "https://www.googleapis.com/auth/youtube.force-ssl",
           "https://www.googleapis.com/auth/youtube.readonly",
           "https://www.googleapis.com/auth/yt-analytics.readonly"]
+
+PREFIX = ""
+if "--prefix" in sys.argv:  # sign in a second channel (e.g. Cartoon Curiosities) without touching the mix channel's secrets
+    i = sys.argv.index("--prefix")
+    PREFIX = sys.argv[i + 1]
+    del sys.argv[i:i + 2]
 
 gh = shutil.which("gh")
 if not gh:
@@ -45,6 +52,7 @@ if not creds.refresh_token:
     sys.exit("Google did not return a refresh token. Remove the app's access at myaccount.google.com/permissions and run this again.")
 for name, value in (("YT_CLIENT_ID", app["client_id"]), ("YT_CLIENT_SECRET", app["client_secret"]),
                     ("YT_REFRESH_TOKEN", creds.refresh_token)):
+    name = PREFIX + name
     r = subprocess.run([gh, "secret", "set", name, "-R", REPO], input=value, text=True, capture_output=True)
     if r.returncode != 0:
         sys.exit(f"Could not set {name}: {r.stderr.strip()[:300]}")

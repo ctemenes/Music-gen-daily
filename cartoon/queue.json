@@ -1,0 +1,30 @@
+{
+  "channel": "Cartoon Curiosities (@CartoonCuriosities)",
+  "note": "Entries with hold: true are skipped. Remove hold (and push) to upload. publish_at is UTC; 07:00Z = 6 pm Sydney.",
+  "videos": [
+    {
+      "file": "shorts/short_a_taung.mp4",
+      "title": "What killed this child 2 million years ago? #shorts",
+      "description": "In the 1920s a fossil skull turned up in Taung, South Africa. For decades a leopard got the blame. Then someone looked at the eye sockets.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #humanevolution #prehistoric #fossils #cartoon",
+      "tags": ["caveman", "Taung Child", "human evolution", "ancient humans", "prehistoric", "fossils", "crowned eagle", "cartoon explainer"],
+      "publish_at": "2026-10-31T07:00:00Z",
+      "hold": true
+    },
+    {
+      "file": "shorts/short_b_33mm.mp4",
+      "title": "Two holes in a skull, exactly 33 mm apart #shorts",
+      "description": "A young hominin's skull from Swartkrans Cave, South Africa, has two round holes in it. It looked like a weapon wound, until someone measured the gap.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #humanevolution #prehistoric #leopard #cartoon",
+      "tags": ["caveman", "Swartkrans", "leopard", "human evolution", "ancient humans", "prehistoric", "fossils", "cartoon explainer"],
+      "publish_at": "2026-11-01T07:00:00Z",
+      "hold": true
+    },
+    {
+      "file": "shorts/short_c_voices.mp4",
+      "title": "Wild animals fear human voices more than lions #shorts",
+      "description": "In 2023, scientists hid speakers at waterholes in Kruger National Park and played lions, dogs, gunshots and people talking calmly. The animals ran from the people.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #wildlife #kruger #animals #cartoon",
+      "tags": ["caveman", "Kruger National Park", "wildlife", "animal behaviour", "superpredator", "ancient humans", "cartoon explainer"],
+      "publish_at": "2026-11-02T07:00:00Z",
+      "hold": true
+    }
+  ]
+}
