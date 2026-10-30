@@ -62,7 +62,12 @@ def main():
                             "categoryId": v.get("category", "27"), "defaultLanguage": "en", "defaultAudioLanguage": "en"},
                 "status": status}
         print(f"Uploading {v['file']} as: {v['title']}", flush=True)
-        res = ru.upload(HERE / v["file"], meta, token)
+        path = HERE / v["file"]
+        if v.get("parts"):  # files over GitHub's 100 MB limit are stored in pieces and joined here
+            with open(path, "wb") as out:
+                for part in v["parts"]:
+                    out.write((HERE / part).read_bytes())
+        res = ru.upload(path, meta, token)
         v["video_id"] = res["id"]
         v["url"] = f"https://youtu.be/{res['id']}"
         links[v["file"]] = v["url"]
