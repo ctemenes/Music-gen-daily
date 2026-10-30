@@ -51,7 +51,7 @@ def esc(s):
 def render_short(work, loop, audio, out, hook, track, seconds, speed, grain, font):
     hook_file, track_file = work / "hook.txt", work / "track.txt"
     hook_file.write_text(wrap(hook, 22), encoding="utf-8")
-    track_file.write_text(f"{track}\nfull mix on the channel", encoding="utf-8")
+    track_file.write_text("full mix on the channel", encoding="utf-8")
     fg_h = int(round(W * 9 / 16 / 2)) * 2  # 608
     txt = (f"drawtext=fontfile='{font}':textfile='{hook_file}':fontsize=64:fontcolor=white:line_spacing=10:"
            f"x=(w-text_w)/2:y=300:shadowcolor=black@0.7:shadowx=3:shadowy=3,"
