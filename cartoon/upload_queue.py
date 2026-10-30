@@ -23,20 +23,32 @@ import render_upload as ru  # noqa: E402
 QUEUE = HERE / "queue.json"
 
 
+def fail(q, msg):
+    q["last_error"] = msg  # saved by the workflow, so the reason shows up in the repo
+    QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    sys.exit(msg)
+
+
 def main():
     q = json.loads(QUEUE.read_text(encoding="utf-8"))
+    q.pop("last_error", None)
     todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold")]
     if not todo:
         print("Nothing to upload.")
         return
-    token = ru.access_token()
+    try:
+        token = ru.access_token()
+    except SystemExit as e:
+        fail(q, str(e))
     want = q.get("expected_channel")
     if want:  # never upload to the wrong channel again
         r = ru.requests.get("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
                             headers={"Authorization": f"Bearer {token}"}, timeout=60)
+        if r.status_code != 200:
+            fail(q, f"Channel check failed ({r.status_code}): {r.text[:300]}")
         got = [c["snippet"]["title"] for c in r.json().get("items", [])]
         if want not in got:
-            sys.exit(f"Signed in to {got or 'no channel'}, not {want}. Run get_token.py --prefix CC_ again and pick {want}.")
+            fail(q, f"Signed in to {got or 'no channel'}, not {want}. Run get_token.py --prefix CC_ again and pick {want}.")
         print(f"Channel check OK: {want}", flush=True)
     links = {v["file"]: v["url"] for v in q["videos"] if v.get("url")}
     for v in todo:
