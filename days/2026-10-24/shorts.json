@@ -1,35 +1,33 @@
 {
   "full_video": "https://youtu.be/6cEKbcThO8Y",
+  "loop_from": "2026-10-24",
   "shorts": [
     {
       "short": 1,
-      "video_id": "f1knFG82X8g",
-      "url": "https://youtube.com/shorts/f1knFG82X8g",
+      "video_id": "gLByL_YZTNU",
+      "url": "https://youtube.com/shorts/gLByL_YZTNU",
       "title": "you're still leading and the sun won't go down #shorts",
       "track": "Night Corrugation",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-01T08:00:00Z",
+      "privacy": "private"
     },
     {
       "short": 2,
-      "video_id": "FN5zJoSWwYA",
-      "url": "https://youtube.com/shorts/FN5zJoSWwYA",
-      "title": "you're still leading and the sun won't go down #shorts",
+      "video_id": "qsoXJhfAyXI",
+      "url": "https://youtube.com/shorts/qsoXJhfAyXI",
+      "title": "Road Train #shorts",
       "track": "Road Train",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-01T20:00:00Z",
+      "privacy": "private"
     },
     {
       "short": 3,
-      "video_id": "h6A_w3gYHaY",
-      "url": "https://youtube.com/shorts/h6A_w3gYHaY",
-      "title": "you're still leading and the sun won't go down #shorts",
+      "video_id": "16hxJZcrFp8",
+      "url": "https://youtube.com/shorts/16hxJZcrFp8",
+      "title": "Hyper Sunburn #shorts",
       "track": "Hyper Sunburn",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-02T08:00:00Z",
+      "privacy": "private"
     }
   ]
 }
