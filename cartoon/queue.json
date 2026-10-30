@@ -1,6 +1,6 @@
 {
   "channel": "Cartoon Curiosities (@CartoonCuriosities)",
-  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 06:00Z = 5 pm, 07:00Z = 6 pm Sydney.",
+  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 06:00Z = 5 pm, 07:00Z = 6 pm Sydney. Channel signed in 30 Oct.",
   "videos": [
     {
       "file": "video1_predators.mp4",
