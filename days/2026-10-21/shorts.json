@@ -7,8 +7,9 @@
       "url": "https://youtube.com/shorts/lkrQoh2UKFE",
       "title": "you're in first place and it's still raining #shorts",
       "track": "Echo Drive",
-      "publish_at": "2026-11-02T20:00:00Z",
-      "privacy": "private"
+      "publish_at": null,
+      "privacy": "private",
+      "unscheduled": true
     },
     {
       "short": 2,
@@ -16,8 +17,9 @@
       "url": "https://youtube.com/shorts/4AtrIusMFRU",
       "title": "you're in first place and it's still raining #shorts",
       "track": "Deep Mirror",
-      "publish_at": "2026-11-03T08:00:00Z",
-      "privacy": "private"
+      "publish_at": null,
+      "privacy": "private",
+      "unscheduled": true
     },
     {
       "short": 3,
@@ -25,8 +27,9 @@
       "url": "https://youtube.com/shorts/LTNHZCZJI28",
       "title": "you're in first place and it's still raining #shorts",
       "track": "Halogen",
-      "publish_at": "2026-11-03T20:00:00Z",
-      "privacy": "private"
+      "publish_at": null,
+      "privacy": "private",
+      "unscheduled": true
     }
   ]
 }
