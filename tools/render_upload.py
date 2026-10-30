@@ -196,7 +196,7 @@ def build_sequence(work, clips, pattern, mbps, speed, grain, shake, focus=None, 
     return seq
 
 
-def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern="", focus=None, anchor=None, seam=0.25, cam=None):
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern="", focus=None, anchor=None, seam=0.25, cam=None, promo=None):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
     num, den = (int(x) for x in s["r_frame_rate"].split("/"))
@@ -248,8 +248,30 @@ def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=
     mix_dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(mix)],
                                    check=True, capture_output=True, text=True).stdout)
     loops = int(mix_dur / seg_dur) + 1
-    sh("ffmpeg", "-y", "-v", "error", "-stream_loop", loops, "-i", seg, "-i", mix, "-map", "0:v", "-map", "1:a",
-       "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-t", f"{mix_dur:.3f}", "-movflags", "+faststart", out)
+    if promo:
+        # Subscribe / "new mix every 2 days" card cut into the loop at the given times (seconds into the mix) and at
+        # the very end, same codec settings so the whole video track is still a stream copy.
+        pr_src, pr_secs, pr_at = promo
+        pr = promo_segment(work, seg, pr_src, pr_secs, mbps, sn / sd)
+        times = sorted(t for t in pr_at if 0 < t < mix_dur - pr_secs - seg_dur)
+        lst, t, entries = work / "final_sequence.txt", 0.0, []
+        for at in times:
+            n = max(1, int(round((at - t) / seg_dur)))
+            entries += [seg] * n
+            t += n * seg_dur
+            entries.append(pr)
+            t += pr_secs
+        n = max(1, int((mix_dur - pr_secs - t) / seg_dur))  # card starts just before the mix ends, loop runs out under it
+        entries += [seg] * n + [pr, seg, seg]
+        lst.write_text("".join(f"file '{Path(e).resolve()}'\n" for e in entries))
+        vid_track = work / "final_video.mp4"
+        sh("ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", vid_track)
+        print(f"Promo card {pr_secs}s at {[round(x) for x in times]}s and the end", flush=True)
+        sh("ffmpeg", "-y", "-v", "error", "-i", vid_track, "-i", mix, "-map", "0:v", "-map", "1:a",
+           "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-t", f"{mix_dur:.3f}", "-movflags", "+faststart", out)
+    else:
+        sh("ffmpeg", "-y", "-v", "error", "-stream_loop", loops, "-i", seg, "-i", mix, "-map", "0:v", "-map", "1:a",
+           "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-t", f"{mix_dur:.3f}", "-movflags", "+faststart", out)
     size = out.stat().st_size / 1e9
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(out)],
                                check=True, capture_output=True, text=True).stdout)
@@ -302,6 +324,92 @@ def upload(path, meta, token):
                 print(f"Uploaded {sent / size:.0%}", flush=True)
                 continue
             sys.exit(f"Upload error {r.status_code}: {r.text[:500]}")
+
+
+YT = "https://www.googleapis.com/youtube/v3"
+
+
+def yt_call(method, path, token, **kw):
+    r = requests.request(method, f"{YT}/{path}", headers={"Authorization": f"Bearer {token}"}, timeout=60, **kw)
+    if r.status_code >= 300:
+        print(f"::warning::YouTube {path} failed ({r.status_code}): {r.text[:300]}", flush=True)
+        return None
+    return r.json() if r.text else {}
+
+
+def add_to_playlist(video_id, name, token):
+    """Find (or create, public) the channel playlist called `name` and append the video. Returns the playlist id."""
+    pid = None
+    page = ""
+    while True:
+        res = yt_call("GET", "playlists", token, params={"part": "snippet", "mine": "true", "maxResults": 50, "pageToken": page})
+        if res is None:
+            return None
+        for p in res.get("items", []):
+            if p["snippet"]["title"].strip().lower() == name.strip().lower():
+                pid = p["id"]
+        page = res.get("nextPageToken", "")
+        if pid or not page:
+            break
+    if not pid:
+        res = yt_call("POST", "playlists", token, params={"part": "snippet,status"}, json={
+            "snippet": {"title": name, "description": "Every Digital Aura Y2K drum & bass mix, newest first."},
+            "status": {"privacyStatus": "public"}})
+        if not res:
+            return None
+        pid = res["id"]
+        print(f"Created playlist {name}: https://www.youtube.com/playlist?list={pid}", flush=True)
+    res = yt_call("POST", "playlistItems", token, params={"part": "snippet"}, json={
+        "snippet": {"playlistId": pid, "position": 0, "resourceId": {"kind": "youtube#video", "videoId": video_id}}})
+    if res:
+        print(f"Added to playlist {name} (top)", flush=True)
+    return pid
+
+
+def post_comment(video_id, text, token):
+    """Top-level comment from the channel (tracklist / call to action). Pinning is Studio-only; do that by hand."""
+    res = yt_call("POST", "commentThreads", token, params={"part": "snippet"}, json={
+        "snippet": {"videoId": video_id, "topLevelComment": {"snippet": {"textOriginal": text[:9000]}}}})
+    if res:
+        print("Posted the channel comment (pin it in Studio)", flush=True)
+    return res["id"] if res else None
+
+
+def default_comment(desc, playlist_id):
+    lines = desc.splitlines()
+    tl = []
+    on = False
+    for ln in lines:
+        if ln.strip().upper() == "TRACKLIST":
+            on = True
+            continue
+        if on:
+            if not ln.strip() or ln.startswith("━"):
+                break
+            tl.append(ln.strip())
+    out = "new mix every 2 days, subscribe so you don't miss the next tape 📼\n"
+    if tl:
+        out += "\nTRACKLIST\n" + "\n".join(tl) + "\n"
+    if playlist_id:
+        out += f"\nall the mixes: https://www.youtube.com/playlist?list={playlist_id}\n"
+    out += "\nwhich track hit hardest? drop the timestamp 👇"
+    return out
+
+
+def promo_segment(work, seq, promo_src, seconds, mbps, out_fps):
+    """Encode the promo card (image or clip, e.g. 'new mix every 2 days / subscribe') to match the loop segment so
+    it can be concatenated without re-encoding. Returns the encoded path."""
+    dst = work / "promo_1080p.mp4"
+    is_img = Path(str(promo_src).split("?")[0]).suffix.lower() in (".png", ".jpg", ".jpeg", ".webp")
+    inputs = ["-loop", "1", "-t", f"{seconds}", "-i", str(promo_src)] if is_img else ["-i", str(promo_src), "-t", f"{seconds}"]
+    sh("ffmpeg", "-y", "-v", "error", *inputs, "-an", "-vf",
+       f"scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1,fps={out_fps:g},"
+       f"fade=t=in:d=0.4,fade=t=out:st={max(0, seconds - 0.4):.2f}:d=0.4,format=yuv420p",
+       "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+       "-b:v", f"{mbps}M", "-maxrate", f"{mbps * 1.5}M", "-bufsize", f"{mbps * 3}M",
+       "-x264-params", f"keyint={int(out_fps * 2)}:min-keyint={int(out_fps * 2)}:scenecut=0:open-gop=0",
+       "-r", f"{out_fps:g}", dst)
+    return dst
 
 
 def set_thumbnail(video_id, thumb_url, work, token):
@@ -364,6 +472,11 @@ def main():
     ap.add_argument("--focus", default=None, help="(via --extra) true or {x,y,rx,ry,blur,dark}: blur/darken around the subject")
     ap.add_argument("--shake", type=float, default=0, help="handheld camera wobble in pixels (0 = off, about 8 = subtle)")
     ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
+    ap.add_argument("--playlist", default="Y2K DnB mixes", help="(via --extra) channel playlist to add the video to; empty = skip")
+    ap.add_argument("--comment", default="auto", help="(via --extra) channel comment text; auto = subscribe ask + tracklist; empty = skip")
+    ap.add_argument("--promo", default="", help='(via --extra) URL/path of the subscribe card (image or clip) cut into the loop')
+    ap.add_argument("--promo-seconds", type=float, default=4.0, help="(via --extra) how long the card shows")
+    ap.add_argument("--promo-at", default="90", help="(via --extra) seconds into the mix for the card, comma list; always also at the end")
     ap.add_argument("--trim-start", type=float, default=0.0,
                     help="cut this many seconds off the start of the mix (cold open for mixes made before it was "
                          "built in); description timestamps shift to match")
@@ -391,6 +504,12 @@ def main():
                 a.mix = str(v)  # repo path or URL of the mix (instead of the day's release)
             elif k == "synthetic":
                 a.synthetic = str(v)
+            elif k in ("playlist", "comment", "promo"):
+                setattr(a, k, "" if v in (None, False) else str(v))
+            elif k == "promo_seconds":
+                a.promo_seconds = float(v)
+            elif k == "promo_at":
+                a.promo_at = ",".join(str(x) for x in v) if isinstance(v, list) else str(v)
             elif k in ("trim_start", "grain", "xfade", "mbps", "shake", "speed"):
                 setattr(a, k, type(getattr(a, k) if getattr(a, k) is not None else 0.0)(v))
             else:
@@ -434,9 +553,15 @@ def main():
         anchor_file = Path(a.anchor) if Path(a.anchor).exists() else work / "anchor.img"
         if not Path(a.anchor).exists():
             download(a.anchor, anchor_file)
+    promo = None
+    if a.promo:
+        pf = Path(a.promo) if Path(a.promo).exists() else work / ("promo" + Path(a.promo.split("?")[0]).suffix)
+        if not pf.exists():
+            download(a.promo, pf)
+        promo = (pf, a.promo_seconds, [float(x) for x in str(a.promo_at).split(",") if x.strip()])
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern, a.focus, anchor_file, a.seam, a.cam)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern, a.focus, anchor_file, a.seam, a.cam, promo)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
@@ -457,8 +582,14 @@ def main():
     res = upload(out, meta, access_token())
     vid = res["id"]
     print(f"Uploaded in {time.time() - t1:.0f}s: https://youtu.be/{vid} ({res['status']['privacyStatus']})", flush=True)
-    thumb_ok = set_thumbnail(vid, a.thumb_url, work, access_token()) if a.thumb_url else None
+    token = access_token()
+    thumb_ok = set_thumbnail(vid, a.thumb_url, work, token) if a.thumb_url else None
+    playlist_id = add_to_playlist(vid, a.playlist, token) if a.playlist else None
+    comment_id = None
+    if a.comment:
+        comment_id = post_comment(vid, default_comment(desc, playlist_id) if a.comment == "auto" else a.comment, token)
     (day / "youtube.json").write_text(json.dumps({
+        "playlist_id": playlist_id, "comment_id": comment_id, "promo": a.promo or None,
         "video_id": vid, "url": f"https://youtu.be/{vid}", "title": a.title, "privacy": res["status"]["privacyStatus"],
         "publish_at": a.publish_at or None, "loop_url": a.loop_url, "duration_s": round(dur), "bitrate_mbps": mbps, "speed": a.speed, "seam_xfade_s": a.xfade,
         "trim_start_s": a.trim_start or None, "grain": a.grain or None, "shake": a.shake or None,
