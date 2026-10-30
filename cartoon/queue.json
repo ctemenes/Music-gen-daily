@@ -20,7 +20,9 @@
         "cartoon explainer",
         "Cartoon Curiosities"
       ],
-      "publish_at": "2026-10-31T06:00:00Z"
+      "publish_at": "2026-10-31T06:00:00Z",
+      "video_id": "zmDrqKV14hA",
+      "url": "https://youtu.be/zmDrqKV14hA"
     },
     {
       "file": "shorts/short_a_taung.mp4",
@@ -36,7 +38,9 @@
         "crowned eagle",
         "cartoon explainer"
       ],
-      "publish_at": "2026-10-31T07:00:00Z"
+      "publish_at": "2026-10-31T07:00:00Z",
+      "video_id": "AQB1Jl0RX9s",
+      "url": "https://youtu.be/AQB1Jl0RX9s"
     },
     {
       "file": "shorts/short_b_33mm.mp4",
@@ -52,7 +56,9 @@
         "fossils",
         "cartoon explainer"
       ],
-      "publish_at": "2026-11-01T07:00:00Z"
+      "publish_at": "2026-11-01T07:00:00Z",
+      "video_id": "LWtHIjkINQg",
+      "url": "https://youtu.be/LWtHIjkINQg"
     },
     {
       "file": "shorts/short_c_voices.mp4",
@@ -67,7 +73,9 @@
         "ancient humans",
         "cartoon explainer"
       ],
-      "publish_at": "2026-11-02T07:00:00Z"
+      "publish_at": "2026-11-02T07:00:00Z",
+      "video_id": "1pkRU93xR5k",
+      "url": "https://youtu.be/1pkRU93xR5k"
     }
   ]
 }
