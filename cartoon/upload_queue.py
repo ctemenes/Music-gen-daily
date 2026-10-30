@@ -40,7 +40,8 @@ def main():
 
     todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold") and due(v)]
     thumbs = [v for v in q["videos"] if v.get("thumbnail") and not v.get("thumbnail_set")]
-    if not todo and not any(v.get("video_id") for v in thumbs):
+    retag = [v for v in q["videos"] if v.get("video_id") and v.get("retag")]
+    if not todo and not retag and not any(v.get("video_id") for v in thumbs):
         print("Nothing to upload.")
         return
     try:
@@ -81,6 +82,30 @@ def main():
         QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Done: {v['url']} ({status['privacyStatus']}{', public at ' + v['publish_at'] if v.get('publish_at') else ''})",
               flush=True)
+    for v in retag:  # new tags on a video already uploaded (keeps its title, description and schedule)
+        h = {"Authorization": f"Bearer {token}"}
+        r = ru.requests.get(f"https://www.googleapis.com/youtube/v3/videos?part=snippet&id={v['video_id']}",
+                            headers=h, timeout=60)
+        items = r.json().get("items", []) if r.status_code == 200 else []
+        if not items:
+            q["last_error"] = f"Retag: could not read {v['video_id']} ({r.status_code}): {r.text[:300]}"
+            print(q["last_error"], flush=True)
+            continue
+        sn = items[0]["snippet"]
+        body = {"id": v["video_id"], "snippet": {k: sn[k] for k in ("title", "description", "categoryId") if k in sn}}
+        body["snippet"]["tags"] = v.get("tags", [])
+        for k in ("defaultLanguage", "defaultAudioLanguage"):
+            if k in sn:
+                body["snippet"][k] = sn[k]
+        r = ru.requests.put("https://www.googleapis.com/youtube/v3/videos?part=snippet",
+                            headers={**h, "Content-Type": "application/json"}, json=body, timeout=60)
+        if r.status_code == 200:
+            v.pop("retag", None)
+            print(f"Tags updated on {v['video_id']}", flush=True)
+        else:
+            q["last_error"] = f"Retag failed on {v['video_id']} ({r.status_code}): {r.text[:300]}"
+            print(q["last_error"], flush=True)
+        QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for v in thumbs:  # custom thumbnails, set once the video exists
         if not v.get("video_id"):
             continue
