@@ -91,7 +91,8 @@ def main():
     rel = f"https://github.com/{REPO}/releases/download/mix-{a.date}"
     rbrief = work / "release_brief.json"
     download(f"{rel}/brief.json", rbrief)
-    shorts_meta = json.loads(rbrief.read_text(encoding="utf-8")).get("shorts") or []
+    rb = json.loads(rbrief.read_text(encoding="utf-8"))
+    shorts_meta = (rb.get("audio") or {}).get("shorts") or rb.get("shorts") or []
     if not shorts_meta:
         sys.exit("This release has no short_N.mp3 cuts; make them first.")
     loop = work / "loop_src.mp4"
@@ -146,4 +147,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit as e:
+        if e.code not in (0, None):
+            print(f"::error::{e.code}", flush=True)
+        raise
+    except Exception as e:  # surface the reason as a run annotation (logs are not readable from the agent)
+        import traceback
+        print(f"::error::{type(e).__name__}: {str(e)[:600]} | {traceback.format_exc().splitlines()[-3:]}", flush=True)
+        raise
