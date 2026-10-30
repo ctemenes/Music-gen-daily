@@ -6,6 +6,13 @@ on:
       date:
         description: "Mix date (YYYY-MM-DD); needs days/<date>/youtube.json and short_N.mp3 on the release"
         required: true
+      audio_date:
+        description: "Optional: take the audio + full-mix link from this day's mix instead (loop still from date)"
+        default: ""
+      unschedule:
+        description: "Pull this date's shorts back to private (no render); delete them in Studio afterwards"
+        type: boolean
+        default: false
       count:
         description: "How many shorts (max 3)"
         default: "3"
@@ -56,13 +63,16 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           IN_DATE: ${{ inputs.date }}
           IN_COUNT: ${{ inputs.count }}
+          IN_AUDIO_DATE: ${{ inputs.audio_date }}
           IN_HOOKS: ${{ inputs.hooks }}
           IN_PRIVACY: ${{ inputs.privacy }}
           IN_PUBLISH_FROM: ${{ inputs.publish_from }}
           IN_SPACING: ${{ inputs.spacing_hours }}
           IN_EXTRA: ${{ inputs.extra }}
         run: |
+          if [ "${{ inputs.unschedule }}" = "true" ]; then python3 tools/shorts.py --date "$IN_DATE" --unschedule; exit $?; fi
           ARGS=(--date "$IN_DATE" --count "$IN_COUNT" --privacy "$IN_PRIVACY" --spacing-hours "$IN_SPACING")
+          [ -n "$IN_AUDIO_DATE" ] && ARGS+=(--audio-date "$IN_AUDIO_DATE")
           [ -n "$IN_HOOKS" ] && ARGS+=(--hooks "$IN_HOOKS")
           [ -n "$IN_PUBLISH_FROM" ] && ARGS+=(--publish-from "$IN_PUBLISH_FROM")
           for kv in $(python3 -c 'import json,os; [print(f"{k}={v}") for k,v in json.loads(os.environ.get("IN_EXTRA") or "{}").items()]'); do
@@ -75,12 +85,15 @@ jobs:
         if: ${{ always() }}
         env:
           IN_DATE: ${{ inputs.date }}
+          IN_AUDIO_DATE: ${{ inputs.audio_date }}
         run: |
           git config user.name "Digital Aura Racing Team"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          [ -f "days/$IN_DATE/shorts.json" ] && git add "days/$IN_DATE/shorts.json"
-          [ -d "days/$IN_DATE/shorts_preview" ] && git add "days/$IN_DATE/shorts_preview"
-          git commit -q -m "Shorts $IN_DATE" || exit 0
+          for d in "$IN_DATE" "$IN_AUDIO_DATE"; do
+            [ -n "$d" ] && [ -f "days/$d/shorts.json" ] && git add "days/$d/shorts.json"
+            [ -n "$d" ] && [ -d "days/$d/shorts_preview" ] && git add "days/$d/shorts_preview"
+          done
+          git commit -q -m "Shorts $IN_DATE ${IN_AUDIO_DATE:+audio $IN_AUDIO_DATE}" || exit 0
           for i in 1 2 3 4 5; do
             git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0
             git rebase --abort 2>/dev/null || true; sleep $((i * 5))

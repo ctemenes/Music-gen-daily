@@ -82,9 +82,82 @@ def previews(work, outs, day):
            "-crf", "30", "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", pdir / f"short_{k}_360p.mp4")
 
 
+def tracklist(desc):
+    """[(seconds, name)] from the TRACKLIST block of a description."""
+    out, on = [], False
+    for ln in desc.splitlines():
+        if ln.strip().upper() == "TRACKLIST":
+            on = True
+            continue
+        if on:
+            if not ln.strip() or ln.startswith("━"):
+                break
+            ts, _, name = ln.strip().partition(" ")
+            parts = [int(p) for p in ts.split(":")]
+            secs = parts[-1] + 60 * parts[-2] + (3600 * parts[-3] if len(parts) > 2 else 0)
+            out.append((secs, name.strip()))
+    return out
+
+
+def loudest_cuts(mix, tracks, seconds, work, count):
+    """Cut the loudest `seconds` window of each track straight from the mix (for mixes released without short_N.mp3).
+    Returns [{"file", "track", "start"}]."""
+    import struct
+    pcm = work / "mix_mono.raw"
+    sh("ffmpeg", "-y", "-loglevel", "error", "-i", mix, "-ac", "1", "-ar", "8000", "-f", "s16le", pcm)
+    data = pcm.read_bytes()
+    n = len(data) // 2
+    samples = struct.unpack(f"<{n}h", data)
+    sr = 8000
+    secs = n // sr
+    rms = [sum(s * s for s in samples[i * sr:(i + 1) * sr]) / sr for i in range(secs)]
+    total = secs
+    out = []
+    for k, (start, name) in enumerate(tracks[:count], 1):
+        end = tracks[k][0] if k < len(tracks) else total
+        lo, hi = int(start) + 5, int(end) - int(seconds) - 2
+        if hi <= lo:
+            lo, hi = int(start), max(int(start), int(end) - int(seconds))
+        best, best_t = -1, lo
+        for t in range(lo, hi + 1):
+            v = sum(rms[t:t + int(seconds)])
+            if v > best:
+                best, best_t = v, t
+        f = work / f"short_{k}.mp3"
+        sh("ffmpeg", "-y", "-loglevel", "error", "-ss", str(best_t), "-t", str(seconds), "-i", mix,
+           "-af", "afade=t=in:d=0.3,afade=t=out:st=%.2f:d=1.5" % (seconds - 1.5), "-c:a", "libmp3lame", "-b:a", "320k", f)
+        out.append({"file": f.name, "track": name, "start": best_t})
+        print(f"short {k}: {name} from {best_t // 60}:{best_t % 60:02d}", flush=True)
+    return out
+
+
+def unschedule(date, token):
+    """Pull a batch back: every short in days/<date>/shorts.json goes private with no publish time and an [old] title
+    prefix, so the duplicates can be deleted from Studio."""
+    day = Path("days") / date
+    sj = json.loads((day / "shorts.json").read_text(encoding="utf-8"))
+    for s in sj["shorts"]:
+        r = requests.get("https://www.googleapis.com/youtube/v3/videos", params={"part": "snippet", "id": s["video_id"]},
+                         headers={"Authorization": f"Bearer {token}"}, timeout=60).json()
+        if not r.get("items"):
+            print(f"{s['video_id']}: not found (already deleted?)", flush=True)
+            continue
+        sn = r["items"][0]["snippet"]
+        body = {"id": s["video_id"], "status": {"privacyStatus": "private", "selfDeclaredMadeForKids": False},
+                "snippet": {"title": ("[old] " + sn["title"])[:100], "categoryId": sn.get("categoryId", "10"),
+                            "description": sn.get("description", ""), "tags": sn.get("tags", [])}}
+        u = requests.put("https://www.googleapis.com/youtube/v3/videos", params={"part": "snippet,status"}, json=body,
+                         headers={"Authorization": f"Bearer {token}"}, timeout=60)
+        print(f"{s['url']}: {'unscheduled, private' if u.status_code == 200 else 'failed ' + u.text[:200]}", flush=True)
+        s["privacy"], s["publish_at"], s["unscheduled"] = "private", None, True
+    (day / "shorts.json").write_text(json.dumps(sj, indent=2), encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--date", required=True)
+    ap.add_argument("--date", required=True, help="day whose loop clip is used (and whose shorts audio, unless --audio-date)")
+    ap.add_argument("--audio-date", default="", help="take the audio and full-mix link from this day's mix instead")
+    ap.add_argument("--unschedule", action="store_true", help="pull this day's shorts back to private, no render")
     ap.add_argument("--count", type=int, default=3)
     ap.add_argument("--seconds", type=float, default=45)
     ap.add_argument("--privacy", default="private", choices=["private", "unlisted", "public"])
@@ -99,22 +172,47 @@ def main():
     ap.add_argument("--render-only", action="store_true")
     a = ap.parse_args()
 
-    day = Path("days") / a.date
+    if a.unschedule:
+        return unschedule(a.date, access_token())
+    vday = Path("days") / a.date  # visuals
+    vyt = json.loads((vday / "youtube.json").read_text(encoding="utf-8"))
+    day = Path("days") / (a.audio_date or a.date)  # audio, link, outputs
     yt = json.loads((day / "youtube.json").read_text(encoding="utf-8"))
     brief = json.loads((day / "brief.json").read_text(encoding="utf-8")) if (day / "brief.json").exists() else {}
-    work = Path("out") / f"shorts-{a.date}"
+    work = Path("out") / f"shorts-{day.name}"
     work.mkdir(parents=True, exist_ok=True)
-    rel = f"https://github.com/{REPO}/releases/download/mix-{a.date}"
-    rbrief = work / "release_brief.json"
-    download(f"{rel}/brief.json", rbrief)
-    rb = json.loads(rbrief.read_text(encoding="utf-8"))
-    shorts_meta = (rb.get("audio") or {}).get("shorts") or rb.get("shorts") or []
+    rel = f"https://github.com/{REPO}/releases/download/mix-{day.name}"
+    shorts_meta = []
+    try:
+        rbrief = work / "release_brief.json"
+        download(f"{rel}/brief.json", rbrief)
+        rb = json.loads(rbrief.read_text(encoding="utf-8"))
+        shorts_meta = (rb.get("audio") or {}).get("shorts") or rb.get("shorts") or []
+        for meta in shorts_meta[:a.count]:
+            download(f"{rel}/{meta['file']}", work / meta["file"])
+    except Exception as e:
+        print(f"No release short cuts for {day.name} ({type(e).__name__}); cutting from the mix", flush=True)
     if not shorts_meta:
-        sys.exit("This release has no short_N.mp3 cuts; make them first.")
+        mix = day / "mix.mp3"
+        if not mix.exists():
+            mix = work / "mix.mp3"
+            download(f"{rel}/mix.mp3", mix)
+        desc_full = (day / "description.txt").read_text(encoding="utf-8") if (day / "description.txt").exists() else ""
+        tracks = tracklist(desc_full) or [(0, yt["title"].split("|")[0].strip())]
+        shorts_meta = loudest_cuts(mix, tracks, a.seconds, work, a.count)
     loop = work / "loop_src.mp4"
-    download(yt["loop_url"], loop)
-    speed = a.speed if a.speed is not None else float(yt.get("speed") or 1.0)
-    grain = a.grain if a.grain is not None else int(yt.get("grain") or 14)
+    clips = [vyt["loop_url"], *(vyt.get("clips") or [])]
+    pick = 0
+    if vyt.get("pattern") and len(clips) > 1:  # the clip the pattern uses most is the main shot
+        from collections import Counter
+        c = Counter()
+        for tok in vyt["pattern"].split(","):
+            i, _, n = tok.partition("x")
+            c[int(i) - 1] += int(n or 1)
+        pick = c.most_common(1)[0][0]
+    download(clips[pick], loop)
+    speed = a.speed if a.speed is not None else float(vyt.get("speed") or 1.0)
+    grain = a.grain if a.grain is not None else int(vyt.get("grain") or 14)
     font = bold_font()
     hooks = json.loads(a.hooks) if a.hooks.strip() else []
     base_title = yt["title"].split("(")[0].split("|")[0].strip()
@@ -122,8 +220,7 @@ def main():
     outs = []
     for k, meta in enumerate(shorts_meta[:a.count], 1):
         audio = work / meta["file"]
-        download(f"{rel}/{meta['file']}", audio)
-        hook = hooks[k - 1] if k - 1 < len(hooks) else base_title
+        hook = hooks[k - 1] if k - 1 < len(hooks) else (base_title if k == 1 else meta["track"])  # never three identical titles
         out = work / f"short_{k}.mp4"
         t0 = time.time()
         render_short(work, loop, audio, out, hook, meta["track"], a.seconds, speed, grain, font, a.layout, a.text.lower() != "false")
@@ -155,7 +252,7 @@ def main():
         print(f"Uploaded short {k}: https://youtube.com/shorts/{vid} ({res['status']['privacyStatus']})", flush=True)
         results.append({"short": k, "video_id": vid, "url": f"https://youtube.com/shorts/{vid}", "title": title,
                         "track": meta["track"], "publish_at": status.get("publishAt"), "privacy": res["status"]["privacyStatus"]})
-    (day / "shorts.json").write_text(json.dumps({"full_video": yt["url"], "shorts": results}, indent=2), encoding="utf-8")
+    (day / "shorts.json").write_text(json.dumps({"full_video": yt["url"], "loop_from": a.date, "shorts": results}, indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as f:
