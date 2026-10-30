@@ -1,0 +1,95 @@
+name: Shorts
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Mix date (YYYY-MM-DD); needs days/<date>/youtube.json and short_N.mp3 on the release"
+        required: true
+      count:
+        description: "How many shorts (max 3)"
+        default: "3"
+      hooks:
+        description: 'Optional JSON list of hook lines, one per short, e.g. ["line one","line two"]'
+        default: ""
+      privacy:
+        description: "private, unlisted or public"
+        default: "private"
+      publish_from:
+        description: "Optional RFC3339 time for short 1 to go public; the others follow at spacing_hours"
+        default: ""
+      spacing_hours:
+        description: "Hours between shorts going public"
+        default: "24"
+      extra:
+        description: 'Optional JSON: {"speed": 2.5, "grain": 14, "seconds": 45, "synthetic": "false"}'
+        default: "{}"
+      render_only:
+        description: "Render only, keep the mp4s as a run artifact, no upload"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shorts
+  cancel-in-progress: false
+
+jobs:
+  shorts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        timeout-minutes: 8
+        run: |
+          bash tools/install_ffmpeg.sh
+          pip install -q requests
+
+      - name: Render and upload shorts
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IN_DATE: ${{ inputs.date }}
+          IN_COUNT: ${{ inputs.count }}
+          IN_HOOKS: ${{ inputs.hooks }}
+          IN_PRIVACY: ${{ inputs.privacy }}
+          IN_PUBLISH_FROM: ${{ inputs.publish_from }}
+          IN_SPACING: ${{ inputs.spacing_hours }}
+          IN_EXTRA: ${{ inputs.extra }}
+        run: |
+          ARGS=(--date "$IN_DATE" --count "$IN_COUNT" --privacy "$IN_PRIVACY" --spacing-hours "$IN_SPACING")
+          [ -n "$IN_HOOKS" ] && ARGS+=(--hooks "$IN_HOOKS")
+          [ -n "$IN_PUBLISH_FROM" ] && ARGS+=(--publish-from "$IN_PUBLISH_FROM")
+          for kv in $(python3 -c 'import json,os; [print(f"{k}={v}") for k,v in json.loads(os.environ.get("IN_EXTRA") or "{}").items()]'); do
+            ARGS+=(--${kv%%=*} "${kv#*=}")
+          done
+          [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
+          python3 tools/shorts.py "${ARGS[@]}"
+
+      - name: Keep the renders (render-only runs)
+        if: ${{ inputs.render_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-${{ inputs.date }}
+          path: out/shorts-${{ inputs.date }}/short_*.mp4
+          retention-days: 3
+
+      - name: Save the links
+        if: ${{ !inputs.render_only }}
+        env:
+          IN_DATE: ${{ inputs.date }}
+        run: |
+          git config user.name "Digital Aura Racing Team"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "days/$IN_DATE/shorts.json"
+          git commit -q -m "Shorts $IN_DATE" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0
+            git rebase --abort 2>/dev/null || true; sleep $((i * 5))
+          done
+          exit 1
