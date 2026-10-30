@@ -32,8 +32,7 @@
       "video_id": "mcEJryl-r5g",
       "url": "https://youtu.be/mcEJryl-r5g",
       "thumbnail": "thumbs/video1.jpg",
-      "thumbnail_set": true,
-      "retag": true
+      "thumbnail_set": true
     },
     {
       "file": "shorts/short_a_taung.mp4",
@@ -56,8 +55,7 @@
       ],
       "publish_at": "2026-10-30T19:00:00Z",
       "video_id": "SX2v8AGmh3k",
-      "url": "https://youtu.be/SX2v8AGmh3k",
-      "retag": true
+      "url": "https://youtu.be/SX2v8AGmh3k"
     },
     {
       "file": "shorts/short_b_33mm.mp4",
@@ -80,8 +78,7 @@
       ],
       "publish_at": "2026-10-31T01:00:00Z",
       "video_id": "Qb67erxEmGE",
-      "url": "https://youtu.be/Qb67erxEmGE",
-      "retag": true
+      "url": "https://youtu.be/Qb67erxEmGE"
     },
     {
       "file": "shorts/short_c_voices.mp4",
@@ -105,8 +102,7 @@
       ],
       "publish_at": "2026-10-31T19:00:00Z",
       "video_id": "YQwXMlvJ6Z0",
-      "url": "https://youtu.be/YQwXMlvJ6Z0",
-      "retag": true
+      "url": "https://youtu.be/YQwXMlvJ6Z0"
     },
     {
       "file": "shorts/short_d_fire.mp4",
@@ -130,8 +126,7 @@
       ],
       "publish_at": "2026-11-01T01:00:00Z",
       "video_id": "EJ89mVl3tuc",
-      "url": "https://youtu.be/EJ89mVl3tuc",
-      "retag": true
+      "url": "https://youtu.be/EJ89mVl3tuc"
     },
     {
       "file": "shorts/short_e_spears.mp4",
