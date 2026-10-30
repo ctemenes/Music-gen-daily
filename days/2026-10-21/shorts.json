@@ -1,35 +1,33 @@
 {
   "full_video": "https://youtu.be/C6K1VL3Wf84",
+  "loop_from": "2026-10-21",
   "shorts": [
     {
       "short": 1,
-      "video_id": "lkrQoh2UKFE",
-      "url": "https://youtube.com/shorts/lkrQoh2UKFE",
+      "video_id": "YuygEWYZETo",
+      "url": "https://youtube.com/shorts/YuygEWYZETo",
       "title": "you're in first place and it's still raining #shorts",
       "track": "Echo Drive",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-02T20:00:00Z",
+      "privacy": "private"
     },
     {
       "short": 2,
-      "video_id": "4AtrIusMFRU",
-      "url": "https://youtube.com/shorts/4AtrIusMFRU",
-      "title": "you're in first place and it's still raining #shorts",
+      "video_id": "jP1Wu4u7zu0",
+      "url": "https://youtube.com/shorts/jP1Wu4u7zu0",
+      "title": "Deep Mirror #shorts",
       "track": "Deep Mirror",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-03T08:00:00Z",
+      "privacy": "private"
     },
     {
       "short": 3,
-      "video_id": "LTNHZCZJI28",
-      "url": "https://youtube.com/shorts/LTNHZCZJI28",
-      "title": "you're in first place and it's still raining #shorts",
+      "video_id": "tQx4gYlvcv4",
+      "url": "https://youtube.com/shorts/tQx4gYlvcv4",
+      "title": "Halogen #shorts",
       "track": "Halogen",
-      "publish_at": null,
-      "privacy": "private",
-      "unscheduled": true
+      "publish_at": "2026-11-03T20:00:00Z",
+      "privacy": "private"
     }
   ]
 }
