@@ -39,7 +39,8 @@ def main():
         return not v.get("publish_at") or datetime.fromisoformat(v["publish_at"].replace("Z", "+00:00")) <= horizon
 
     todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold") and due(v)]
-    if not todo:
+    thumbs = [v for v in q["videos"] if v.get("thumbnail") and not v.get("thumbnail_set")]
+    if not todo and not any(v.get("video_id") for v in thumbs):
         print("Nothing to upload.")
         return
     try:
@@ -80,6 +81,19 @@ def main():
         QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Done: {v['url']} ({status['privacyStatus']}{', public at ' + v['publish_at'] if v.get('publish_at') else ''})",
               flush=True)
+    for v in thumbs:  # custom thumbnails, set once the video exists
+        if not v.get("video_id"):
+            continue
+        r = ru.requests.post(f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={v['video_id']}",
+                             headers={"Authorization": f"Bearer {token}", "Content-Type": "image/jpeg"},
+                             data=(HERE / v["thumbnail"]).read_bytes(), timeout=120)
+        if r.status_code == 200:
+            v["thumbnail_set"] = True
+            print(f"Thumbnail set on {v['video_id']}", flush=True)
+        else:
+            q["last_error"] = f"Thumbnail not set on {v['video_id']} ({r.status_code}): {r.text[:300]}"
+            print(q["last_error"], flush=True)
+        QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
