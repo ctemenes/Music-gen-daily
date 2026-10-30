@@ -48,20 +48,22 @@ def esc(s):
     return s.replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'").replace("%", "\\%")
 
 
-def render_short(work, loop, audio, out, hook, track, seconds, speed, grain, font):
-    hook_file, track_file = work / "hook.txt", work / "track.txt"
+def render_short(work, loop, audio, out, hook, track, seconds, speed, grain, font, layout="full", text=True):
+    """layout 'full': the loop scaled to 1920 high and centre-cropped to 9:16 (fills the phone).
+    layout 'box': the loop letterboxed over a blurred copy of itself. text=False drops the hook line."""
+    hook_file = work / "hook.txt"
     hook_file.write_text(wrap(hook, 22), encoding="utf-8")
-    track_file.write_text("full mix on the channel", encoding="utf-8")
-    fg_h = int(round(W * 9 / 16 / 2)) * 2  # 608
-    txt = (f"drawtext=fontfile='{font}':textfile='{hook_file}':fontsize=64:fontcolor=white:line_spacing=10:"
-           f"x=(w-text_w)/2:y=300:shadowcolor=black@0.7:shadowx=3:shadowy=3,"
-           f"drawtext=fontfile='{font}':textfile='{track_file}':fontsize=40:fontcolor=white@0.9:line_spacing=12:"
-           f"x=(w-text_w)/2:y=h-420:shadowcolor=black@0.7:shadowx=2:shadowy=2")
+    txt = (f",drawtext=fontfile='{font}':textfile='{hook_file}':fontsize=64:fontcolor=white:line_spacing=10:"
+           f"x=(w-text_w)/2:y=260:shadowcolor=black@0.7:shadowx=3:shadowy=3") if text else ""
     noise = f",noise=alls={int(grain)}:allf=t+u" if grain else ""
-    fc = (f"[0:v]setpts=PTS/{speed},split[a][b];"
-          f"[a]scale={W}:{fg_h}:flags=lanczos[fg];"
-          f"[b]scale=-2:{H},crop={W}:{H},gblur=sigma=28,eq=brightness=-0.25:saturation=0.8[bg];"
-          f"[bg][fg]overlay=0:(H-h)/2,format=yuv420p,{txt}{noise}[v]")
+    if layout == "full":
+        fc = (f"[0:v]setpts=PTS/{speed},scale=-2:{H}:flags=lanczos,crop={W}:{H},format=yuv420p{txt}{noise}[v]")
+    else:
+        fg_h = int(round(W * 9 / 16 / 2)) * 2  # 608
+        fc = (f"[0:v]setpts=PTS/{speed},split[a][b];"
+              f"[a]scale={W}:{fg_h}:flags=lanczos[fg];"
+              f"[b]scale=-2:{H},crop={W}:{H},gblur=sigma=28,eq=brightness=-0.25:saturation=0.8[bg];"
+              f"[bg][fg]overlay=0:(H-h)/2,format=yuv420p{txt}{noise}[v]")
     sh("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-i", loop, "-i", audio,
        "-filter_complex", fc, "-map", "[v]", "-map", "1:a", "-t", seconds, "-r", "30",
        "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "14M", "-bufsize", "28M", "-pix_fmt", "yuv420p",
@@ -92,6 +94,8 @@ def main():
     ap.add_argument("--speed", type=float, default=None, help="loop speed-up (default: what the full video used)")
     ap.add_argument("--grain", type=int, default=None)
     ap.add_argument("--synthetic", default="false")
+    ap.add_argument("--layout", default="full", choices=["full", "box"])
+    ap.add_argument("--text", default="true", help="false = no hook text on the video")
     ap.add_argument("--render-only", action="store_true")
     a = ap.parse_args()
 
@@ -122,7 +126,7 @@ def main():
         hook = hooks[k - 1] if k - 1 < len(hooks) else base_title
         out = work / f"short_{k}.mp4"
         t0 = time.time()
-        render_short(work, loop, audio, out, hook, meta["track"], a.seconds, speed, grain, font)
+        render_short(work, loop, audio, out, hook, meta["track"], a.seconds, speed, grain, font, a.layout, a.text.lower() != "false")
         print(f"Rendered {out.name} in {time.time() - t0:.0f}s", flush=True)
         outs.append((k, meta, hook, out))
     previews(work, outs, day)
@@ -136,7 +140,7 @@ def main():
         title = f"{hook} #shorts"
         if len(title) > 100:
             title = hook[:92].rstrip() + " #shorts"
-        desc = (f"{meta['track']} from \"{yt['title']}\"\n\nfull mix: {yt['url']}\n\n"
+        desc = (f"full mix: {yt['url']}\n\n{meta['track']} from \"{yt['title']}\"\n\n"
                 f"Y2K drum & bass in the spirit of Rollcage Stage II and the PS1 era.\n\n#shorts #dnb #y2k #drumandbass")
         status = {"privacyStatus": a.privacy, "selfDeclaredMadeForKids": False,
                   "containsSyntheticMedia": a.synthetic.lower() == "true"}

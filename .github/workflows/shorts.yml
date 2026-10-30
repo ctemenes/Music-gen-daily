@@ -22,7 +22,7 @@ on:
         description: "Hours between shorts going public"
         default: "24"
       extra:
-        description: 'Optional JSON: {"speed": 2.5, "grain": 14, "seconds": 45, "synthetic": "false"}'
+        description: 'Optional JSON: {"speed": 2.5, "grain": 14, "seconds": 45, "synthetic": "false", "layout": "full", "text": "true"}'
         default: "{}"
       render_only:
         description: "Render only, keep the mp4s as a run artifact, no upload"
