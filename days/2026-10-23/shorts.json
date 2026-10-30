@@ -1,0 +1,32 @@
+{
+  "full_video": "https://youtu.be/E1J_eUDHPhc",
+  "shorts": [
+    {
+      "short": 1,
+      "video_id": "co06u9BfIn0",
+      "url": "https://youtube.com/shorts/co06u9BfIn0",
+      "title": "it's 2am and she still hasn't left the dance floor #shorts",
+      "track": "Motel",
+      "publish_at": "2026-10-30T20:00:00Z",
+      "privacy": "private"
+    },
+    {
+      "short": 2,
+      "video_id": "AVjppIH4aq0",
+      "url": "https://youtube.com/shorts/AVjppIH4aq0",
+      "title": "it's 2am and she still hasn't left the dance floor #shorts",
+      "track": "Dry Lake",
+      "publish_at": "2026-10-31T08:00:00Z",
+      "privacy": "private"
+    },
+    {
+      "short": 3,
+      "video_id": "1v4nOH27nZs",
+      "url": "https://youtube.com/shorts/1v4nOH27nZs",
+      "title": "it's 2am and she still hasn't left the dance floor #shorts",
+      "track": "Broken Nitro",
+      "publish_at": "2026-10-31T20:00:00Z",
+      "privacy": "private"
+    }
+  ]
+}
