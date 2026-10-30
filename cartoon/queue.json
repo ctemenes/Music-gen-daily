@@ -70,5 +70,6 @@
       "publish_at": "2026-10-31T19:00:00Z"
     }
   ],
-  "expected_channel": "Cartoon Curiosities"
+  "expected_channel": "Cartoon Curiosities",
+  "last_error": "Signed in to ['CartoonCuriosites'], not Cartoon Curiosities. Run get_token.py --prefix CC_ again and pick Cartoon Curiosities."
 }
