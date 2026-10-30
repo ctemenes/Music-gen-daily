@@ -30,6 +30,7 @@ jobs:
           python cartoon/upload_queue.py
 
       - name: Save video links
+        if: always()
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"

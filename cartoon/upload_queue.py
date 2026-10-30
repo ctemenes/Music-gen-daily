@@ -41,7 +41,7 @@ def main():
         print(f"Uploading {v['file']} as: {v['title']}", flush=True)
         res = ru.upload(HERE / v["file"], meta, token)
         v["video_id"] = res["id"]
-        v["url"] = f"https://youtube.com/shorts/{res['id']}"
+        v["url"] = f"https://youtu.be/{res['id']}"
         QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Done: {v['url']} ({status['privacyStatus']}{', public at ' + v['publish_at'] if v.get('publish_at') else ''})",
               flush=True)
