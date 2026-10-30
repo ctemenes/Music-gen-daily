@@ -1,0 +1,33 @@
+{
+  "full_video": "https://youtu.be/ygfaEbk32j4",
+  "loop_from": "2026-10-23",
+  "shorts": [
+    {
+      "short": 1,
+      "video_id": "8GRR0leq-u4",
+      "url": "https://youtube.com/shorts/8GRR0leq-u4",
+      "title": "do you still have the tape? #shorts",
+      "track": "you were never meant to find this tape",
+      "publish_at": "2026-10-30T20:00:00Z",
+      "privacy": "private"
+    },
+    {
+      "short": 2,
+      "video_id": "735YD6H5BBA",
+      "url": "https://youtube.com/shorts/735YD6H5BBA",
+      "title": "the sound won't stop #shorts",
+      "track": "melancholic peak",
+      "publish_at": "2026-10-31T08:00:00Z",
+      "privacy": "private"
+    },
+    {
+      "short": 3,
+      "video_id": "0AywFfj4jl0",
+      "url": "https://youtube.com/shorts/0AywFfj4jl0",
+      "title": "you dropped these in 2002 #shorts",
+      "track": "closer (comedown)",
+      "publish_at": "2026-10-31T20:00:00Z",
+      "privacy": "private"
+    }
+  ]
+}
