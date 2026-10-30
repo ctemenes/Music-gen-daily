@@ -9,6 +9,7 @@ Uses the same upload code as the mix videos (tools/render_upload.py). Nothing se
 """
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -29,19 +30,30 @@ def main():
         print("Nothing to upload.")
         return
     token = ru.access_token()
+    want = q.get("expected_channel")
+    if want:  # never upload to the wrong channel again
+        r = ru.requests.get("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
+                            headers={"Authorization": f"Bearer {token}"}, timeout=60)
+        got = [c["snippet"]["title"] for c in r.json().get("items", [])]
+        if want not in got:
+            sys.exit(f"Signed in to {got or 'no channel'}, not {want}. Run get_token.py --prefix CC_ again and pick {want}.")
+        print(f"Channel check OK: {want}", flush=True)
+    links = {v["file"]: v["url"] for v in q["videos"] if v.get("url")}
     for v in todo:
+        desc = re.sub(r"\{\{link:([^}]+)\}\}", lambda m: links.get(m.group(1), ""), v["description"])
         status = {"privacyStatus": v.get("privacy", "private"), "selfDeclaredMadeForKids": False,
                   "containsSyntheticMedia": False}
         if v.get("publish_at"):
             status["privacyStatus"] = "private"
             status["publishAt"] = v["publish_at"]
-        meta = {"snippet": {"title": v["title"], "description": v["description"], "tags": v.get("tags", []),
+        meta = {"snippet": {"title": v["title"], "description": desc, "tags": v.get("tags", []),
                             "categoryId": v.get("category", "27"), "defaultLanguage": "en", "defaultAudioLanguage": "en"},
                 "status": status}
         print(f"Uploading {v['file']} as: {v['title']}", flush=True)
         res = ru.upload(HERE / v["file"], meta, token)
         v["video_id"] = res["id"]
         v["url"] = f"https://youtu.be/{res['id']}"
+        links[v["file"]] = v["url"]
         QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Done: {v['url']} ({status['privacyStatus']}{', public at ' + v['publish_at'] if v.get('publish_at') else ''})",
               flush=True)
