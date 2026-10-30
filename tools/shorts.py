@@ -64,8 +64,20 @@ def render_short(work, loop, audio, out, hook, track, seconds, speed, grain, fon
           f"[bg][fg]overlay=0:(H-h)/2,format=yuv420p,{txt}{noise}[v]")
     sh("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-i", loop, "-i", audio,
        "-filter_complex", fc, "-map", "[v]", "-map", "1:a", "-t", seconds, "-r", "30",
-       "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p",
+       "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "14M", "-bufsize", "28M", "-pix_fmt", "yuv420p",
        "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out)
+
+
+def previews(work, outs, day):
+    """Small contact sheet + 360p copy of each short, committed under days/<date>/shorts_preview/ so they can
+    be checked from the chat (run artifacts are not reachable from there)."""
+    pdir = day / "shorts_preview"
+    pdir.mkdir(exist_ok=True)
+    for k, _meta, _hook, out in outs:
+        sh("ffmpeg", "-y", "-loglevel", "error", "-i", out, "-vf", "select='not(mod(n\\,270))',scale=216:-1,tile=5x1",
+           "-frames:v", "1", "-q:v", "5", pdir / f"short_{k}_sheet.jpg")
+        sh("ffmpeg", "-y", "-loglevel", "error", "-i", out, "-vf", "scale=360:640", "-c:v", "libx264", "-preset", "veryfast",
+           "-crf", "30", "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", pdir / f"short_{k}_360p.mp4")
 
 
 def main():
@@ -113,6 +125,7 @@ def main():
         render_short(work, loop, audio, out, hook, meta["track"], a.seconds, speed, grain, font)
         print(f"Rendered {out.name} in {time.time() - t0:.0f}s", flush=True)
         outs.append((k, meta, hook, out))
+    previews(work, outs, day)
     if a.render_only:
         return
 

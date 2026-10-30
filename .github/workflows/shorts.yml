@@ -71,22 +71,14 @@ jobs:
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
           python3 tools/shorts.py "${ARGS[@]}"
 
-      - name: Keep the renders (render-only runs)
-        if: ${{ inputs.render_only }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: shorts-${{ inputs.date }}
-          path: out/shorts-${{ inputs.date }}/short_*.mp4
-          retention-days: 3
-
-      - name: Save the links
-        if: ${{ !inputs.render_only }}
+      - name: Save the links and previews
+        if: ${{ always() }}
         env:
           IN_DATE: ${{ inputs.date }}
         run: |
           git config user.name "Digital Aura Racing Team"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "days/$IN_DATE/shorts.json"
+          git add "days/$IN_DATE/shorts.json" "days/$IN_DATE/shorts_preview" 2>/dev/null || true
           git commit -q -m "Shorts $IN_DATE" || exit 0
           for i in 1 2 3 4 5; do
             git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0
