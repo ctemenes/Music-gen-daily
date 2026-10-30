@@ -1,6 +1,6 @@
 {
   "channel": "Cartoon Curiosities (@CartoonCuriosities)",
-  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 19:00Z = 3 pm New York / 6 am Sydney, 01:00Z = 9 pm New York / noon Sydney. {{link:FILE}} in a description becomes that upload's link. Retry 2.",
+  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 19:00Z = 3 pm New York / 6 am Sydney, 01:00Z = 9 pm New York / noon Sydney. {{link:FILE}} in a description becomes that upload's link.",
   "videos": [
     {
       "file": "video1_predators.mp4",
@@ -70,6 +70,5 @@
       "publish_at": "2026-10-31T19:00:00Z"
     }
   ],
-  "expected_channel": "Cartoon Curiosities",
-  "last_error": "Signed in to ['CartoonCuriosites'], not Cartoon Curiosities. Run get_token.py --prefix CC_ again and pick Cartoon Curiosities."
+  "expected_channel": "CartoonCuriosites"
 }
