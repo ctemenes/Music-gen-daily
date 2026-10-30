@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "cartoon/queue.json"
+  schedule:
+    - cron: "30 0,12 * * *"
   workflow_dispatch:
 
 permissions:

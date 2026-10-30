@@ -11,6 +11,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -32,7 +33,12 @@ def fail(q, msg):
 def main():
     q = json.loads(QUEUE.read_text(encoding="utf-8"))
     q.pop("last_error", None)
-    todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold")]
+    horizon = datetime.now(timezone.utc) + timedelta(hours=q.get("upload_window_hours", 30))
+
+    def due(v):  # drip-feed: upload only what goes public soon, so a new channel never hits its daily upload limit
+        return not v.get("publish_at") or datetime.fromisoformat(v["publish_at"].replace("Z", "+00:00")) <= horizon
+
+    todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold") and due(v)]
     if not todo:
         print("Nothing to upload.")
         return

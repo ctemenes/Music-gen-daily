@@ -1,6 +1,6 @@
 {
   "channel": "Cartoon Curiosities (@CartoonCuriosities)",
-  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 19:00Z = 3 pm New York / 6 am Sydney, 01:00Z = 9 pm New York / noon Sydney. {{link:FILE}} in a description becomes that upload's link.",
+  "note": "Each entry without a video_id uploads on the next push (add \"hold\": true to skip one). publish_at is UTC: 19:00Z = 3 pm New York / 6 am Sydney, 01:00Z = 9 pm New York / noon Sydney. {{link:FILE}} in a description becomes that upload's link. Uploads happen automatically twice a day (and on every push), for videos going public within upload_window_hours.",
   "videos": [
     {
       "file": "video1_predators.mp4",
@@ -76,7 +76,105 @@
       "publish_at": "2026-10-31T19:00:00Z",
       "video_id": "YQwXMlvJ6Z0",
       "url": "https://youtu.be/YQwXMlvJ6Z0"
+    },
+    {
+      "file": "shorts/short_d_fire.mp4",
+      "title": "The oldest proof of fire is 1 million years old #shorts",
+      "description": "Full story: {{link:video1_predators.mp4}}\n\nIn Wonderwerk Cave, South Africa, archaeologists found plant ash and bone burned at around 500°C, about a million years old. But fire wasn't an every-night thing for a long time after that.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #ancienthumans #prehistoric #cartoon",
+      "tags": [
+        "caveman",
+        "fire",
+        "Wonderwerk Cave",
+        "Homo erectus",
+        "ancient humans",
+        "prehistoric",
+        "cartoon explainer"
+      ],
+      "publish_at": "2026-11-01T01:00:00Z"
+    },
+    {
+      "file": "shorts/short_e_spears.mp4",
+      "title": "200,000-year-old spears and 50 horses #shorts",
+      "description": "Full story: {{link:video1_predators.mp4}}\n\nAt Schöningen in Germany: the world's oldest complete wooden hunting spears, next to the remains of more than 50 horses. That takes teamwork.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #ancienthumans #prehistoric #cartoon",
+      "tags": [
+        "caveman",
+        "Schoningen spears",
+        "Neanderthals",
+        "hunting",
+        "ancient humans",
+        "prehistoric",
+        "cartoon explainer"
+      ],
+      "publish_at": "2026-11-01T19:00:00Z"
+    },
+    {
+      "file": "shorts/short_f_menu.mp4",
+      "title": "2 million years ago, you were on the menu #shorts",
+      "description": "Full story: {{link:video1_predators.mp4}}\n\nOur ancestors weren't at the top of the food chain. So how did a small, slow ape with no claws become the scariest thing on the planet?\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #ancienthumans #prehistoric #cartoon",
+      "tags": [
+        "caveman",
+        "ancient humans",
+        "human evolution",
+        "predators",
+        "prehistoric",
+        "cartoon explainer"
+      ],
+      "publish_at": "2026-11-02T01:00:00Z"
+    },
+    {
+      "file": "video2_iceage.mp4",
+      "parts": [
+        "parts/video2_iceage.mp4.part00",
+        "parts/video2_iceage.mp4.part01"
+      ],
+      "title": "How Did Cavemen Survive the Ice Age?",
+      "description": "Twenty thousand years ago the world was freezing, and a small, hairless ape built for the African sun was out on the frozen grasslands. Ug finds out how we survived: bone needles and tailored clothes, houses built from mammoth bones, burning bones for fuel, the spear-thrower, the first dogs, and what happened to the Neanderthals.\n\n0:00 Twenty thousand years ago\n0:36 The frozen world\n1:14 The neighbours\n1:46 The cousins\n2:32 The needle\n3:26 The bone circle\n4:03 Burning bones\n4:42 The spear-thrower\n5:27 The dog\n6:18 The secret\n6:41 What happened to the Neanderthals\n7:20 The most terrifying animal\n8:04 The last mammoths\n8:29 The thaw\n8:52 What's next\n\nGot a question for Ug? Leave it in the comments, and he might answer it in a future video.\n\n#caveman #iceage #neanderthals #ancienthumans #cartoon",
+      "tags": [
+        "caveman",
+        "ice age",
+        "how did cavemen survive the ice age",
+        "Neanderthals",
+        "mammoth",
+        "ancient humans",
+        "human evolution",
+        "bone needle",
+        "first dog",
+        "prehistoric",
+        "cartoon explainer",
+        "Cartoon Curiosities"
+      ],
+      "publish_at": "2026-11-02T19:00:00Z"
+    },
+    {
+      "file": "shorts/short_g_nests.mp4",
+      "title": "Where did cavemen sleep? Probably up a tree #shorts",
+      "description": "Full story: {{link:video1_predators.mp4}}\n\nChimpanzees build a fresh nest in the trees every night, and early hominins probably did something similar. But trees don't stop a leopard.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #ancienthumans #prehistoric #cartoon",
+      "tags": [
+        "caveman",
+        "early humans",
+        "chimpanzees",
+        "leopard",
+        "ancient humans",
+        "cartoon explainer"
+      ],
+      "publish_at": "2026-11-02T19:00:00Z"
+    },
+    {
+      "file": "shorts/short_h_salt.mp4",
+      "title": "How did humans first discover salt? #shorts",
+      "description": "Full story: {{link:video1_predators.mp4}}\n\nHunters got their salt from meat. Farmers needed more. The oldest known salt-making site, at Poiana Slatinei in Romania, was boiling brine about 8,000 years ago.\n\nGot a question for Ug? Leave it in the comments.\n\n#caveman #ancienthumans #prehistoric #cartoon",
+      "tags": [
+        "how did humans discover salt",
+        "salt",
+        "caveman",
+        "ancient humans",
+        "prehistoric",
+        "Neolithic",
+        "cartoon explainer"
+      ],
+      "publish_at": "2026-11-03T01:00:00Z"
     }
   ],
-  "expected_channel": "CartoonCuriosites"
+  "expected_channel": "CartoonCuriosites",
+  "upload_window_hours": 30
 }
