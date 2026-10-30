@@ -23,7 +23,8 @@
       "publish_at": "2026-10-30T19:00:00Z",
       "video_id": "mcEJryl-r5g",
       "url": "https://youtu.be/mcEJryl-r5g",
-      "thumbnail": "thumbs/video1.jpg"
+      "thumbnail": "thumbs/video1.jpg",
+      "thumbnail_set": true
     },
     {
       "file": "shorts/short_a_taung.mp4",
@@ -91,7 +92,9 @@
         "prehistoric",
         "cartoon explainer"
       ],
-      "publish_at": "2026-11-01T01:00:00Z"
+      "publish_at": "2026-11-01T01:00:00Z",
+      "video_id": "EJ89mVl3tuc",
+      "url": "https://youtu.be/EJ89mVl3tuc"
     },
     {
       "file": "shorts/short_e_spears.mp4",
