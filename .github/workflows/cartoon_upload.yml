@@ -7,6 +7,10 @@ on:
   schedule:
     - cron: "30 0,12 * * *"
   workflow_dispatch:
+    inputs:
+      status:
+        description: Report video status
+        default: "0"
 
 permissions:
   contents: write
@@ -27,6 +31,7 @@ jobs:
           CC_YT_CLIENT_ID: ${{ secrets.CC_YT_CLIENT_ID }}
           CC_YT_CLIENT_SECRET: ${{ secrets.CC_YT_CLIENT_SECRET }}
           CC_YT_REFRESH_TOKEN: ${{ secrets.CC_YT_REFRESH_TOKEN }}
+          CC_STATUS: ${{ inputs.status }}
         run: |
           pip install -q requests
           python cartoon/upload_queue.py

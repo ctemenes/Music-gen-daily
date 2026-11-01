@@ -41,7 +41,8 @@ def main():
     todo = [v for v in q["videos"] if not v.get("video_id") and not v.get("hold") and due(v)]
     thumbs = [v for v in q["videos"] if v.get("thumbnail") and not v.get("thumbnail_set")]
     retag = [v for v in q["videos"] if v.get("video_id") and v.get("retag")]
-    if not todo and not retag and not any(v.get("video_id") for v in thumbs):
+    check = os.environ.get("CC_STATUS") == "1"
+    if not todo and not retag and not check and not any(v.get("video_id") for v in thumbs):
         print("Nothing to upload.")
         return
     try:
@@ -58,6 +59,15 @@ def main():
         if want not in got:
             fail(q, f"Signed in to {got or 'no channel'}, not {want}. Run get_token.py --prefix CC_ again and pick {want}.")
         print(f"Channel check OK: {want}", flush=True)
+    if check:  # report each uploaded video's status (privacy, processing, rejection, made-for-kids, views)
+        ids = ",".join(v["video_id"] for v in q["videos"] if v.get("video_id"))
+        r = ru.requests.get(f"https://www.googleapis.com/youtube/v3/videos?part=status,statistics,snippet&id={ids}",
+                            headers={"Authorization": f"Bearer {token}"}, timeout=60)
+        for it in r.json().get("items", []):
+            st = it["status"]
+            print("STATUS", it["id"], it["snippet"]["title"][:40], {k: st.get(k) for k in (
+                "privacyStatus", "uploadStatus", "rejectionReason", "failureReason", "publishAt",
+                "madeForKids", "selfDeclaredMadeForKids", "embeddable")}, it.get("statistics"), flush=True)
     links = {v["file"]: v["url"] for v in q["videos"] if v.get("url")}
     for v in todo:
         desc = re.sub(r"\{\{link:([^}]+)\}\}", lambda m: links.get(m.group(1), ""), v["description"])
