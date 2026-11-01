@@ -203,12 +203,11 @@
         "history explained",
         "Cartoon Curiosities"
       ],
-      "publish_at": "2026-11-02T19:00:00Z",
+      "publish_at": "2026-11-01T23:34:53Z",
       "thumbnail": "thumbs/video2.jpg",
       "video_id": "W6kQPE_PZLo",
       "url": "https://youtu.be/W6kQPE_PZLo",
-      "thumbnail_set": true,
-      "publish_now": true
+      "thumbnail_set": true
     },
     {
       "file": "shorts/short_g_nests.mp4",
@@ -228,10 +227,9 @@
         "history explained",
         "shorts"
       ],
-      "publish_at": "2026-11-02T19:00:00Z",
+      "publish_at": "2026-11-01T23:34:54Z",
       "video_id": "6VcAfeRArpY",
-      "url": "https://youtu.be/6VcAfeRArpY",
-      "publish_now": true
+      "url": "https://youtu.be/6VcAfeRArpY"
     },
     {
       "file": "shorts/short_h_salt.mp4",
@@ -254,7 +252,9 @@
         "history explained",
         "shorts"
       ],
-      "publish_at": "2026-11-03T01:00:00Z"
+      "publish_at": "2026-11-03T01:00:00Z",
+      "video_id": "HmZX8UbXScQ",
+      "url": "https://youtu.be/HmZX8UbXScQ"
     },
     {
       "file": "shorts/short_i_mammoths.mp4",
