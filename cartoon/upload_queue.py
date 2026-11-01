@@ -42,7 +42,8 @@ def main():
     thumbs = [v for v in q["videos"] if v.get("thumbnail") and not v.get("thumbnail_set")]
     retag = [v for v in q["videos"] if v.get("video_id") and v.get("retag")]
     check = os.environ.get("CC_STATUS") == "1"
-    if not todo and not retag and not check and not any(v.get("video_id") for v in thumbs):
+    pubnow = any(v.get("video_id") and v.get("publish_now") for v in q["videos"])
+    if not todo and not retag and not check and not pubnow and not any(v.get("video_id") for v in thumbs):
         print("Nothing to upload.")
         return
     try:
@@ -92,6 +93,20 @@ def main():
         QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Done: {v['url']} ({status['privacyStatus']}{', public at ' + v['publish_at'] if v.get('publish_at') else ''})",
               flush=True)
+    for v in [x for x in q["videos"] if x.get("video_id") and x.get("publish_now")]:  # make a scheduled video public now
+        body = {"id": v["video_id"], "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False,
+                                                "containsSyntheticMedia": False}}
+        r = ru.requests.put("https://www.googleapis.com/youtube/v3/videos?part=status",
+                            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                            json=body, timeout=60)
+        if r.status_code == 200:
+            v.pop("publish_now", None)
+            v["publish_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            print(f"Public now: {v['video_id']}", flush=True)
+        else:
+            q["last_error"] = f"Publish now failed on {v['video_id']} ({r.status_code}): {r.text[:300]}"
+            print(q["last_error"], flush=True)
+        QUEUE.write_text(json.dumps(q, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for v in retag:  # new tags on a video already uploaded (keeps its title, description and schedule)
         h = {"Authorization": f"Bearer {token}"}
         r = ru.requests.get(f"https://www.googleapis.com/youtube/v3/videos?part=snippet&id={v['video_id']}",
