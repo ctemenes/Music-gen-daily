@@ -1,0 +1,13 @@
+{
+  "video_id": null,
+  "url": "",
+  "title": "まだ夢の中 // STILL IN A DREAM | Atmospheric DnB Mix for Late Nights",
+  "privacy": "manual upload pending",
+  "loop_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/hf_20261104_030601_334fda52-bcce-4ea2-badb-88e9c921dbac.mp4",
+  "speed": 1.0,
+  "grain": 12,
+  "seam_xfade_s": 1.0,
+  "thumbnail_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KqEOLmNVWajtAXjSxaHh7SylC7/f67b3f66-9f38-45f6-83dd-937e3fb7455c.png",
+  "promo": "assets/subscribe_card.png",
+  "render_run": "https://github.com/ctemenes/Music-gen-daily/actions/runs/41768035454"
+}

@@ -81,6 +81,14 @@ jobs:
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
           python3 tools/shorts.py "${ARGS[@]}"
 
+      - name: Keep the shorts (render-only runs)
+        if: ${{ inputs.render_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-${{ inputs.audio_date || inputs.date }}
+          path: out/shorts-*/short_*.mp4
+          retention-days: 3
+
       - name: Save the links and previews
         if: ${{ always() }}
         env:
