@@ -76,7 +76,7 @@ jobs:
           [ -n "$IN_HOOKS" ] && ARGS+=(--hooks "$IN_HOOKS")
           [ -n "$IN_PUBLISH_FROM" ] && ARGS+=(--publish-from "$IN_PUBLISH_FROM")
           for kv in $(python3 -c 'import json,os; [print(f"{k}={v}") for k,v in json.loads(os.environ.get("IN_EXTRA") or "{}").items()]'); do
-            ARGS+=(--${kv%%=*} "${kv#*=}")
+            k=${kv%%=*}; ARGS+=(--${k//_/-} "${kv#*=}")
           done
           [ "${{ inputs.render_only }}" = "true" ] && ARGS+=(--render-only)
           python3 tools/shorts.py "${ARGS[@]}"
