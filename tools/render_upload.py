@@ -603,4 +603,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit as e:
+        if e.code not in (0, None):
+            print(f"::error::{e.code}", flush=True)
+        raise
+    except Exception as e:  # surface the reason as a run annotation (logs are not readable from the agent)
+        import traceback
+        print(f"::error::{type(e).__name__}: {str(e)[:600]} | {traceback.format_exc().splitlines()[-3:]}", flush=True)
+        raise
