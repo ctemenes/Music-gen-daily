@@ -385,7 +385,9 @@
         "history explained",
         "shorts"
       ],
-      "publish_at": "2026-11-05T19:00:00Z"
+      "publish_at": "2026-11-05T19:00:00Z",
+      "video_id": "NYlkCCT4Dzk",
+      "url": "https://youtu.be/NYlkCCT4Dzk"
     },
     {
       "file": "shorts/short_n_thrower.mp4",
@@ -408,7 +410,9 @@
         "history explained",
         "shorts"
       ],
-      "publish_at": "2026-11-06T01:00:00Z"
+      "publish_at": "2026-11-06T01:00:00Z",
+      "video_id": "IxJxlnjDA6E",
+      "url": "https://youtu.be/IxJxlnjDA6E"
     }
   ],
   "expected_channel": "CartoonCuriosites",
