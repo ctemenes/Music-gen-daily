@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-11-05",
+  "date": "2026-11-05",
+  "theme": {
+    "id": "orbital",
+    "name": "Orbital Station Circuit",
+    "scene": "A zero-gravity race track wrapped around a space station, Earth glowing below, cars driving on the ceiling.",
+    "setting": "space station loop",
+    "time_of_day": "orbit",
+    "weather": "vacuum",
+    "mood_words": [
+      "floating",
+      "weightless",
+      "cool",
+      "vast",
+      "dreamy"
+    ],
+    "palette": [
+      {
+        "name": "Deep space",
+        "hex": "#0B1026"
+      },
+      {
+        "name": "Earthlight blue",
+        "hex": "#3FA9F5"
+      },
+      {
+        "name": "Station white",
+        "hex": "#E8F1FF"
+      },
+      {
+        "name": "Thruster violet",
+        "hex": "#8A5CF6"
+      }
+    ],
+    "visual_motifs": [
+      "Earth below",
+      "inverted track sections",
+      "station lights",
+      "starfield"
+    ],
+    "hook_line": "it's 2001. you're upside down above the Pacific, gravity's off and you're still in first place. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly race car driving upside down on a track around a space station, Earth glowing below, dithered retro game render",
+      "low-poly futuristic racer leaving light trails through a tube track in orbit, deep blue and violet, fake retro HUD showing 1st place",
+      "wide shot of a ring-shaped race circuit around a low-poly space station with the sun rising over Earth, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 12,
+    "duration_seconds": 1608.29,
+    "duration": "26:48",
+    "bpm_range": [
+      170,
+      173
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "cinematic",
+      "deep",
+      "jazzy",
+      "liquid",
+      "reese",
+      "rolling",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Kickdown Circuit",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "High Boost",
+        "start_seconds": 117.89,
+        "timestamp": "01:57",
+        "bpm": 170,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Tether",
+        "start_seconds": 253.4,
+        "timestamp": "04:13",
+        "bpm": 173,
+        "style": "two-step, deep sub",
+        "style_tags": [
+          "two-step",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Satellite",
+        "start_seconds": 386.66,
+        "timestamp": "06:26",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Drift Theory",
+        "start_seconds": 520.58,
+        "timestamp": "08:40",
+        "bpm": 173,
+        "style": "two-step, deep sub",
+        "style_tags": [
+          "two-step",
+          "deep",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Airlock Theory",
+        "start_seconds": 653.79,
+        "timestamp": "10:53",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Perigee Sprint",
+        "start_seconds": 788.47,
+        "timestamp": "13:08",
+        "bpm": 172,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Parallax",
+        "start_seconds": 922.45,
+        "timestamp": "15:22",
+        "bpm": 172,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Low Orbit Stage",
+        "start_seconds": 1056.41,
+        "timestamp": "17:36",
+        "bpm": 173,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Stardust Protocol",
+        "start_seconds": 1189.61,
+        "timestamp": "19:49",
+        "bpm": 171,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Docking Theory",
+        "start_seconds": 1324.29,
+        "timestamp": "22:04",
+        "bpm": 170,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Apogee Protocol",
+        "start_seconds": 1459.8,
+        "timestamp": "24:19",
+        "bpm": 171,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "jazzy"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-11-05",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-11-05",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-05/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Perigee Sprint",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.58,
+        "mix_position_seconds": 872.22,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-05/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Stardust Protocol",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.61,
+        "mix_position_seconds": 1273.77,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-05/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Apogee Protocol",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.61,
+        "mix_position_seconds": 1544.03,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-05/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-05/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-11-05 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. you're upside down above the Pacific, gravity's off and you're still in first place. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Kickdown Circuit\n01:57 High Boost\n04:13 Tether\n06:26 Satellite\n08:40 Drift Theory\n10:53 Airlock Theory\n13:08 Perigee Sprint\n15:22 Parallax\n17:36 Low Orbit Stage\n19:49 Stardust Protocol\n22:04 Docking Theory\n24:19 Apogee Protocol\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Kickdown Circuit\n01:57 High Boost\n04:13 Tether\n06:26 Satellite\n08:40 Drift Theory\n10:53 Airlock Theory\n13:08 Perigee Sprint\n15:22 Parallax\n17:36 Low Orbit Stage\n19:49 Stardust Protocol\n22:04 Docking Theory\n24:19 Apogee Protocol",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "orbital station circuit",
+      "space station loop",
+      "orbit",
+      "floating",
+      "weightless",
+      "cool"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 0.88,
+    "duration_seconds": 1608.29
+  }
+}
