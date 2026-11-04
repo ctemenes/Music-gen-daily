@@ -196,7 +196,7 @@ def build_sequence(work, clips, pattern, mbps, speed, grain, shake, focus=None, 
     return seq
 
 
-def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern="", focus=None, anchor=None, seam=0.25, cam=None, promo=None):
+def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=0, clips=None, pattern="", focus=None, anchor=None, seam=0.25, cam=None, promo=None, lift=None):
     s = probe(loop_src, "stream=nb_read_packets,r_frame_rate")["streams"][0]
     frames = int(s["nb_read_packets"])
     num, den = (int(x) for x in s["r_frame_rate"].split("/"))
@@ -209,6 +209,8 @@ def render(work, loop_src, mix, out, mbps, speed=1.0, xfade=0.0, grain=0, shake=
         seg = build_sequence(work, [loop_src, *(clips or [])], pattern, mbps, speed, grain, shake, focus, anchor, seam, cam)
         xfade = 0
     base = "scale=1920:1080:flags=lanczos,setsar=1"
+    if lift:  # lift dark renders: gamma > 1 opens the shadows, brightness adds a flat offset (0-1)
+        base += f",eq=gamma={float(lift.get('gamma', 1.0)):.3f}:brightness={float(lift.get('brightness', 0)):.3f}:contrast={float(lift.get('contrast', 1.0)):.3f}"
     if grain:
         # 2001 camera look: slight softness, moving film grain, a touch less saturation
         base += f",gblur=sigma=0.6,noise=alls={int(grain)}:allf=t+u,eq=saturation=0.93"
@@ -474,6 +476,7 @@ def main():
     ap.add_argument("--grain", type=int, default=0, help="film grain strength on the loop (0 = off, about 20 = 2001 camera)")
     ap.add_argument("--playlist", default="Y2K DnB mixes", help="(via --extra) channel playlist to add the video to; empty = skip")
     ap.add_argument("--comment", default="auto", help="(via --extra) channel comment text; auto = subscribe ask + tracklist; empty = skip")
+    ap.add_argument("--lift", default=None, help='(via --extra) {"gamma": 1.2, "brightness": 0.03, "contrast": 1.0}: brighten a dark loop')
     ap.add_argument("--promo", default="", help='(via --extra) URL/path of the subscribe card (image or clip) cut into the loop')
     ap.add_argument("--promo-seconds", type=float, default=4.0, help="(via --extra) how long the card shows")
     ap.add_argument("--promo-at", default="90", help="(via --extra) seconds into the mix for the card, comma list; always also at the end")
@@ -506,6 +509,8 @@ def main():
                 a.synthetic = str(v)
             elif k in ("playlist", "comment", "promo"):
                 setattr(a, k, "" if v in (None, False) else str(v))
+            elif k == "lift":
+                a.lift = v if isinstance(v, dict) else {"gamma": float(v)}
             elif k == "promo_seconds":
                 a.promo_seconds = float(v)
             elif k == "promo_at":
@@ -561,7 +566,7 @@ def main():
         promo = (pf, a.promo_seconds, [float(x) for x in str(a.promo_at).split(",") if x.strip()])
     out = work / f"mix-{a.date}.mp4"
     t0 = time.time()
-    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern, a.focus, anchor_file, a.seam, a.cam, promo)
+    dur, mbps = render(work, loop, mix, out, a.mbps, a.speed, a.xfade, a.grain, a.shake, clip_files, a.pattern, a.focus, anchor_file, a.seam, a.cam, promo, a.lift)
     print(f"Render took {time.time() - t0:.0f}s", flush=True)
     if a.render_only:
         return
