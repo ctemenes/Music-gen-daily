@@ -22,6 +22,7 @@
     "Apex",
     "Apex Drive",
     "Apogee",
+    "Apogee Line",
     "Apogee Protocol",
     "Aurora",
     "Aurora Line",
@@ -70,6 +71,7 @@
     "Cold Downforce",
     "Cold Momentum",
     "Cold Overpass",
+    "Cold Stardust",
     "Cold Throttle",
     "Cold Traction",
     "Cold Turbo",
@@ -97,6 +99,7 @@
     "Downforce",
     "Downforce Sprint",
     "Downpour",
+    "Drift",
     "Drift Theory",
     "Dry Creek",
     "Dry Creek Line",
@@ -107,6 +110,7 @@
     "Dust",
     "Dust Line",
     "Dust Theory",
+    "Earthrise",
     "Echo",
     "Echo Drive",
     "Echo Line",
@@ -184,6 +188,7 @@
     "Heatwave",
     "Heatwave Drive",
     "Hidden Boost",
+    "Hidden Docking",
     "Hidden Downforce",
     "Hidden Ironstone",
     "Hidden Nitro",
@@ -226,6 +231,7 @@
     "Hollow Permafrost",
     "Hollow Sidewinder",
     "Horizon Line",
+    "Horizon Line Theory",
     "Humid",
     "Hyper Boost",
     "Hyper Burnout",
@@ -245,6 +251,7 @@
     "Inertia Line",
     "Inertia Rush",
     "Inertia Sprint",
+    "Ion",
     "Iron",
     "Iron Lung Circuit",
     "Iron Protocol",
@@ -346,7 +353,9 @@
     "Paddock",
     "Palm Line",
     "Parallax",
+    "Parallax Transit",
     "Parallax Tunnel",
+    "Perigee",
     "Perigee Sprint",
     "Permafrost",
     "Permafrost Approach",
@@ -445,6 +454,7 @@
     "Switchback",
     "Tether",
     "Tether Loop",
+    "Tether Stage",
     "Throttle",
     "Throttle Line",
     "Tidewater",
@@ -1145,6 +1155,23 @@
         "Ramp Theory"
       ],
       "seconds": 1851
+    },
+    {
+      "date": "2026-11-16",
+      "theme": "orbital",
+      "tracks": [
+        "Parallax Transit",
+        "Perigee",
+        "Cold Stardust",
+        "Hidden Docking",
+        "Tether Stage",
+        "Drift",
+        "Horizon Line Theory",
+        "Apogee Line",
+        "Earthrise",
+        "Ion"
+      ],
+      "seconds": 1336
     }
   ]
 }
