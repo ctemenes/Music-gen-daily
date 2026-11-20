@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-11-21",
+  "date": "2026-11-21",
+  "theme": {
+    "id": "outback",
+    "name": "Outback Dust Run",
+    "scene": "A red-dirt outback rally stage at golden hour, heat haze, spinifex and a dust plume behind the lead car.",
+    "setting": "outback rally stage",
+    "time_of_day": "golden hour",
+    "weather": "dry heat",
+    "mood_words": [
+      "dusty",
+      "hot",
+      "wide open",
+      "relentless",
+      "raw"
+    ],
+    "palette": [
+      {
+        "name": "Red earth",
+        "hex": "#B5451B"
+      },
+      {
+        "name": "Ochre",
+        "hex": "#D9922E"
+      },
+      {
+        "name": "Heat haze gold",
+        "hex": "#F4C95D"
+      },
+      {
+        "name": "Dusk blue",
+        "hex": "#2B3A67"
+      }
+    ],
+    "visual_motifs": [
+      "dust plume",
+      "heat shimmer",
+      "road train silhouettes",
+      "low sun flare"
+    ],
+    "hook_line": "it's 2001. red dirt, no shade for 400 clicks and nobody's caught you in three laps. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly rally car kicking up a red dust plume on an outback dirt road at golden hour, heat haze, dithered retro game render",
+      "low-poly desert track with spinifex and red rocks, sun low on the horizon, fake retro racing HUD showing 1st place",
+      "chase-cam view of a low-poly 4WD racer on a straight red dirt road toward a huge orange sunset, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 26,
+    "duration_seconds": 3444.43,
+    "duration": "57:24",
+    "bpm_range": [
+      170,
+      178
+    ],
+    "style_tags": [
+      "amen break",
+      "breakbeat",
+      "chopped breaks",
+      "cinematic",
+      "dark",
+      "deep",
+      "jungle",
+      "moody",
+      "neuro-ish",
+      "reese",
+      "stabs",
+      "techstep",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Traction Circuit",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 176,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Corrugation",
+        "start_seconds": 114.55,
+        "timestamp": "01:54",
+        "bpm": 172,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Silent Inertia",
+        "start_seconds": 248.39,
+        "timestamp": "04:08",
+        "bpm": 177,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Gibber Line",
+        "start_seconds": 378.69,
+        "timestamp": "06:18",
+        "bpm": 177,
+        "style": "amen break, deep sub",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Rev Limit Sprint",
+        "start_seconds": 508.86,
+        "timestamp": "08:28",
+        "bpm": 173,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "High Saltbush",
+        "start_seconds": 641.93,
+        "timestamp": "10:41",
+        "bpm": 170,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Electric Overdrive",
+        "start_seconds": 777.38,
+        "timestamp": "12:57",
+        "bpm": 170,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Dry Creek Rush",
+        "start_seconds": 912.9,
+        "timestamp": "15:12",
+        "bpm": 176,
+        "style": "two-step, growling bass",
+        "style_tags": [
+          "two-step",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Afterburn Protocol",
+        "start_seconds": 1043.98,
+        "timestamp": "17:23",
+        "bpm": 178,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Kickdown",
+        "start_seconds": 1173.47,
+        "timestamp": "19:33",
+        "bpm": 176,
+        "style": "two-step, stab bass",
+        "style_tags": [
+          "two-step",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Throttle Rush",
+        "start_seconds": 1304.33,
+        "timestamp": "21:44",
+        "bpm": 174,
+        "style": "jungle, reese bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Claypan Circuit",
+        "start_seconds": 1436.69,
+        "timestamp": "23:56",
+        "bpm": 173,
+        "style": "techstep, reese bass",
+        "style_tags": [
+          "techstep",
+          "dark",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Deep Turbo",
+        "start_seconds": 1569.84,
+        "timestamp": "26:09",
+        "bpm": 178,
+        "style": "amen break, reese bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Cold Sunburn",
+        "start_seconds": 1699.41,
+        "timestamp": "28:19",
+        "bpm": 173,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Outstation Run",
+        "start_seconds": 1832.45,
+        "timestamp": "30:32",
+        "bpm": 170,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Mirage Run",
+        "start_seconds": 1967.9,
+        "timestamp": "32:47",
+        "bpm": 173,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 17,
+        "title": "Countersteer Rush",
+        "start_seconds": 2101.16,
+        "timestamp": "35:01",
+        "bpm": 170,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 18,
+        "title": "Long Paddock",
+        "start_seconds": 2236.6,
+        "timestamp": "37:16",
+        "bpm": 173,
+        "style": "amen break, stab bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "stabs",
+          "warm"
+        ]
+      },
+      {
+        "n": 19,
+        "title": "Final Bulldust",
+        "start_seconds": 2369.87,
+        "timestamp": "39:29",
+        "bpm": 172,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 20,
+        "title": "Road Train Protocol",
+        "start_seconds": 2503.79,
+        "timestamp": "41:43",
+        "bpm": 173,
+        "style": "jungle, reese bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "reese",
+          "cinematic"
+        ]
+      },
+      {
+        "n": 21,
+        "title": "Silent Burnout",
+        "start_seconds": 2637.0,
+        "timestamp": "43:57",
+        "bpm": 173,
+        "style": "amen break, growling bass",
+        "style_tags": [
+          "amen break",
+          "breakbeat",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 22,
+        "title": "Ironstone Line",
+        "start_seconds": 2770.18,
+        "timestamp": "46:10",
+        "bpm": 177,
+        "style": "jungle, reese bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 23,
+        "title": "Red Dirt Sprint",
+        "start_seconds": 2900.46,
+        "timestamp": "48:20",
+        "bpm": 173,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "warm"
+        ]
+      },
+      {
+        "n": 24,
+        "title": "Spinifex Loop",
+        "start_seconds": 3033.53,
+        "timestamp": "50:33",
+        "bpm": 175,
+        "style": "jungle, stab bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "stabs",
+          "moody"
+        ]
+      },
+      {
+        "n": 25,
+        "title": "Night Dust",
+        "start_seconds": 3165.24,
+        "timestamp": "52:45",
+        "bpm": 175,
+        "style": "jungle, growling bass",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "neuro-ish",
+          "moody"
+        ]
+      },
+      {
+        "n": 26,
+        "title": "Broken Heatwave",
+        "start_seconds": 3296.9,
+        "timestamp": "54:56",
+        "bpm": 172,
+        "style": "jungle, deep sub",
+        "style_tags": [
+          "jungle",
+          "chopped breaks",
+          "deep",
+          "cinematic"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-11-21",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-11-21",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-21/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Final Bulldust",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.58,
+        "mix_position_seconds": 2453.56,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-21/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Ironstone Line",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.42,
+        "mix_position_seconds": 2851.64,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-21/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Spinifex Loop",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.49,
+        "mix_position_seconds": 3115.87,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-21/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-21/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-11-21 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. red dirt, no shade for 400 clicks and nobody's caught you in three laps. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Traction Circuit\n01:54 Corrugation\n04:08 Silent Inertia\n06:18 Gibber Line\n08:28 Rev Limit Sprint\n10:41 High Saltbush\n12:57 Electric Overdrive\n15:12 Dry Creek Rush\n17:23 Afterburn Protocol\n19:33 Kickdown\n21:44 Throttle Rush\n23:56 Claypan Circuit\n26:09 Deep Turbo\n28:19 Cold Sunburn\n30:32 Outstation Run\n32:47 Mirage Run\n35:01 Countersteer Rush\n37:16 Long Paddock\n39:29 Final Bulldust\n41:43 Road Train Protocol\n43:57 Silent Burnout\n46:10 Ironstone Line\n48:20 Red Dirt Sprint\n50:33 Spinifex Loop\n52:45 Night Dust\n54:56 Broken Heatwave\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Traction Circuit\n01:54 Corrugation\n04:08 Silent Inertia\n06:18 Gibber Line\n08:28 Rev Limit Sprint\n10:41 High Saltbush\n12:57 Electric Overdrive\n15:12 Dry Creek Rush\n17:23 Afterburn Protocol\n19:33 Kickdown\n21:44 Throttle Rush\n23:56 Claypan Circuit\n26:09 Deep Turbo\n28:19 Cold Sunburn\n30:32 Outstation Run\n32:47 Mirage Run\n35:01 Countersteer Rush\n37:16 Long Paddock\n39:29 Final Bulldust\n41:43 Road Train Protocol\n43:57 Silent Burnout\n46:10 Ironstone Line\n48:20 Red Dirt Sprint\n50:33 Spinifex Loop\n52:45 Night Dust\n54:56 Broken Heatwave",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "outback dust run",
+      "outback rally stage",
+      "golden hour",
+      "dusty",
+      "hot",
+      "wide open"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.0,
+    "duration_seconds": 3444.43
+  }
+}
