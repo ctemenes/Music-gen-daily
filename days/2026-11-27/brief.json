@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "mix_id": "2026-11-27",
+  "date": "2026-11-27",
+  "theme": {
+    "id": "mountain",
+    "name": "Midnight Mountain Pass",
+    "scene": "A winding mountain pass at midnight, fog in the valleys, headlights sweeping across switchbacks.",
+    "setting": "mountain pass",
+    "time_of_day": "midnight",
+    "weather": "fog",
+    "mood_words": [
+      "moody",
+      "deep",
+      "winding",
+      "hypnotic",
+      "smooth"
+    ],
+    "palette": [
+      {
+        "name": "Midnight purple",
+        "hex": "#2A1446"
+      },
+      {
+        "name": "Fog grey",
+        "hex": "#8C93A8"
+      },
+      {
+        "name": "Headlight white",
+        "hex": "#FFF6D6"
+      },
+      {
+        "name": "Pine black",
+        "hex": "#0D1A14"
+      }
+    ],
+    "visual_motifs": [
+      "switchbacks",
+      "fog banks",
+      "headlight beams",
+      "pine forest"
+    ],
+    "hook_line": "it's 2001. fog in the valley, nothing but switchbacks and headlights, and you're the only one left out here. 🏁",
+    "thumbnail_prompts": [
+      "PS1-era low-poly sports car on a winding mountain road at midnight, fog in the valley, headlight beams, dithered retro game render",
+      "low-poly switchback road lit only by headlights, purple night sky, fake retro HUD showing 1st place",
+      "aerial view of a serpentine mountain pass with light trails through pine forest, Y2K game aesthetic"
+    ]
+  },
+  "music": {
+    "track_count": 20,
+    "duration_seconds": 2675.29,
+    "duration": "44:35",
+    "bpm_range": [
+      170,
+      174
+    ],
+    "style_tags": [
+      "deep",
+      "jazzy",
+      "liquid",
+      "moody",
+      "reese",
+      "rolling",
+      "two-step",
+      "warm"
+    ],
+    "tracks": [
+      {
+        "n": 1,
+        "title": "Burnout Line",
+        "start_seconds": 0.0,
+        "timestamp": "00:00",
+        "bpm": 170,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 2,
+        "title": "Kickdown Run",
+        "start_seconds": 118.59,
+        "timestamp": "01:58",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 3,
+        "title": "Momentum Stage",
+        "start_seconds": 252.6,
+        "timestamp": "04:12",
+        "bpm": 172,
+        "style": "two-step, deep sub",
+        "style_tags": [
+          "two-step",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 4,
+        "title": "Night Turbo",
+        "start_seconds": 386.55,
+        "timestamp": "06:26",
+        "bpm": 172,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 5,
+        "title": "Gradient",
+        "start_seconds": 520.51,
+        "timestamp": "08:40",
+        "bpm": 172,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 6,
+        "title": "Ember Stage",
+        "start_seconds": 654.46,
+        "timestamp": "10:54",
+        "bpm": 173,
+        "style": "two-step, deep sub",
+        "style_tags": [
+          "two-step",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 7,
+        "title": "Stillwater Transit",
+        "start_seconds": 787.67,
+        "timestamp": "13:07",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 8,
+        "title": "Highland Run",
+        "start_seconds": 922.35,
+        "timestamp": "15:22",
+        "bpm": 174,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 9,
+        "title": "Timberline Stage",
+        "start_seconds": 1054.84,
+        "timestamp": "17:34",
+        "bpm": 170,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 10,
+        "title": "Final Countersteer",
+        "start_seconds": 1190.26,
+        "timestamp": "19:50",
+        "bpm": 174,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 11,
+        "title": "Summit Rush",
+        "start_seconds": 1322.79,
+        "timestamp": "22:02",
+        "bpm": 173,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "warm"
+        ]
+      },
+      {
+        "n": 12,
+        "title": "Silent Nitro",
+        "start_seconds": 1455.94,
+        "timestamp": "24:15",
+        "bpm": 172,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 13,
+        "title": "Ridgeline Stage",
+        "start_seconds": 1589.86,
+        "timestamp": "26:29",
+        "bpm": 174,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 14,
+        "title": "Hollow Loop",
+        "start_seconds": 1722.33,
+        "timestamp": "28:42",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 15,
+        "title": "Night Pass Sprint",
+        "start_seconds": 1856.98,
+        "timestamp": "30:56",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "jazzy"
+        ]
+      },
+      {
+        "n": 16,
+        "title": "Night Fogline",
+        "start_seconds": 1990.22,
+        "timestamp": "33:10",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 17,
+        "title": "Hairline",
+        "start_seconds": 2124.9,
+        "timestamp": "35:24",
+        "bpm": 171,
+        "style": "rolling, reese bass",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 18,
+        "title": "Pinewood",
+        "start_seconds": 2259.64,
+        "timestamp": "37:39",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "warm"
+        ]
+      },
+      {
+        "n": 19,
+        "title": "Kingsroad Stage",
+        "start_seconds": 2392.87,
+        "timestamp": "39:52",
+        "bpm": 173,
+        "style": "two-step, reese bass",
+        "style_tags": [
+          "two-step",
+          "reese",
+          "moody"
+        ]
+      },
+      {
+        "n": 20,
+        "title": "Switchback Sprint",
+        "start_seconds": 2526.05,
+        "timestamp": "42:06",
+        "bpm": 170,
+        "style": "rolling, deep sub",
+        "style_tags": [
+          "liquid",
+          "rolling",
+          "deep",
+          "jazzy"
+        ]
+      }
+    ],
+    "transitions": "Continuous mix. Every track hands over to the next with an 8-bar DJ transition (tempo glide, filter sweep, impact and riser), about 11 seconds each."
+  },
+  "audio": {
+    "release_tag": "mix-2026-11-27",
+    "release_url": "https://github.com/ctemenes/Music-gen-daily/releases/tag/mix-2026-11-27",
+    "mix": {
+      "file": "mix.mp3",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-27/mix.mp3",
+      "format": "mp3 320kbps 44.1kHz stereo"
+    },
+    "shorts": [
+      {
+        "file": "short_1.mp3",
+        "track": "Silent Nitro",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.58,
+        "mix_position_seconds": 1539.63,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-27/short_1.mp3"
+      },
+      {
+        "file": "short_2.mp3",
+        "track": "Night Pass Sprint",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 1940.28,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-27/short_2.mp3"
+      },
+      {
+        "file": "short_3.mp3",
+        "track": "Pinewood",
+        "seconds": 45,
+        "drop_hits_at_seconds": 5.55,
+        "mix_position_seconds": 2342.93,
+        "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-27/short_3.mp3"
+      }
+    ],
+    "midi": {
+      "file": "midi.zip",
+      "url": "https://github.com/ctemenes/Music-gen-daily/releases/download/mix-2026-11-27/midi.zip"
+    },
+    "download_hint": "gh release download mix-2026-11-27 -R ctemenes/Music-gen-daily"
+  },
+  "youtube": {
+    "description": "it's 2001. fog in the valley, nothing but switchbacks and headlights, and you're the only one left out here. 🏁\nY2K drum & bass in the spirit of Rollcage Stage II and the PS1 racing era: breakbeats, rolling bass and that late 90s / early 2000s game soundtrack energy.\n\nPut it on for driving, gaming, coding, studying or just staring out the window pretending you're in a loading screen.\n\n━━━━━━━━━━━━━━━\nTRACKLIST\n00:00 Burnout Line\n01:58 Kickdown Run\n04:12 Momentum Stage\n06:26 Night Turbo\n08:40 Gradient\n10:54 Ember Stage\n13:07 Stillwater Transit\n15:22 Highland Run\n17:34 Timberline Stage\n19:50 Final Countersteer\n22:02 Summit Rush\n24:15 Silent Nitro\n26:29 Ridgeline Stage\n28:42 Hollow Loop\n30:56 Night Pass Sprint\n33:10 Night Fogline\n35:24 Hairline\n37:39 Pinewood\n39:52 Kingsroad Stage\n42:06 Switchback Sprint\n━━━━━━━━━━━━━━━\n\n🏎️ Visuals: Digital Aura Racing Team\n🎛️ Music: original tracks generated with custom Python scripts\n💿 Inspired by the sound of Rollcage Stage II and classic PS1 racers. Not affiliated with or endorsed by the original game or its publishers.\n\nIf this takes you back, drop your favourite old racing game in the comments and subscribe for more Y2K DnB.\n\n#y2kdnb #drumandbass #ps1",
+    "tracklist_text": "00:00 Burnout Line\n01:58 Kickdown Run\n04:12 Momentum Stage\n06:26 Night Turbo\n08:40 Gradient\n10:54 Ember Stage\n13:07 Stillwater Transit\n15:22 Highland Run\n17:34 Timberline Stage\n19:50 Final Countersteer\n22:02 Summit Rush\n24:15 Silent Nitro\n26:29 Ridgeline Stage\n28:42 Hollow Loop\n30:56 Night Pass Sprint\n33:10 Night Fogline\n35:24 Hairline\n37:39 Pinewood\n39:52 Kingsroad Stage\n42:06 Switchback Sprint",
+    "tags": [
+      "y2k dnb",
+      "ps1 drum and bass",
+      "racing game music",
+      "2000s jungle",
+      "liquid dnb",
+      "retro racing",
+      "rollcage style",
+      "low poly dnb",
+      "breakbeat mix",
+      "drum and bass mix",
+      "ps1 racing",
+      "y2k aesthetic",
+      "midnight mountain pass",
+      "mountain pass",
+      "midnight",
+      "moody",
+      "deep",
+      "winding"
+    ],
+    "hashtags": [
+      "#y2kdnb",
+      "#drumandbass",
+      "#ps1"
+    ],
+    "chapters_note": "Timestamps assume the video starts exactly when the mix starts. If the video adds an intro, add its length to every timestamp except 00:00."
+  },
+  "handoff": {
+    "next_agent_tasks": [
+      "Write 3 title options. Keep 'Y2K DnB' or 'PS1 drum and bass' in the title and lean on the theme's scene (e.g. a short second-person scenario like the hook line). Under 70 characters.",
+      "Make a 1280x720 thumbnail from theme.thumbnail_prompts and theme.palette: low-poly PS1 look, one strong focal car, high contrast, at most 3 to 4 words of text.",
+      "Make the video loop: a clean 16:9 frame of the thumbnail scene (no text or spine), then a 15s Kling 3.0 Pro clip (sound off) with that frame as BOTH start and end image. The video prompt must always ask for high speed: the car racing flat out, road markings, streetlights and scenery rushing past fast, motion blur, constant high speed. Then run the 'Mix video to YouTube' workflow with the clip URL; it fixes the seam and speeds the loop up (speed input, default 2.5x) before looping it under mix.mp3.",
+      "Make 3 vertical Shorts from audio.shorts; the drop lands at drop_hits_at_seconds, so cut visuals to it. Each Short should point to the full mix.",
+      "Use youtube.description as-is (adjust timestamps if the video has an intro) and youtube.tags."
+    ],
+    "rules": [
+      "Do not use Rollcage, Psygnosis, Sony or PlayStation logos, box art or real game footage.",
+      "Do not claim the music is from or affiliated with Rollcage or any real game.",
+      "Keep the 'generated with custom Python scripts' line in the description."
+    ]
+  },
+  "qa": {
+    "pass": true,
+    "problems": [],
+    "peak": 0.95,
+    "clipped_samples": 0,
+    "worst_seam_ratio": 1.25,
+    "duration_seconds": 2675.29
+  }
+}
